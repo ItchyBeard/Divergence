@@ -50,5 +50,9 @@ The favicon master is `public/favicon.svg`, using the same brand gradient as
 `src/scss/abstracts/_variables.scss`. Its PNG/ICO variants share that artwork.
 The rounded PNGs are standard PWA icons rather than full-bleed maskable artwork.
 
+Production analytics requires optional visitor consent. See the
+[analytics setup](docs/analytics.md), including the required GA4 Enhanced
+Measurement setting before launch. No analytics runs during local development.
+
 An unofficial fan tracker. Made by ItchyBeard. Inspired by Emil Carlsson.
 See [LICENSE](LICENSE).

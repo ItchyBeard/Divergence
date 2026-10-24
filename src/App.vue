@@ -37,12 +37,14 @@
   </notifications>
 
   <FooterComponent />
+  <AnalyticsConsent />
   <ProgressComponent />
 </template>
 
 <script>
 import { useStore } from '@/stores/store'
 import ProgressComponent from '@/components/ProgressComponent.vue'
+import AnalyticsConsent from '@/components/AnalyticsConsent.vue'
 
 import FooterComponent from '@/components/layout/FooterComponent.vue'
 import MobileNavigationComponent from '@/components/layout/MobileNavigationComponent.vue'
@@ -50,6 +52,7 @@ import NavigationComponent from '@/components/layout/NavigationComponent.vue'
 
 export default {
   components: {
+    AnalyticsConsent,
     FooterComponent,
     ProgressComponent,
     MobileNavigationComponent,

@@ -4,6 +4,7 @@ import App from './App.vue'
 import store from './stores'
 import router from './router'
 import { i18n } from './i18n'
+import { analytics } from './analytics'
 import Notifications from '@kyvg/vue3-notification'
 import Unicon from './icons/unicons'
 
@@ -21,5 +22,6 @@ app.use(i18n)
 app.component('IconComponent', IconComponent)
 
 router.isReady().then(() => {
+  analytics.start(router)
   app.mount('#app')
 })
