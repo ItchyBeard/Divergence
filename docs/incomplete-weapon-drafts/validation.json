@@ -1,0 +1,621 @@
+[
+  {
+    "id": "axion",
+    "original": "src\\data\\weapons\\assault-rifles\\axion.weapon.js",
+    "preserved": "docs\\incomplete-weapon-drafts\\assault-rifles\\axion.weapon.js",
+    "errors": [
+      "weapons[0](axion).maxLevel: expected a positive integer",
+      "weapons[0](axion).militaryUnlockLevels[0]: levels must increase and stay within maxLevel",
+      "weapons[0](axion).militaryUnlockLevels[1]: levels must increase and stay within maxLevel",
+      "weapons[0](axion).militaryUnlockLevels[2]: levels must increase and stay within maxLevel",
+      "weapons[0](axion).militaryUnlockLevels[3]: levels must increase and stay within maxLevel",
+      "weapons[0](axion).militaryUnlockLevels[4]: levels must increase and stay within maxLevel",
+      "weapons[0](axion).militaryUnlockLevels[5]: levels must increase and stay within maxLevel",
+      "weapons[0](axion).militaryUnlockLevels[6]: levels must increase and stay within maxLevel",
+      "weapons[0](axion).militaryUnlockLevels[7]: levels must increase and stay within maxLevel",
+      "weapons[0](axion).specialCamos[0].unlockLevel: must be within maxLevel",
+      "weapons[0](axion).specialCamos[1].unlockLevel: must be within maxLevel",
+      "weapons[0](axion).specialCamos[2].unlockLevel: must be within maxLevel"
+    ]
+  },
+  {
+    "id": "cronen-squall",
+    "original": "src\\data\\weapons\\assault-rifles\\cronen-squall.weapon.js",
+    "preserved": "docs\\incomplete-weapon-drafts\\assault-rifles\\cronen-squall.weapon.js",
+    "errors": [
+      "weapons[0](cronen-squall).maxLevel: expected a positive integer",
+      "weapons[0](cronen-squall).militaryUnlockLevels[0]: levels must increase and stay within maxLevel",
+      "weapons[0](cronen-squall).militaryUnlockLevels[1]: levels must increase and stay within maxLevel",
+      "weapons[0](cronen-squall).militaryUnlockLevels[2]: levels must increase and stay within maxLevel",
+      "weapons[0](cronen-squall).militaryUnlockLevels[3]: levels must increase and stay within maxLevel",
+      "weapons[0](cronen-squall).militaryUnlockLevels[4]: levels must increase and stay within maxLevel",
+      "weapons[0](cronen-squall).militaryUnlockLevels[5]: levels must increase and stay within maxLevel",
+      "weapons[0](cronen-squall).militaryUnlockLevels[6]: levels must increase and stay within maxLevel",
+      "weapons[0](cronen-squall).militaryUnlockLevels[7]: levels must increase and stay within maxLevel",
+      "weapons[0](cronen-squall).specialCamos[0].unlockLevel: must be within maxLevel",
+      "weapons[0](cronen-squall).specialCamos[1].unlockLevel: must be within maxLevel",
+      "weapons[0](cronen-squall).specialCamos[2].unlockLevel: must be within maxLevel"
+    ]
+  },
+  {
+    "id": "hyeon-burst",
+    "original": "src\\data\\weapons\\assault-rifles\\hyeon-burst.weapon.js",
+    "preserved": "docs\\incomplete-weapon-drafts\\assault-rifles\\hyeon-burst.weapon.js",
+    "errors": [
+      "weapons[0](hyeon-burst).maxLevel: expected a positive integer",
+      "weapons[0](hyeon-burst).militaryUnlockLevels[0]: levels must increase and stay within maxLevel",
+      "weapons[0](hyeon-burst).militaryUnlockLevels[1]: levels must increase and stay within maxLevel",
+      "weapons[0](hyeon-burst).militaryUnlockLevels[2]: levels must increase and stay within maxLevel",
+      "weapons[0](hyeon-burst).militaryUnlockLevels[3]: levels must increase and stay within maxLevel",
+      "weapons[0](hyeon-burst).militaryUnlockLevels[4]: levels must increase and stay within maxLevel",
+      "weapons[0](hyeon-burst).militaryUnlockLevels[5]: levels must increase and stay within maxLevel",
+      "weapons[0](hyeon-burst).militaryUnlockLevels[6]: levels must increase and stay within maxLevel",
+      "weapons[0](hyeon-burst).militaryUnlockLevels[7]: levels must increase and stay within maxLevel",
+      "weapons[0](hyeon-burst).specialCamos[0].unlockLevel: must be within maxLevel",
+      "weapons[0](hyeon-burst).specialCamos[1].unlockLevel: must be within maxLevel",
+      "weapons[0](hyeon-burst).specialCamos[2].unlockLevel: must be within maxLevel"
+    ]
+  },
+  {
+    "id": "kastov-762",
+    "original": "src\\data\\weapons\\assault-rifles\\kastov-762.weapon.js",
+    "preserved": "docs\\incomplete-weapon-drafts\\assault-rifles\\kastov-762.weapon.js",
+    "errors": [
+      "weapons[0](kastov-762).maxLevel: expected a positive integer",
+      "weapons[0](kastov-762).militaryUnlockLevels[0]: levels must increase and stay within maxLevel",
+      "weapons[0](kastov-762).militaryUnlockLevels[1]: levels must increase and stay within maxLevel",
+      "weapons[0](kastov-762).militaryUnlockLevels[2]: levels must increase and stay within maxLevel",
+      "weapons[0](kastov-762).militaryUnlockLevels[3]: levels must increase and stay within maxLevel",
+      "weapons[0](kastov-762).militaryUnlockLevels[4]: levels must increase and stay within maxLevel",
+      "weapons[0](kastov-762).militaryUnlockLevels[5]: levels must increase and stay within maxLevel",
+      "weapons[0](kastov-762).militaryUnlockLevels[6]: levels must increase and stay within maxLevel",
+      "weapons[0](kastov-762).militaryUnlockLevels[7]: levels must increase and stay within maxLevel",
+      "weapons[0](kastov-762).specialCamos[0].unlockLevel: must be within maxLevel",
+      "weapons[0](kastov-762).specialCamos[1].unlockLevel: must be within maxLevel",
+      "weapons[0](kastov-762).specialCamos[2].unlockLevel: must be within maxLevel"
+    ]
+  },
+  {
+    "id": "m4",
+    "original": "src\\data\\weapons\\assault-rifles\\m4.weapon.js",
+    "preserved": "docs\\incomplete-weapon-drafts\\assault-rifles\\m4.weapon.js",
+    "errors": [
+      "weapons[0](m4).maxLevel: expected a positive integer",
+      "weapons[0](m4).militaryUnlockLevels[0]: levels must increase and stay within maxLevel",
+      "weapons[0](m4).militaryUnlockLevels[1]: levels must increase and stay within maxLevel",
+      "weapons[0](m4).militaryUnlockLevels[2]: levels must increase and stay within maxLevel",
+      "weapons[0](m4).militaryUnlockLevels[3]: levels must increase and stay within maxLevel",
+      "weapons[0](m4).militaryUnlockLevels[4]: levels must increase and stay within maxLevel",
+      "weapons[0](m4).militaryUnlockLevels[5]: levels must increase and stay within maxLevel",
+      "weapons[0](m4).militaryUnlockLevels[6]: levels must increase and stay within maxLevel",
+      "weapons[0](m4).militaryUnlockLevels[7]: levels must increase and stay within maxLevel",
+      "weapons[0](m4).specialCamos[0].unlockLevel: must be within maxLevel",
+      "weapons[0](m4).specialCamos[1].unlockLevel: must be within maxLevel",
+      "weapons[0](m4).specialCamos[2].unlockLevel: must be within maxLevel"
+    ]
+  },
+  {
+    "id": "oden",
+    "original": "src\\data\\weapons\\assault-rifles\\oden.weapon.js",
+    "preserved": "docs\\incomplete-weapon-drafts\\assault-rifles\\oden.weapon.js",
+    "errors": [
+      "weapons[0](oden).maxLevel: expected a positive integer",
+      "weapons[0](oden).militaryUnlockLevels[0]: levels must increase and stay within maxLevel",
+      "weapons[0](oden).militaryUnlockLevels[1]: levels must increase and stay within maxLevel",
+      "weapons[0](oden).militaryUnlockLevels[2]: levels must increase and stay within maxLevel",
+      "weapons[0](oden).militaryUnlockLevels[3]: levels must increase and stay within maxLevel",
+      "weapons[0](oden).militaryUnlockLevels[4]: levels must increase and stay within maxLevel",
+      "weapons[0](oden).militaryUnlockLevels[5]: levels must increase and stay within maxLevel",
+      "weapons[0](oden).militaryUnlockLevels[6]: levels must increase and stay within maxLevel",
+      "weapons[0](oden).militaryUnlockLevels[7]: levels must increase and stay within maxLevel",
+      "weapons[0](oden).specialCamos[0].unlockLevel: must be within maxLevel",
+      "weapons[0](oden).specialCamos[1].unlockLevel: must be within maxLevel",
+      "weapons[0](oden).specialCamos[2].unlockLevel: must be within maxLevel"
+    ]
+  },
+  {
+    "id": "patriot-xmr",
+    "original": "src\\data\\weapons\\assault-rifles\\patriot-xmr.weapon.js",
+    "preserved": "docs\\incomplete-weapon-drafts\\assault-rifles\\patriot-xmr.weapon.js",
+    "errors": [
+      "weapons[0](patriot-xmr).maxLevel: expected a positive integer",
+      "weapons[0](patriot-xmr).militaryUnlockLevels[0]: levels must increase and stay within maxLevel",
+      "weapons[0](patriot-xmr).militaryUnlockLevels[1]: levels must increase and stay within maxLevel",
+      "weapons[0](patriot-xmr).militaryUnlockLevels[2]: levels must increase and stay within maxLevel",
+      "weapons[0](patriot-xmr).militaryUnlockLevels[3]: levels must increase and stay within maxLevel",
+      "weapons[0](patriot-xmr).militaryUnlockLevels[4]: levels must increase and stay within maxLevel",
+      "weapons[0](patriot-xmr).militaryUnlockLevels[5]: levels must increase and stay within maxLevel",
+      "weapons[0](patriot-xmr).militaryUnlockLevels[6]: levels must increase and stay within maxLevel",
+      "weapons[0](patriot-xmr).militaryUnlockLevels[7]: levels must increase and stay within maxLevel",
+      "weapons[0](patriot-xmr).specialCamos[0].unlockLevel: must be within maxLevel",
+      "weapons[0](patriot-xmr).specialCamos[1].unlockLevel: must be within maxLevel",
+      "weapons[0](patriot-xmr).specialCamos[2].unlockLevel: must be within maxLevel"
+    ]
+  },
+  {
+    "id": "50-gs",
+    "original": "src\\data\\weapons\\handguns\\50-gs.weapon.js",
+    "preserved": "docs\\incomplete-weapon-drafts\\handguns\\50-gs.weapon.js",
+    "errors": [
+      "weapons[0](50-gs).category: invalid category",
+      "weapons[0](50-gs).maxLevel: expected a positive integer",
+      "weapons[0](50-gs).militaryUnlockLevels[0]: levels must increase and stay within maxLevel",
+      "weapons[0](50-gs).militaryUnlockLevels[1]: levels must increase and stay within maxLevel",
+      "weapons[0](50-gs).militaryUnlockLevels[2]: levels must increase and stay within maxLevel",
+      "weapons[0](50-gs).militaryUnlockLevels[3]: levels must increase and stay within maxLevel",
+      "weapons[0](50-gs).militaryUnlockLevels[4]: levels must increase and stay within maxLevel",
+      "weapons[0](50-gs).militaryUnlockLevels[5]: levels must increase and stay within maxLevel",
+      "weapons[0](50-gs).militaryUnlockLevels[6]: levels must increase and stay within maxLevel",
+      "weapons[0](50-gs).militaryUnlockLevels[7]: levels must increase and stay within maxLevel",
+      "weapons[0](50-gs).specialCamos[0].unlockLevel: must be within maxLevel",
+      "weapons[0](50-gs).specialCamos[1].unlockLevel: must be within maxLevel",
+      "weapons[0](50-gs).specialCamos[2].unlockLevel: must be within maxLevel"
+    ]
+  },
+  {
+    "id": "krait-p68",
+    "original": "src\\data\\weapons\\handguns\\krait-p68.weapon.js",
+    "preserved": "docs\\incomplete-weapon-drafts\\handguns\\krait-p68.weapon.js",
+    "errors": [
+      "weapons[0](krait-p68).category: invalid category",
+      "weapons[0](krait-p68).maxLevel: expected a positive integer",
+      "weapons[0](krait-p68).militaryUnlockLevels[0]: levels must increase and stay within maxLevel",
+      "weapons[0](krait-p68).militaryUnlockLevels[1]: levels must increase and stay within maxLevel",
+      "weapons[0](krait-p68).militaryUnlockLevels[2]: levels must increase and stay within maxLevel",
+      "weapons[0](krait-p68).militaryUnlockLevels[3]: levels must increase and stay within maxLevel",
+      "weapons[0](krait-p68).militaryUnlockLevels[4]: levels must increase and stay within maxLevel",
+      "weapons[0](krait-p68).militaryUnlockLevels[5]: levels must increase and stay within maxLevel",
+      "weapons[0](krait-p68).militaryUnlockLevels[6]: levels must increase and stay within maxLevel",
+      "weapons[0](krait-p68).militaryUnlockLevels[7]: levels must increase and stay within maxLevel",
+      "weapons[0](krait-p68).specialCamos[0].unlockLevel: must be within maxLevel",
+      "weapons[0](krait-p68).specialCamos[1].unlockLevel: must be within maxLevel",
+      "weapons[0](krait-p68).specialCamos[2].unlockLevel: must be within maxLevel"
+    ]
+  },
+  {
+    "id": "mojave-357",
+    "original": "src\\data\\weapons\\handguns\\mojave-357.weapon.js",
+    "preserved": "docs\\incomplete-weapon-drafts\\handguns\\mojave-357.weapon.js",
+    "errors": [
+      "weapons[0](mojave-357).category: invalid category",
+      "weapons[0](mojave-357).maxLevel: expected a positive integer",
+      "weapons[0](mojave-357).militaryUnlockLevels[0]: levels must increase and stay within maxLevel",
+      "weapons[0](mojave-357).militaryUnlockLevels[1]: levels must increase and stay within maxLevel",
+      "weapons[0](mojave-357).militaryUnlockLevels[2]: levels must increase and stay within maxLevel",
+      "weapons[0](mojave-357).militaryUnlockLevels[3]: levels must increase and stay within maxLevel",
+      "weapons[0](mojave-357).militaryUnlockLevels[4]: levels must increase and stay within maxLevel",
+      "weapons[0](mojave-357).militaryUnlockLevels[5]: levels must increase and stay within maxLevel",
+      "weapons[0](mojave-357).militaryUnlockLevels[6]: levels must increase and stay within maxLevel",
+      "weapons[0](mojave-357).militaryUnlockLevels[7]: levels must increase and stay within maxLevel",
+      "weapons[0](mojave-357).specialCamos[0].unlockLevel: must be within maxLevel",
+      "weapons[0](mojave-357).specialCamos[1].unlockLevel: must be within maxLevel",
+      "weapons[0](mojave-357).specialCamos[2].unlockLevel: must be within maxLevel"
+    ]
+  },
+  {
+    "id": "sang-9mm",
+    "original": "src\\data\\weapons\\handguns\\sang-9mm.weapon.js",
+    "preserved": "docs\\incomplete-weapon-drafts\\handguns\\sang-9mm.weapon.js",
+    "errors": [
+      "weapons[0](sang-9mm).category: invalid category",
+      "weapons[0](sang-9mm).maxLevel: expected a positive integer",
+      "weapons[0](sang-9mm).militaryUnlockLevels[0]: levels must increase and stay within maxLevel",
+      "weapons[0](sang-9mm).militaryUnlockLevels[1]: levels must increase and stay within maxLevel",
+      "weapons[0](sang-9mm).militaryUnlockLevels[2]: levels must increase and stay within maxLevel",
+      "weapons[0](sang-9mm).militaryUnlockLevels[3]: levels must increase and stay within maxLevel",
+      "weapons[0](sang-9mm).militaryUnlockLevels[4]: levels must increase and stay within maxLevel",
+      "weapons[0](sang-9mm).militaryUnlockLevels[5]: levels must increase and stay within maxLevel",
+      "weapons[0](sang-9mm).militaryUnlockLevels[6]: levels must increase and stay within maxLevel",
+      "weapons[0](sang-9mm).militaryUnlockLevels[7]: levels must increase and stay within maxLevel",
+      "weapons[0](sang-9mm).specialCamos[0].unlockLevel: must be within maxLevel",
+      "weapons[0](sang-9mm).specialCamos[1].unlockLevel: must be within maxLevel",
+      "weapons[0](sang-9mm).specialCamos[2].unlockLevel: must be within maxLevel"
+    ]
+  },
+  {
+    "id": "jokr",
+    "original": "src\\data\\weapons\\launchers\\jokr.weapon.js",
+    "preserved": "docs\\incomplete-weapon-drafts\\launchers\\jokr.weapon.js",
+    "errors": [
+      "weapons[0](jokr).maxLevel: expected a positive integer",
+      "weapons[0](jokr).militaryUnlockLevels[0]: levels must increase and stay within maxLevel",
+      "weapons[0](jokr).militaryUnlockLevels[1]: levels must increase and stay within maxLevel",
+      "weapons[0](jokr).militaryUnlockLevels[2]: levels must increase and stay within maxLevel",
+      "weapons[0](jokr).militaryUnlockLevels[3]: levels must increase and stay within maxLevel",
+      "weapons[0](jokr).militaryUnlockLevels[4]: levels must increase and stay within maxLevel",
+      "weapons[0](jokr).militaryUnlockLevels[5]: levels must increase and stay within maxLevel",
+      "weapons[0](jokr).militaryUnlockLevels[6]: levels must increase and stay within maxLevel",
+      "weapons[0](jokr).militaryUnlockLevels[7]: levels must increase and stay within maxLevel",
+      "weapons[0](jokr).specialCamos[0].unlockLevel: must be within maxLevel",
+      "weapons[0](jokr).specialCamos[1].unlockLevel: must be within maxLevel",
+      "weapons[0](jokr).specialCamos[2].unlockLevel: must be within maxLevel",
+      "weapons[0](jokr).specialCamos[2].challenges.multiplayer: invalid target",
+      "weapons[0](jokr).specialCamos[2].challenges.dmz: invalid target"
+    ]
+  },
+  {
+    "id": "pila",
+    "original": "src\\data\\weapons\\launchers\\pila.weapon.js",
+    "preserved": "docs\\incomplete-weapon-drafts\\launchers\\pila.weapon.js",
+    "errors": [
+      "weapons[0](pila).maxLevel: expected a positive integer",
+      "weapons[0](pila).militaryUnlockLevels[0]: levels must increase and stay within maxLevel",
+      "weapons[0](pila).militaryUnlockLevels[1]: levels must increase and stay within maxLevel",
+      "weapons[0](pila).militaryUnlockLevels[2]: levels must increase and stay within maxLevel",
+      "weapons[0](pila).militaryUnlockLevels[3]: levels must increase and stay within maxLevel",
+      "weapons[0](pila).militaryUnlockLevels[4]: levels must increase and stay within maxLevel",
+      "weapons[0](pila).militaryUnlockLevels[5]: levels must increase and stay within maxLevel",
+      "weapons[0](pila).militaryUnlockLevels[6]: levels must increase and stay within maxLevel",
+      "weapons[0](pila).militaryUnlockLevels[7]: levels must increase and stay within maxLevel",
+      "weapons[0](pila).specialCamos[0].unlockLevel: must be within maxLevel",
+      "weapons[0](pila).specialCamos[1].unlockLevel: must be within maxLevel",
+      "weapons[0](pila).specialCamos[2].unlockLevel: must be within maxLevel",
+      "weapons[0](pila).specialCamos[2].challenges.multiplayer: invalid target",
+      "weapons[0](pila).specialCamos[2].challenges.dmz: invalid target"
+    ]
+  },
+  {
+    "id": "pm-40-anvil",
+    "original": "src\\data\\weapons\\launchers\\pm-40-anvil.weapon.js",
+    "preserved": "docs\\incomplete-weapon-drafts\\launchers\\pm-40-anvil.weapon.js",
+    "errors": [
+      "weapons[0](pm-40-anvil).maxLevel: expected a positive integer",
+      "weapons[0](pm-40-anvil).militaryUnlockLevels[0]: levels must increase and stay within maxLevel",
+      "weapons[0](pm-40-anvil).militaryUnlockLevels[1]: levels must increase and stay within maxLevel",
+      "weapons[0](pm-40-anvil).militaryUnlockLevels[2]: levels must increase and stay within maxLevel",
+      "weapons[0](pm-40-anvil).militaryUnlockLevels[3]: levels must increase and stay within maxLevel",
+      "weapons[0](pm-40-anvil).militaryUnlockLevels[4]: levels must increase and stay within maxLevel",
+      "weapons[0](pm-40-anvil).militaryUnlockLevels[5]: levels must increase and stay within maxLevel",
+      "weapons[0](pm-40-anvil).militaryUnlockLevels[6]: levels must increase and stay within maxLevel",
+      "weapons[0](pm-40-anvil).militaryUnlockLevels[7]: levels must increase and stay within maxLevel",
+      "weapons[0](pm-40-anvil).specialCamos[0].unlockLevel: must be within maxLevel",
+      "weapons[0](pm-40-anvil).specialCamos[1].unlockLevel: must be within maxLevel",
+      "weapons[0](pm-40-anvil).specialCamos[2].unlockLevel: must be within maxLevel",
+      "weapons[0](pm-40-anvil).specialCamos[2].challenges.multiplayer: invalid target"
+    ]
+  },
+  {
+    "id": "rpg-8",
+    "original": "src\\data\\weapons\\launchers\\rpg-8.weapon.js",
+    "preserved": "docs\\incomplete-weapon-drafts\\launchers\\rpg-8.weapon.js",
+    "errors": [
+      "weapons[0](rpg-8).maxLevel: expected a positive integer",
+      "weapons[0](rpg-8).militaryUnlockLevels[0]: levels must increase and stay within maxLevel",
+      "weapons[0](rpg-8).militaryUnlockLevels[1]: levels must increase and stay within maxLevel",
+      "weapons[0](rpg-8).militaryUnlockLevels[2]: levels must increase and stay within maxLevel",
+      "weapons[0](rpg-8).militaryUnlockLevels[3]: levels must increase and stay within maxLevel",
+      "weapons[0](rpg-8).militaryUnlockLevels[4]: levels must increase and stay within maxLevel",
+      "weapons[0](rpg-8).militaryUnlockLevels[5]: levels must increase and stay within maxLevel",
+      "weapons[0](rpg-8).militaryUnlockLevels[6]: levels must increase and stay within maxLevel",
+      "weapons[0](rpg-8).militaryUnlockLevels[7]: levels must increase and stay within maxLevel",
+      "weapons[0](rpg-8).specialCamos[0].unlockLevel: must be within maxLevel",
+      "weapons[0](rpg-8).specialCamos[1].unlockLevel: must be within maxLevel",
+      "weapons[0](rpg-8).specialCamos[2].unlockLevel: must be within maxLevel",
+      "weapons[0](rpg-8).specialCamos[2].challenges.multiplayer: invalid target",
+      "weapons[0](rpg-8).specialCamos[2].challenges.dmz: invalid target"
+    ]
+  },
+  {
+    "id": "apoc-338",
+    "original": "src\\data\\weapons\\light-machine-guns\\apoc-338.weapon.js",
+    "preserved": "docs\\incomplete-weapon-drafts\\light-machine-guns\\apoc-338.weapon.js",
+    "errors": [
+      "weapons[0](apoc-338).maxLevel: expected a positive integer",
+      "weapons[0](apoc-338).militaryUnlockLevels[0]: levels must increase and stay within maxLevel",
+      "weapons[0](apoc-338).militaryUnlockLevels[1]: levels must increase and stay within maxLevel",
+      "weapons[0](apoc-338).militaryUnlockLevels[2]: levels must increase and stay within maxLevel",
+      "weapons[0](apoc-338).militaryUnlockLevels[3]: levels must increase and stay within maxLevel",
+      "weapons[0](apoc-338).militaryUnlockLevels[4]: levels must increase and stay within maxLevel",
+      "weapons[0](apoc-338).militaryUnlockLevels[5]: levels must increase and stay within maxLevel",
+      "weapons[0](apoc-338).militaryUnlockLevels[6]: levels must increase and stay within maxLevel",
+      "weapons[0](apoc-338).militaryUnlockLevels[7]: levels must increase and stay within maxLevel",
+      "weapons[0](apoc-338).specialCamos[0].unlockLevel: must be within maxLevel",
+      "weapons[0](apoc-338).specialCamos[1].unlockLevel: must be within maxLevel",
+      "weapons[0](apoc-338).specialCamos[2].unlockLevel: must be within maxLevel"
+    ]
+  },
+  {
+    "id": "finn-lmg",
+    "original": "src\\data\\weapons\\light-machine-guns\\finn-lmg.weapon.js",
+    "preserved": "docs\\incomplete-weapon-drafts\\light-machine-guns\\finn-lmg.weapon.js",
+    "errors": [
+      "weapons[0](finn-lmg).maxLevel: expected a positive integer",
+      "weapons[0](finn-lmg).militaryUnlockLevels[0]: levels must increase and stay within maxLevel",
+      "weapons[0](finn-lmg).militaryUnlockLevels[1]: levels must increase and stay within maxLevel",
+      "weapons[0](finn-lmg).militaryUnlockLevels[2]: levels must increase and stay within maxLevel",
+      "weapons[0](finn-lmg).militaryUnlockLevels[3]: levels must increase and stay within maxLevel",
+      "weapons[0](finn-lmg).militaryUnlockLevels[4]: levels must increase and stay within maxLevel",
+      "weapons[0](finn-lmg).militaryUnlockLevels[5]: levels must increase and stay within maxLevel",
+      "weapons[0](finn-lmg).militaryUnlockLevels[6]: levels must increase and stay within maxLevel",
+      "weapons[0](finn-lmg).militaryUnlockLevels[7]: levels must increase and stay within maxLevel",
+      "weapons[0](finn-lmg).specialCamos[0].unlockLevel: must be within maxLevel",
+      "weapons[0](finn-lmg).specialCamos[1].unlockLevel: must be within maxLevel",
+      "weapons[0](finn-lmg).specialCamos[2].unlockLevel: must be within maxLevel"
+    ]
+  },
+  {
+    "id": "type-73",
+    "original": "src\\data\\weapons\\light-machine-guns\\type-73.weapon.js",
+    "preserved": "docs\\incomplete-weapon-drafts\\light-machine-guns\\type-73.weapon.js",
+    "errors": [
+      "weapons[0](type-73).maxLevel: expected a positive integer",
+      "weapons[0](type-73).militaryUnlockLevels[0]: levels must increase and stay within maxLevel",
+      "weapons[0](type-73).militaryUnlockLevels[1]: levels must increase and stay within maxLevel",
+      "weapons[0](type-73).militaryUnlockLevels[2]: levels must increase and stay within maxLevel",
+      "weapons[0](type-73).militaryUnlockLevels[3]: levels must increase and stay within maxLevel",
+      "weapons[0](type-73).militaryUnlockLevels[4]: levels must increase and stay within maxLevel",
+      "weapons[0](type-73).militaryUnlockLevels[5]: levels must increase and stay within maxLevel",
+      "weapons[0](type-73).militaryUnlockLevels[6]: levels must increase and stay within maxLevel",
+      "weapons[0](type-73).militaryUnlockLevels[7]: levels must increase and stay within maxLevel",
+      "weapons[0](type-73).specialCamos[0].unlockLevel: must be within maxLevel",
+      "weapons[0](type-73).specialCamos[1].unlockLevel: must be within maxLevel",
+      "weapons[0](type-73).specialCamos[2].unlockLevel: must be within maxLevel"
+    ]
+  },
+  {
+    "id": "mar-9",
+    "original": "src\\data\\weapons\\marksman-rifles\\mar-9.weapon.js",
+    "preserved": "docs\\incomplete-weapon-drafts\\marksman-rifles\\mar-9.weapon.js",
+    "errors": [
+      "weapons[0](mar-9).maxLevel: expected a positive integer",
+      "weapons[0](mar-9).militaryUnlockLevels[0]: levels must increase and stay within maxLevel",
+      "weapons[0](mar-9).militaryUnlockLevels[1]: levels must increase and stay within maxLevel",
+      "weapons[0](mar-9).militaryUnlockLevels[2]: levels must increase and stay within maxLevel",
+      "weapons[0](mar-9).militaryUnlockLevels[3]: levels must increase and stay within maxLevel",
+      "weapons[0](mar-9).militaryUnlockLevels[4]: levels must increase and stay within maxLevel",
+      "weapons[0](mar-9).militaryUnlockLevels[5]: levels must increase and stay within maxLevel",
+      "weapons[0](mar-9).militaryUnlockLevels[6]: levels must increase and stay within maxLevel",
+      "weapons[0](mar-9).militaryUnlockLevels[7]: levels must increase and stay within maxLevel",
+      "weapons[0](mar-9).specialCamos[0].unlockLevel: must be within maxLevel",
+      "weapons[0](mar-9).specialCamos[1].unlockLevel: must be within maxLevel",
+      "weapons[0](mar-9).specialCamos[2].unlockLevel: must be within maxLevel"
+    ]
+  },
+  {
+    "id": "mosin-nagant",
+    "original": "src\\data\\weapons\\marksman-rifles\\mosin-nagant.weapon.js",
+    "preserved": "docs\\incomplete-weapon-drafts\\marksman-rifles\\mosin-nagant.weapon.js",
+    "errors": [
+      "weapons[0](mosin-nagant).maxLevel: expected a positive integer",
+      "weapons[0](mosin-nagant).militaryUnlockLevels[0]: levels must increase and stay within maxLevel",
+      "weapons[0](mosin-nagant).militaryUnlockLevels[1]: levels must increase and stay within maxLevel",
+      "weapons[0](mosin-nagant).militaryUnlockLevels[2]: levels must increase and stay within maxLevel",
+      "weapons[0](mosin-nagant).militaryUnlockLevels[3]: levels must increase and stay within maxLevel",
+      "weapons[0](mosin-nagant).militaryUnlockLevels[4]: levels must increase and stay within maxLevel",
+      "weapons[0](mosin-nagant).militaryUnlockLevels[5]: levels must increase and stay within maxLevel",
+      "weapons[0](mosin-nagant).militaryUnlockLevels[6]: levels must increase and stay within maxLevel",
+      "weapons[0](mosin-nagant).militaryUnlockLevels[7]: levels must increase and stay within maxLevel",
+      "weapons[0](mosin-nagant).specialCamos[0].unlockLevel: must be within maxLevel",
+      "weapons[0](mosin-nagant).specialCamos[1].unlockLevel: must be within maxLevel",
+      "weapons[0](mosin-nagant).specialCamos[2].unlockLevel: must be within maxLevel"
+    ]
+  },
+  {
+    "id": "oris-8-6",
+    "original": "src\\data\\weapons\\marksman-rifles\\oris-8-6.weapon.js",
+    "preserved": "docs\\incomplete-weapon-drafts\\marksman-rifles\\oris-8-6.weapon.js",
+    "errors": [
+      "weapons[0](oris-8-6).maxLevel: expected a positive integer",
+      "weapons[0](oris-8-6).militaryUnlockLevels[0]: levels must increase and stay within maxLevel",
+      "weapons[0](oris-8-6).militaryUnlockLevels[1]: levels must increase and stay within maxLevel",
+      "weapons[0](oris-8-6).militaryUnlockLevels[2]: levels must increase and stay within maxLevel",
+      "weapons[0](oris-8-6).militaryUnlockLevels[3]: levels must increase and stay within maxLevel",
+      "weapons[0](oris-8-6).militaryUnlockLevels[4]: levels must increase and stay within maxLevel",
+      "weapons[0](oris-8-6).militaryUnlockLevels[5]: levels must increase and stay within maxLevel",
+      "weapons[0](oris-8-6).militaryUnlockLevels[6]: levels must increase and stay within maxLevel",
+      "weapons[0](oris-8-6).militaryUnlockLevels[7]: levels must increase and stay within maxLevel",
+      "weapons[0](oris-8-6).specialCamos[0].unlockLevel: must be within maxLevel",
+      "weapons[0](oris-8-6).specialCamos[1].unlockLevel: must be within maxLevel",
+      "weapons[0](oris-8-6).specialCamos[2].unlockLevel: must be within maxLevel"
+    ]
+  },
+  {
+    "id": "fss-carbon-edge-1095",
+    "original": "src\\data\\weapons\\melee\\fss-carbon-edge-1095.weapon.js",
+    "preserved": "docs\\incomplete-weapon-drafts\\melee\\fss-carbon-edge-1095.weapon.js",
+    "errors": [
+      "weapons[0](fss-carbon-edge-1095).maxLevel: expected a positive integer",
+      "weapons[0](fss-carbon-edge-1095).militaryUnlockLevels[0]: levels must increase and stay within maxLevel",
+      "weapons[0](fss-carbon-edge-1095).militaryUnlockLevels[1]: levels must increase and stay within maxLevel",
+      "weapons[0](fss-carbon-edge-1095).militaryUnlockLevels[2]: levels must increase and stay within maxLevel",
+      "weapons[0](fss-carbon-edge-1095).militaryUnlockLevels[3]: levels must increase and stay within maxLevel",
+      "weapons[0](fss-carbon-edge-1095).militaryUnlockLevels[4]: levels must increase and stay within maxLevel",
+      "weapons[0](fss-carbon-edge-1095).militaryUnlockLevels[5]: levels must increase and stay within maxLevel",
+      "weapons[0](fss-carbon-edge-1095).militaryUnlockLevels[6]: levels must increase and stay within maxLevel",
+      "weapons[0](fss-carbon-edge-1095).militaryUnlockLevels[7]: levels must increase and stay within maxLevel",
+      "weapons[0](fss-carbon-edge-1095).specialCamos[0].unlockLevel: must be within maxLevel",
+      "weapons[0](fss-carbon-edge-1095).specialCamos[1].unlockLevel: must be within maxLevel",
+      "weapons[0](fss-carbon-edge-1095).specialCamos[2].unlockLevel: must be within maxLevel"
+    ]
+  },
+  {
+    "id": "rezi-12",
+    "original": "src\\data\\weapons\\shotguns\\rezi-12.weapon.js",
+    "preserved": "docs\\incomplete-weapon-drafts\\shotguns\\rezi-12.weapon.js",
+    "errors": [
+      "weapons[0](rezi-12).maxLevel: expected a positive integer",
+      "weapons[0](rezi-12).militaryUnlockLevels[0]: levels must increase and stay within maxLevel",
+      "weapons[0](rezi-12).militaryUnlockLevels[1]: levels must increase and stay within maxLevel",
+      "weapons[0](rezi-12).militaryUnlockLevels[2]: levels must increase and stay within maxLevel",
+      "weapons[0](rezi-12).militaryUnlockLevels[3]: levels must increase and stay within maxLevel",
+      "weapons[0](rezi-12).militaryUnlockLevels[4]: levels must increase and stay within maxLevel",
+      "weapons[0](rezi-12).militaryUnlockLevels[5]: levels must increase and stay within maxLevel",
+      "weapons[0](rezi-12).militaryUnlockLevels[6]: levels must increase and stay within maxLevel",
+      "weapons[0](rezi-12).militaryUnlockLevels[7]: levels must increase and stay within maxLevel",
+      "weapons[0](rezi-12).specialCamos[0].unlockLevel: must be within maxLevel",
+      "weapons[0](rezi-12).specialCamos[1].unlockLevel: must be within maxLevel",
+      "weapons[0](rezi-12).specialCamos[2].unlockLevel: must be within maxLevel"
+    ]
+  },
+  {
+    "id": "warlord",
+    "original": "src\\data\\weapons\\shotguns\\warlord.weapon.js",
+    "preserved": "docs\\incomplete-weapon-drafts\\shotguns\\warlord.weapon.js",
+    "errors": [
+      "weapons[0](warlord).maxLevel: expected a positive integer",
+      "weapons[0](warlord).militaryUnlockLevels[0]: levels must increase and stay within maxLevel",
+      "weapons[0](warlord).militaryUnlockLevels[1]: levels must increase and stay within maxLevel",
+      "weapons[0](warlord).militaryUnlockLevels[2]: levels must increase and stay within maxLevel",
+      "weapons[0](warlord).militaryUnlockLevels[3]: levels must increase and stay within maxLevel",
+      "weapons[0](warlord).militaryUnlockLevels[4]: levels must increase and stay within maxLevel",
+      "weapons[0](warlord).militaryUnlockLevels[5]: levels must increase and stay within maxLevel",
+      "weapons[0](warlord).militaryUnlockLevels[6]: levels must increase and stay within maxLevel",
+      "weapons[0](warlord).militaryUnlockLevels[7]: levels must increase and stay within maxLevel",
+      "weapons[0](warlord).specialCamos[0].unlockLevel: must be within maxLevel",
+      "weapons[0](warlord).specialCamos[1].unlockLevel: must be within maxLevel",
+      "weapons[0](warlord).specialCamos[2].unlockLevel: must be within maxLevel"
+    ]
+  },
+  {
+    "id": "astaroth-57",
+    "original": "src\\data\\weapons\\sniper-rifles\\astaroth-57.weapon.js",
+    "preserved": "docs\\incomplete-weapon-drafts\\sniper-rifles\\astaroth-57.weapon.js",
+    "errors": [
+      "weapons[0](astaroth-57).maxLevel: expected a positive integer",
+      "weapons[0](astaroth-57).militaryUnlockLevels[0]: levels must increase and stay within maxLevel",
+      "weapons[0](astaroth-57).militaryUnlockLevels[1]: levels must increase and stay within maxLevel",
+      "weapons[0](astaroth-57).militaryUnlockLevels[2]: levels must increase and stay within maxLevel",
+      "weapons[0](astaroth-57).militaryUnlockLevels[3]: levels must increase and stay within maxLevel",
+      "weapons[0](astaroth-57).militaryUnlockLevels[4]: levels must increase and stay within maxLevel",
+      "weapons[0](astaroth-57).militaryUnlockLevels[5]: levels must increase and stay within maxLevel",
+      "weapons[0](astaroth-57).militaryUnlockLevels[6]: levels must increase and stay within maxLevel",
+      "weapons[0](astaroth-57).militaryUnlockLevels[7]: levels must increase and stay within maxLevel",
+      "weapons[0](astaroth-57).specialCamos[0].unlockLevel: must be within maxLevel",
+      "weapons[0](astaroth-57).specialCamos[1].unlockLevel: must be within maxLevel",
+      "weapons[0](astaroth-57).specialCamos[2].unlockLevel: must be within maxLevel"
+    ]
+  },
+  {
+    "id": "kg-7-vulcan",
+    "original": "src\\data\\weapons\\sniper-rifles\\kg-7-vulcan.weapon.js",
+    "preserved": "docs\\incomplete-weapon-drafts\\sniper-rifles\\kg-7-vulcan.weapon.js",
+    "errors": [
+      "weapons[0](kg-7-vulcan).maxLevel: expected a positive integer",
+      "weapons[0](kg-7-vulcan).militaryUnlockLevels[0]: levels must increase and stay within maxLevel",
+      "weapons[0](kg-7-vulcan).militaryUnlockLevels[1]: levels must increase and stay within maxLevel",
+      "weapons[0](kg-7-vulcan).militaryUnlockLevels[2]: levels must increase and stay within maxLevel",
+      "weapons[0](kg-7-vulcan).militaryUnlockLevels[3]: levels must increase and stay within maxLevel",
+      "weapons[0](kg-7-vulcan).militaryUnlockLevels[4]: levels must increase and stay within maxLevel",
+      "weapons[0](kg-7-vulcan).militaryUnlockLevels[5]: levels must increase and stay within maxLevel",
+      "weapons[0](kg-7-vulcan).militaryUnlockLevels[6]: levels must increase and stay within maxLevel",
+      "weapons[0](kg-7-vulcan).militaryUnlockLevels[7]: levels must increase and stay within maxLevel",
+      "weapons[0](kg-7-vulcan).specialCamos[0].unlockLevel: must be within maxLevel",
+      "weapons[0](kg-7-vulcan).specialCamos[1].unlockLevel: must be within maxLevel",
+      "weapons[0](kg-7-vulcan).specialCamos[2].unlockLevel: must be within maxLevel"
+    ]
+  },
+  {
+    "id": "signal-50",
+    "original": "src\\data\\weapons\\sniper-rifles\\signal-50.weapon.js",
+    "preserved": "docs\\incomplete-weapon-drafts\\sniper-rifles\\signal-50.weapon.js",
+    "errors": [
+      "weapons[0](signal-50).maxLevel: expected a positive integer",
+      "weapons[0](signal-50).militaryUnlockLevels[0]: levels must increase and stay within maxLevel",
+      "weapons[0](signal-50).militaryUnlockLevels[1]: levels must increase and stay within maxLevel",
+      "weapons[0](signal-50).militaryUnlockLevels[2]: levels must increase and stay within maxLevel",
+      "weapons[0](signal-50).militaryUnlockLevels[3]: levels must increase and stay within maxLevel",
+      "weapons[0](signal-50).militaryUnlockLevels[4]: levels must increase and stay within maxLevel",
+      "weapons[0](signal-50).militaryUnlockLevels[5]: levels must increase and stay within maxLevel",
+      "weapons[0](signal-50).militaryUnlockLevels[6]: levels must increase and stay within maxLevel",
+      "weapons[0](signal-50).militaryUnlockLevels[7]: levels must increase and stay within maxLevel",
+      "weapons[0](signal-50).specialCamos[0].unlockLevel: must be within maxLevel",
+      "weapons[0](signal-50).specialCamos[1].unlockLevel: must be within maxLevel",
+      "weapons[0](signal-50).specialCamos[2].unlockLevel: must be within maxLevel"
+    ]
+  },
+  {
+    "id": "iso-nightshade",
+    "original": "src\\data\\weapons\\submachine-guns\\iso-nightshade.weapon.js",
+    "preserved": "docs\\incomplete-weapon-drafts\\submachine-guns\\iso-nightshade.weapon.js",
+    "errors": [
+      "weapons[0](iso-nightshade).maxLevel: expected a positive integer",
+      "weapons[0](iso-nightshade).militaryUnlockLevels[0]: levels must increase and stay within maxLevel",
+      "weapons[0](iso-nightshade).militaryUnlockLevels[1]: levels must increase and stay within maxLevel",
+      "weapons[0](iso-nightshade).militaryUnlockLevels[2]: levels must increase and stay within maxLevel",
+      "weapons[0](iso-nightshade).militaryUnlockLevels[3]: levels must increase and stay within maxLevel",
+      "weapons[0](iso-nightshade).militaryUnlockLevels[4]: levels must increase and stay within maxLevel",
+      "weapons[0](iso-nightshade).militaryUnlockLevels[5]: levels must increase and stay within maxLevel",
+      "weapons[0](iso-nightshade).militaryUnlockLevels[6]: levels must increase and stay within maxLevel",
+      "weapons[0](iso-nightshade).militaryUnlockLevels[7]: levels must increase and stay within maxLevel",
+      "weapons[0](iso-nightshade).specialCamos[0].unlockLevel: must be within maxLevel",
+      "weapons[0](iso-nightshade).specialCamos[1].unlockLevel: must be within maxLevel",
+      "weapons[0](iso-nightshade).specialCamos[2].unlockLevel: must be within maxLevel"
+    ]
+  },
+  {
+    "id": "ppsh-41",
+    "original": "src\\data\\weapons\\submachine-guns\\ppsh-41.weapon.js",
+    "preserved": "docs\\incomplete-weapon-drafts\\submachine-guns\\ppsh-41.weapon.js",
+    "errors": [
+      "weapons[0](ppsh-41).maxLevel: expected a positive integer",
+      "weapons[0](ppsh-41).militaryUnlockLevels[0]: levels must increase and stay within maxLevel",
+      "weapons[0](ppsh-41).militaryUnlockLevels[1]: levels must increase and stay within maxLevel",
+      "weapons[0](ppsh-41).militaryUnlockLevels[2]: levels must increase and stay within maxLevel",
+      "weapons[0](ppsh-41).militaryUnlockLevels[3]: levels must increase and stay within maxLevel",
+      "weapons[0](ppsh-41).militaryUnlockLevels[4]: levels must increase and stay within maxLevel",
+      "weapons[0](ppsh-41).militaryUnlockLevels[5]: levels must increase and stay within maxLevel",
+      "weapons[0](ppsh-41).militaryUnlockLevels[6]: levels must increase and stay within maxLevel",
+      "weapons[0](ppsh-41).militaryUnlockLevels[7]: levels must increase and stay within maxLevel",
+      "weapons[0](ppsh-41).specialCamos[0].unlockLevel: must be within maxLevel",
+      "weapons[0](ppsh-41).specialCamos[1].unlockLevel: must be within maxLevel",
+      "weapons[0](ppsh-41).specialCamos[2].unlockLevel: must be within maxLevel"
+    ]
+  },
+  {
+    "id": "vel-46",
+    "original": "src\\data\\weapons\\submachine-guns\\vel-46.weapon.js",
+    "preserved": "docs\\incomplete-weapon-drafts\\submachine-guns\\vel-46.weapon.js",
+    "errors": [
+      "weapons[0](vel-46).maxLevel: expected a positive integer",
+      "weapons[0](vel-46).militaryUnlockLevels[0]: levels must increase and stay within maxLevel",
+      "weapons[0](vel-46).militaryUnlockLevels[1]: levels must increase and stay within maxLevel",
+      "weapons[0](vel-46).militaryUnlockLevels[2]: levels must increase and stay within maxLevel",
+      "weapons[0](vel-46).militaryUnlockLevels[3]: levels must increase and stay within maxLevel",
+      "weapons[0](vel-46).militaryUnlockLevels[4]: levels must increase and stay within maxLevel",
+      "weapons[0](vel-46).militaryUnlockLevels[5]: levels must increase and stay within maxLevel",
+      "weapons[0](vel-46).militaryUnlockLevels[6]: levels must increase and stay within maxLevel",
+      "weapons[0](vel-46).militaryUnlockLevels[7]: levels must increase and stay within maxLevel",
+      "weapons[0](vel-46).specialCamos[0].unlockLevel: must be within maxLevel",
+      "weapons[0](vel-46).specialCamos[1].unlockLevel: must be within maxLevel",
+      "weapons[0](vel-46).specialCamos[2].unlockLevel: must be within maxLevel"
+    ]
+  },
+  {
+    "id": "wz-55-striga",
+    "original": "src\\data\\weapons\\submachine-guns\\wz-55-striga.weapon.js",
+    "preserved": "docs\\incomplete-weapon-drafts\\submachine-guns\\wz-55-striga.weapon.js",
+    "errors": [
+      "weapons[0](wz-55-striga).maxLevel: expected a positive integer",
+      "weapons[0](wz-55-striga).militaryUnlockLevels[0]: levels must increase and stay within maxLevel",
+      "weapons[0](wz-55-striga).militaryUnlockLevels[1]: levels must increase and stay within maxLevel",
+      "weapons[0](wz-55-striga).militaryUnlockLevels[2]: levels must increase and stay within maxLevel",
+      "weapons[0](wz-55-striga).militaryUnlockLevels[3]: levels must increase and stay within maxLevel",
+      "weapons[0](wz-55-striga).militaryUnlockLevels[4]: levels must increase and stay within maxLevel",
+      "weapons[0](wz-55-striga).militaryUnlockLevels[5]: levels must increase and stay within maxLevel",
+      "weapons[0](wz-55-striga).militaryUnlockLevels[6]: levels must increase and stay within maxLevel",
+      "weapons[0](wz-55-striga).militaryUnlockLevels[7]: levels must increase and stay within maxLevel",
+      "weapons[0](wz-55-striga).specialCamos[0].unlockLevel: must be within maxLevel",
+      "weapons[0](wz-55-striga).specialCamos[1].unlockLevel: must be within maxLevel",
+      "weapons[0](wz-55-striga).specialCamos[2].unlockLevel: must be within maxLevel"
+    ]
+  },
+  {
+    "id": "x-58-nyx",
+    "original": "src\\data\\weapons\\submachine-guns\\x-58-nyx.weapon.js",
+    "preserved": "docs\\incomplete-weapon-drafts\\submachine-guns\\x-58-nyx.weapon.js",
+    "errors": [
+      "weapons[0](x-58-nyx).maxLevel: expected a positive integer",
+      "weapons[0](x-58-nyx).militaryUnlockLevels[0]: levels must increase and stay within maxLevel",
+      "weapons[0](x-58-nyx).militaryUnlockLevels[1]: levels must increase and stay within maxLevel",
+      "weapons[0](x-58-nyx).militaryUnlockLevels[2]: levels must increase and stay within maxLevel",
+      "weapons[0](x-58-nyx).militaryUnlockLevels[3]: levels must increase and stay within maxLevel",
+      "weapons[0](x-58-nyx).militaryUnlockLevels[4]: levels must increase and stay within maxLevel",
+      "weapons[0](x-58-nyx).militaryUnlockLevels[5]: levels must increase and stay within maxLevel",
+      "weapons[0](x-58-nyx).militaryUnlockLevels[6]: levels must increase and stay within maxLevel",
+      "weapons[0](x-58-nyx).militaryUnlockLevels[7]: levels must increase and stay within maxLevel",
+      "weapons[0](x-58-nyx).specialCamos[0].unlockLevel: must be within maxLevel",
+      "weapons[0](x-58-nyx).specialCamos[1].unlockLevel: must be within maxLevel",
+      "weapons[0](x-58-nyx).specialCamos[2].unlockLevel: must be within maxLevel"
+    ]
+  }
+]

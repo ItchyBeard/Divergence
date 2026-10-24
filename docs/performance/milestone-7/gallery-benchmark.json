@@ -1,0 +1,5 @@
+{
+  "description": "Warm local Vite SSR pure-filter diagnostic, 122 Gallery designs, empty save, one warmup and five measured passes. Before/after the per-pass availability cache within Milestone 7; not an end-to-end browser latency guarantee.",
+  "beforeAverageMs": 75.31132,
+  "afterAverageMs": 2.20688
+}

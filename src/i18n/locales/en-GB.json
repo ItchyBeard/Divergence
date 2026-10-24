@@ -1,0 +1,17 @@
+{
+  "general": {
+    "grid": "Grid",
+    "list": "List",
+    "table": "Table",
+    "close": "Close"
+  },
+  "filters": {
+    "toggle_layout": "Change layout"
+  },
+  "pages": {
+    "404": {
+      "description": "This page could not be found.",
+      "link": "Return to tracker"
+    }
+  }
+}

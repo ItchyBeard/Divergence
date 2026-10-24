@@ -1,0 +1,243 @@
+{
+  "entry": "assets/index-c6fe4422.js",
+  "initialBytes": 300425,
+  "initialGzipBytes": 92791,
+  "chunks": [
+    {
+      "file": "assets/RequirementsView-b7b3bf44.js",
+      "initial": false,
+      "bytes": 1225,
+      "minifiedCharacters": 1225,
+      "gzipBytes": 687,
+      "imports": [
+        "assets/index-c6fe4422.js"
+      ],
+      "dynamicImports": [],
+      "largestModules": [
+        {
+          "id": "src/views/RequirementsView.vue",
+          "renderedBytes": 2439
+        },
+        {
+          "id": "src/views/RequirementsView.vue?vue&type=style&index=0&scoped=ef5100d9&lang.css",
+          "renderedBytes": 76
+        }
+      ]
+    },
+    {
+      "file": "assets/AboutView-78f1b22e.js",
+      "initial": false,
+      "bytes": 776,
+      "minifiedCharacters": 776,
+      "gzipBytes": 506,
+      "imports": [
+        "assets/index-c6fe4422.js"
+      ],
+      "dynamicImports": [],
+      "largestModules": [
+        {
+          "id": "src/views/AboutView.vue",
+          "renderedBytes": 1333
+        },
+        {
+          "id": "src/views/AboutView.vue?vue&type=style&index=0&scoped=8c7d124f&lang.css",
+          "renderedBytes": 69
+        }
+      ]
+    },
+    {
+      "file": "assets/MasteryView-1c1ba0a4.js",
+      "initial": false,
+      "bytes": 1229,
+      "minifiedCharacters": 1229,
+      "gzipBytes": 717,
+      "imports": [
+        "assets/index-c6fe4422.js"
+      ],
+      "dynamicImports": [],
+      "largestModules": [
+        {
+          "id": "src/components/MasteryComponent.vue",
+          "renderedBytes": 1470
+        },
+        {
+          "id": "src/views/MasteryView.vue",
+          "renderedBytes": 815
+        },
+        {
+          "id": "src/components/MasteryComponent.vue?vue&type=style&index=0&scoped=c44789cd&lang.scss",
+          "renderedBytes": 76
+        },
+        {
+          "id": "src/views/MasteryView.vue?vue&type=style&index=0&scoped=883cf37a&lang.css",
+          "renderedBytes": 71
+        }
+      ]
+    },
+    {
+      "file": "assets/PrestigeView-a95e22ad.js",
+      "initial": false,
+      "bytes": 383,
+      "minifiedCharacters": 383,
+      "gzipBytes": 290,
+      "imports": [
+        "assets/index-c6fe4422.js"
+      ],
+      "dynamicImports": [],
+      "largestModules": [
+        {
+          "id": "src/views/PrestigeView.vue",
+          "renderedBytes": 632
+        },
+        {
+          "id": "src/views/PrestigeView.vue?vue&type=style&index=0&scoped=c9784f50&lang.css",
+          "renderedBytes": 72
+        }
+      ]
+    },
+    {
+      "file": "assets/SettingsView-be410a8f.js",
+      "initial": false,
+      "bytes": 3525,
+      "minifiedCharacters": 3525,
+      "gzipBytes": 1514,
+      "imports": [
+        "assets/index-c6fe4422.js"
+      ],
+      "dynamicImports": [],
+      "largestModules": [
+        {
+          "id": "src/views/SettingsView.vue",
+          "renderedBytes": 6988
+        },
+        {
+          "id": "src/views/SettingsView.vue?vue&type=style&index=0&scoped=9deb516e&lang.scss",
+          "renderedBytes": 72
+        },
+        {
+          "id": "src/views/SettingsView.vue?vue&type=style&index=1&scoped=9deb516e&lang.css",
+          "renderedBytes": 72
+        }
+      ]
+    },
+    {
+      "file": "assets/GalleryView-335dd8f0.js",
+      "initial": false,
+      "bytes": 9204,
+      "minifiedCharacters": 9199,
+      "gzipBytes": 3605,
+      "imports": [
+        "assets/index-c6fe4422.js"
+      ],
+      "dynamicImports": [],
+      "largestModules": [
+        {
+          "id": "src/views/GalleryView.vue",
+          "renderedBytes": 15248
+        },
+        {
+          "id": "src/data/mw4/gallery.js",
+          "renderedBytes": 5464
+        },
+        {
+          "id": "src/views/GalleryView.vue?vue&type=style&index=0&scoped=5a4d1f88&lang.scss",
+          "renderedBytes": 71
+        }
+      ]
+    },
+    {
+      "file": "assets/html2canvas.esm-e0a7d97b.js",
+      "initial": false,
+      "bytes": 202309,
+      "minifiedCharacters": 201431,
+      "gzipBytes": 48042,
+      "imports": [],
+      "dynamicImports": [],
+      "largestModules": [
+        {
+          "id": "node_modules/html2canvas/dist/html2canvas.esm.js",
+          "renderedBytes": 409417
+        }
+      ]
+    },
+    {
+      "file": "assets/index-c6fe4422.js",
+      "initial": true,
+      "bytes": 300425,
+      "minifiedCharacters": 300399,
+      "gzipBytes": 92791,
+      "imports": [],
+      "dynamicImports": [
+        "assets/html2canvas.esm-e0a7d97b.js",
+        "assets/GalleryView-335dd8f0.js",
+        "assets/PrestigeView-a95e22ad.js",
+        "assets/MasteryView-1c1ba0a4.js",
+        "assets/SettingsView-be410a8f.js",
+        "assets/AboutView-78f1b22e.js",
+        "assets/RequirementsView-b7b3bf44.js"
+      ],
+      "largestModules": [
+        {
+          "id": "node_modules/@vue/runtime-core/dist/runtime-core.esm-bundler.js",
+          "renderedBytes": 129468
+        },
+        {
+          "id": "node_modules/vue-router/dist/vue-router.mjs",
+          "renderedBytes": 101359
+        },
+        {
+          "id": "node_modules/vue-i18n/dist/vue-i18n.mjs",
+          "renderedBytes": 81985
+        },
+        {
+          "id": "node_modules/@intlify/message-compiler/dist/message-compiler.esm-browser.js",
+          "renderedBytes": 56877
+        },
+        {
+          "id": "node_modules/@intlify/core-base/dist/core-base.mjs",
+          "renderedBytes": 49339
+        },
+        {
+          "id": "node_modules/@vue/runtime-dom/dist/runtime-dom.esm-bundler.js",
+          "renderedBytes": 28514
+        },
+        {
+          "id": "node_modules/@vue/reactivity/dist/reactivity.esm-bundler.js",
+          "renderedBytes": 26073
+        },
+        {
+          "id": "node_modules/pinia/dist/pinia.mjs",
+          "renderedBytes": 18918
+        },
+        {
+          "id": "node_modules/vue-unicons/dist/icons.js",
+          "renderedBytes": 16703
+        },
+        {
+          "id": "src/stores/store.js",
+          "renderedBytes": 12282
+        },
+        {
+          "id": "src/components/CamoButton.vue",
+          "renderedBytes": 11675
+        },
+        {
+          "id": "node_modules/@kyvg/vue3-notification/dist/index.es.js",
+          "renderedBytes": 10640
+        },
+        {
+          "id": "src/data/mw4/validate.js",
+          "renderedBytes": 10512
+        },
+        {
+          "id": "src/components/WeaponsTable.vue",
+          "renderedBytes": 8314
+        },
+        {
+          "id": "src/components/FiltersComponent.vue",
+          "renderedBytes": 8056
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+* {
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+body {
+  background: $background-color;
+  color: $text-color;
+  font-family: $font-family;
+  height: 100vh;
+  padding: 0 1.6rem;
+  overflow-x: hidden;
+}
+
+:focus-visible {
+  outline: 2px solid #c5b0e8;
+  outline-offset: 3px;
+}

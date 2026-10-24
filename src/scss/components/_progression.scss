@@ -1,0 +1,62 @@
+.completion-gold {
+  --completion-gradient: linear-gradient(
+    113deg,
+    #241b14 0%,
+    #66502c 32%,
+    #887146 48%,
+    #453621 65%,
+    #292017 100%
+  );
+  --completion-shadow: inset 0 0 0 1px #a98b50;
+}
+.completion-platinum {
+  --completion-gradient: linear-gradient(
+    113deg,
+    #242a30 0%,
+    #49545e 30%,
+    #68757f 47%,
+    #39434c 67%,
+    #242a30 100%
+  );
+  --completion-shadow: inset 0 0 0 1px #a4b0ba;
+}
+.completion-harmonic-break {
+  --completion-gradient: linear-gradient(
+    112deg,
+    #111416 0%,
+    #292329 30%,
+    #5c2933 49%,
+    #331c24 68%,
+    #121416 100%
+  );
+  --completion-shadow: inset 0 0 0 1px #86414e;
+}
+.completion-divergence {
+  --completion-gradient: linear-gradient(117deg, transparent 20%, #bac5ce26 44%, transparent 56%),
+    linear-gradient(
+      135deg,
+      #20262e 0%,
+      #424054 22%,
+      #344b63 39%,
+      #355951 55%,
+      #505459 69%,
+      #493e57 83%,
+      #222831 100%
+    );
+  --completion-shadow: inset 0 0 0 1px #bac3cc, inset 0 2px 4px #dce4e51a;
+}
+
+.mode-multiplayer {
+  --mode-accent: #8aaed2;
+}
+.mode-dmz {
+  --mode-accent: #c6a071;
+}
+.mode-warzone {
+  --mode-accent: #85ad94;
+}
+.weapon-jump-highlight {
+  outline: 2px solid #c1a5e1;
+  outline-offset: 5px;
+  border-radius: 3px;
+}

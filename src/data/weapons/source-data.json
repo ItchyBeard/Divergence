@@ -1,0 +1,1197 @@
+[
+  {
+    "weapon": "HAN 86",
+    "id": "han-86",
+    "category": "assault-rifles",
+    "specials": [
+      "Smoke",
+      "Stormwave",
+      "Red"
+    ],
+    "complete": true
+  },
+  {
+    "weapon": "AXION",
+    "id": "axion",
+    "category": "assault-rifles",
+    "military": [
+      10,
+      19,
+      26,
+      34,
+      41,
+      48,
+      55,
+      62
+    ],
+    "specials": [
+      {
+        "name": "Splinter Rock",
+        "id": "splinter-rock",
+        "multiplayer": "Get 20 Longshot Kills against Players",
+        "dmz": "Get 75 Longshot Kills against Enemies"
+      },
+      {
+        "name": "Sunset Tropic",
+        "id": "sunset-tropic",
+        "multiplayer": "Get 25 Player Kills with Miri 40MM Grenade Launcher",
+        "dmz": "Get 75 Enemy Kills with Miri 40MM Grenade Launcher"
+      },
+      {
+        "name": "Cyan",
+        "id": "cyan",
+        "multiplayer": "Get 2 Kills without Reloading 25 times against Players",
+        "dmz": "Get 2 Kills without Reloading 50 times against Enemies"
+      }
+    ],
+    "prestigeTerminus": null,
+    "complete": false
+  },
+  {
+    "weapon": "CRONEN SQUALL",
+    "id": "cronen-squall",
+    "category": "assault-rifles",
+    "military": [
+      10,
+      17,
+      24,
+      31,
+      39,
+      45,
+      54,
+      60
+    ],
+    "specials": [
+      {
+        "name": "Oni",
+        "id": "oni",
+        "multiplayer": "Get 20 Point Blank Kills against Players",
+        "dmz": "Get 75 Point Blank Kills against Enemies"
+      },
+      {
+        "name": "Urban Smoke",
+        "id": "urban-smoke",
+        "multiplayer": "Get 20 Mounted Kills against Players",
+        "dmz": "Get 20 Mounted Kills against Enemies"
+      },
+      {
+        "name": "Optical Reverb",
+        "id": "optical-reverb",
+        "multiplayer": "Get 3 Kills without Dying 15 times against Players",
+        "dmz": "Get 50 Kills while ADS against Enemies"
+      }
+    ],
+    "prestigeTerminus": null,
+    "complete": false
+  },
+  {
+    "weapon": "ODEN",
+    "id": "oden",
+    "category": "assault-rifles",
+    "military": [
+      12,
+      21,
+      25,
+      33,
+      39,
+      46,
+      53,
+      59
+    ],
+    "specials": [
+      {
+        "name": "Dark Moss",
+        "id": "dark-moss",
+        "multiplayer": "Get 25 Player Kills with Miri 40MM Grenade Launcher",
+        "dmz": "Get 75 Enemy Kills with Miri 40MM Grenade Launcher"
+      },
+      {
+        "name": "Shale",
+        "id": "shale",
+        "multiplayer": "Get 2 Kills without Reloading 10 times against Players",
+        "dmz": "Get 2 Kills without Reloading 30 times against Enemies"
+      },
+      {
+        "name": "Hot Rod",
+        "id": "hot-rod",
+        "multiplayer": "Get 100 Kills while ADS against Players",
+        "dmz": "Get 250 Kills while ADS against Enemies"
+      }
+    ],
+    "prestigeTerminus": null,
+    "complete": false
+  },
+  {
+    "weapon": "HYEON BURST",
+    "id": "hyeon-burst",
+    "category": "assault-rifles",
+    "military": [
+      10,
+      17,
+      26,
+      32,
+      40,
+      49,
+      55,
+      62
+    ],
+    "specials": [
+      {
+        "name": "Ponderosa",
+        "id": "ponderosa",
+        "multiplayer": "Get 2 Kills without Reloading 10 times against Players",
+        "dmz": "Get 2 Kills without Reloading 30 times against Enemies"
+      },
+      {
+        "name": "Red Rain",
+        "id": "red-rain",
+        "multiplayer": "Get 20 Longshot Kills against Players",
+        "dmz": "Get 75 Longshot Kills against Enemies"
+      },
+      {
+        "name": "Kitty Kaos",
+        "id": "kitty-kaos",
+        "multiplayer": "Get 100 Kills against Players using Full Auto",
+        "dmz": "Get 250 Kills against Players using a silencer"
+      }
+    ],
+    "prestigeTerminus": null,
+    "complete": false
+  },
+  {
+    "weapon": "KASTOV 762",
+    "id": "kastov-762",
+    "category": "assault-rifles",
+    "military": [
+      10,
+      19,
+      27,
+      37,
+      45,
+      54,
+      61,
+      67
+    ],
+    "specials": [
+      {
+        "name": "Samnim",
+        "id": "samnim",
+        "multiplayer": "Get 3 Kills without Dying 10 times",
+        "dmz": "Get 5 Enemy Kills without taking damage 25 times"
+      },
+      {
+        "name": "Raster Aux",
+        "id": "raster-aux",
+        "multiplayer": "Get 20 Longshot Kills against Players",
+        "dmz": "Get 75 Enemy Longshot Kills"
+      },
+      {
+        "name": "Yellow",
+        "id": "yellow",
+        "multiplayer": "Get 30 Hipfire Kills against Players",
+        "dmz": "Get 100 Enemy Hipfire Kills"
+      }
+    ],
+    "prestigeTerminus": null,
+    "complete": false
+  },
+  {
+    "weapon": "PATRIOT XMR",
+    "id": "patriot-xmr",
+    "category": "assault-rifles",
+    "military": [
+      11,
+      20,
+      28,
+      36,
+      43,
+      52,
+      59,
+      66
+    ],
+    "specials": [
+      {
+        "name": "Dune Sea",
+        "id": "dune-sea",
+        "multiplayer": "Get 20 Hipfire Kills against Players",
+        "dmz": "Get 75 Hipfire Kills against Enemies"
+      },
+      {
+        "name": "Scorch",
+        "id": "scorch",
+        "multiplayer": "Get 50 Player Kills using a Silencer",
+        "dmz": "Get 125 Enemy Kills using a Silencer"
+      },
+      {
+        "name": "Disperse",
+        "id": "disperse",
+        "multiplayer": "Get 30 Longshot Kills against Players",
+        "dmz": "Get 100 Longshot Kills against Enemies"
+      }
+    ],
+    "prestigeTerminus": null,
+    "complete": false
+  },
+  {
+    "weapon": "M4",
+    "id": "m4",
+    "category": "assault-rifles",
+    "military": [
+      10,
+      18,
+      26,
+      35,
+      39,
+      44,
+      51,
+      59
+    ],
+    "specials": [
+      {
+        "name": "Myriad",
+        "id": "myriad",
+        "multiplayer": "Get 20 Point Blank Kills against Players",
+        "dmz": "Get 75 Point Blank Kills against Enemies"
+      },
+      {
+        "name": "Green",
+        "id": "green",
+        "multiplayer": "Get 25 Kills from behind Players",
+        "dmz": "Get 100 Kills from behind Enemies"
+      },
+      {
+        "name": "Night Ops",
+        "id": "night-ops",
+        "multiplayer": "Get 20 Mounted Kills against Players",
+        "dmz": "Get 75 Mounted Kills against Enemies"
+      }
+    ],
+    "prestigeTerminus": null,
+    "complete": false
+  },
+  {
+    "weapon": "VEL 46",
+    "id": "vel-46",
+    "category": "submachine-guns",
+    "military": [
+      9,
+      15,
+      22,
+      28,
+      33,
+      40,
+      47,
+      54
+    ],
+    "specials": [
+      {
+        "name": "Jungle Shadow",
+        "id": "jungle-shadow",
+        "multiplayer": "Get 20 Enemy Kills while Prone",
+        "dmz": "Get 125 Enemy Kills while Aiming Down Sight"
+      },
+      {
+        "name": "Ghast",
+        "id": "ghast",
+        "multiplayer": "Get 20 Player Kills while Prone",
+        "dmz": "Get 100 Enemy Kills while Prone"
+      },
+      {
+        "name": "Gunmetal",
+        "id": "gunmetal",
+        "multiplayer": "Get 20 Headshots against Players",
+        "dmz": "Get 75 Headshots against Enemies"
+      }
+    ],
+    "prestigeTerminus": 61,
+    "complete": false
+  },
+  {
+    "weapon": "WZ.55 STRIGA",
+    "id": "wz-55-striga",
+    "category": "submachine-guns",
+    "military": [
+      12,
+      18,
+      23,
+      29,
+      36,
+      41,
+      47,
+      54
+    ],
+    "specials": [
+      {
+        "name": "Stellation",
+        "id": "stellation",
+        "multiplayer": "Get 50 Player Kills using a Silencer",
+        "dmz": "Get 125 Enemy Kills using a Silencer"
+      },
+      {
+        "name": "Rattlesnake",
+        "id": "rattlesnake",
+        "multiplayer": "Get 20 Player Kills while Jumping",
+        "dmz": "Get 50 Enemy Kills while Jumping"
+      },
+      {
+        "name": "Dark Tan",
+        "id": "dark-tan",
+        "multiplayer": "Get 40 Point Blank Kills against Players",
+        "dmz": "Get 100 Point Blank Kills"
+      }
+    ],
+    "prestigeTerminus": null,
+    "complete": false
+  },
+  {
+    "weapon": "ISO NIGHTSHADE",
+    "id": "iso-nightshade",
+    "category": "submachine-guns",
+    "military": [
+      12,
+      19,
+      25,
+      31,
+      38,
+      44,
+      50,
+      57
+    ],
+    "specials": [
+      {
+        "name": "Asphalt",
+        "id": "asphalt",
+        "multiplayer": "Get 50 Player Kills while Aiming Down Sights",
+        "dmz": "Get 125 Kills while Aiming Down Sights"
+      },
+      {
+        "name": "Black Topo",
+        "id": "black-topo",
+        "multiplayer": "Get 10 Double Kills against Players",
+        "dmz": "Get 30 Double Kills against Enemies"
+      },
+      {
+        "name": "Brown",
+        "id": "brown",
+        "multiplayer": "Get 3 Player Kills without Dying 15 times",
+        "dmz": "Get 3 Enemy Kills without taking damage 50 times"
+      }
+    ],
+    "prestigeTerminus": null,
+    "complete": false
+  },
+  {
+    "weapon": "PPSH-41",
+    "id": "ppsh-41",
+    "category": "submachine-guns",
+    "military": [
+      11,
+      17,
+      23,
+      31,
+      38,
+      44,
+      51,
+      57
+    ],
+    "specials": [
+      {
+        "name": "Blackwell",
+        "id": "blackwell",
+        "multiplayer": "Get 10 Double Kills against Players",
+        "dmz": "Get 30 Double Kills against Players"
+      },
+      {
+        "name": "Iron",
+        "id": "iron",
+        "multiplayer": "Get 20 Longshot Kills against Players",
+        "dmz": "Get 75 Longshot Kills"
+      },
+      {
+        "name": "Currents",
+        "id": "currents",
+        "multiplayer": "Get 100 Player Kills while Aiming Down Sights",
+        "dmz": "Get 250 Kills while Aiming Down Sights"
+      }
+    ],
+    "prestigeTerminus": null,
+    "complete": false
+  },
+  {
+    "weapon": "X-58 NYX",
+    "id": "x-58-nyx",
+    "category": "submachine-guns",
+    "military": [
+      9,
+      15,
+      20,
+      25,
+      29,
+      35,
+      42,
+      47
+    ],
+    "specials": [
+      {
+        "name": "Sniper Veil",
+        "id": "sniper-veil",
+        "multiplayer": "Get 20 Player Kills while Moving",
+        "dmz": "Get 75 Kills while Moving"
+      },
+      {
+        "name": "Carbonated",
+        "id": "carbonated",
+        "multiplayer": "Get 20 Longshot Kills against Players",
+        "dmz": "Get 75 Longshot Kills against Enemies"
+      },
+      {
+        "name": "Lime",
+        "id": "lime",
+        "multiplayer": "Get 40 Headshot Kills against Players",
+        "dmz": "Get 100 Longshot Kills against Enemies"
+      }
+    ],
+    "prestigeTerminus": null,
+    "complete": false
+  },
+  {
+    "weapon": "WARLORD",
+    "id": "warlord",
+    "category": "shotguns",
+    "military": [
+      13,
+      19,
+      25,
+      30,
+      37,
+      43,
+      49,
+      55
+    ],
+    "specials": [
+      {
+        "name": "Redshift",
+        "id": "redshift",
+        "multiplayer": "Get 20 Player Kills while Moving",
+        "dmz": "Get 75 Enemy Kills while Moving"
+      },
+      {
+        "name": "Corrupted Clay",
+        "id": "corrupted-clay",
+        "multiplayer": "Get 10 Double Kills against Players",
+        "dmz": "Get 30 Double Kills against Enemies"
+      },
+      {
+        "name": "Magma Ire",
+        "id": "magma-ire",
+        "multiplayer": "Get 50 Player Kills while Prone",
+        "dmz": "Get 125 Enemy Kills while Prone"
+      }
+    ],
+    "prestigeTerminus": null,
+    "complete": false
+  },
+  {
+    "weapon": "REZI 12",
+    "id": "rezi-12",
+    "category": "shotguns",
+    "military": [
+      11,
+      18,
+      26,
+      30,
+      38,
+      42,
+      47,
+      54
+    ],
+    "specials": [
+      {
+        "name": "Struck Oil",
+        "id": "struck-oil",
+        "multiplayer": "Get 20 Point Blank Kills against Players",
+        "dmz": "Get 75 Point Blank Kills against Enemies"
+      },
+      {
+        "name": "Brushstroke",
+        "id": "brushstroke",
+        "multiplayer": "Get 10 Longshot Kills against Players",
+        "dmz": "Get 50 Longshot Kills against Enemies"
+      },
+      {
+        "name": "White Pine",
+        "id": "white-pine",
+        "multiplayer": "Get 40 Player Kills while Jumping",
+        "dmz": "Get 100 Enemy Kills while Jumping"
+      }
+    ],
+    "prestigeTerminus": null,
+    "complete": false
+  },
+  {
+    "weapon": "APOC 338",
+    "id": "apoc-338",
+    "category": "light-machine-guns",
+    "military": [
+      9,
+      15,
+      22,
+      26,
+      33,
+      40,
+      44,
+      51
+    ],
+    "specials": [
+      {
+        "name": "Phantom Flux",
+        "id": "phantom-flux",
+        "multiplayer": "Get 20 Hipfire Kills against Players",
+        "dmz": "Get 75 Hipfire Kills against Enemies"
+      },
+      {
+        "name": "Mineral",
+        "id": "mineral",
+        "multiplayer": "Get 20 Longshot Kills against Players",
+        "dmz": "Get 75 Longshot Kills"
+      },
+      {
+        "name": "Tiger Swipe",
+        "id": "tiger-swipe",
+        "multiplayer": "Get 100 Player Kills while Prone",
+        "dmz": "Get 250 Enemy Kills while Prone"
+      }
+    ],
+    "prestigeTerminus": null,
+    "complete": false
+  },
+  {
+    "weapon": "FINN LMG",
+    "id": "finn-lmg",
+    "category": "light-machine-guns",
+    "military": [
+      12,
+      18,
+      24,
+      31,
+      37,
+      42,
+      48,
+      53
+    ],
+    "specials": [
+      {
+        "name": "Desert Tactics",
+        "id": "desert-tactics",
+        "multiplayer": "Get 20 Point Blank Kills against Players",
+        "dmz": "Get 75 Point Blank Kills against Enemies"
+      },
+      {
+        "name": "Green Tiger",
+        "id": "green-tiger",
+        "multiplayer": "Get 2 Kills without Reloading 10 times against Players",
+        "dmz": "Get 2 Kills without Reloading 30 times against Enemies"
+      },
+      {
+        "name": "Thunderhead",
+        "id": "thunderhead",
+        "multiplayer": "Get 30 Longshot Kills against Players",
+        "dmz": "Get 100 Longshot Kills against Enemies"
+      }
+    ],
+    "prestigeTerminus": null,
+    "complete": false
+  },
+  {
+    "weapon": "TYPE 73",
+    "id": "type-73",
+    "category": "light-machine-guns",
+    "military": [
+      12,
+      19,
+      26,
+      34,
+      41,
+      48,
+      55,
+      61
+    ],
+    "specials": [
+      {
+        "name": "Ash Pine",
+        "id": "ash-pine",
+        "multiplayer": "Get 20 Mounted Kills against Players",
+        "dmz": "Get 75 Mounted Kills against Enemies"
+      },
+      {
+        "name": "Mineral",
+        "id": "mineral",
+        "multiplayer": "Get 10 Double Kills against Players",
+        "dmz": "Get 30 Double Kills against Enemies"
+      },
+      {
+        "name": "Tiger Swipe",
+        "id": "tiger-swipe",
+        "multiplayer": "Get 40 Headshots against Players",
+        "dmz": "Get 100 Headshots against Enemies"
+      }
+    ],
+    "prestigeTerminus": null,
+    "complete": false
+  },
+  {
+    "weapon": "MOISIN NAGANT",
+    "id": "mosin-nagant",
+    "category": "marksman-rifles",
+    "military": [
+      10,
+      17,
+      25,
+      31,
+      38,
+      47,
+      55,
+      61
+    ],
+    "specials": [
+      {
+        "name": "Ice Sheer",
+        "id": "ice-sheer",
+        "multiplayer": "Get 25 Headshots against Players",
+        "dmz": "Get 75 Headshots against Enemies"
+      },
+      {
+        "name": "Fractal Snow",
+        "id": "fractal-snow",
+        "multiplayer": "Get 3 Player Kills without Dying 15 times",
+        "dmz": "Get 2 Enemy Kills without Dying 30 times"
+      },
+      {
+        "name": "Sticker Shock",
+        "id": "sticker-shock",
+        "multiplayer": "Get 20 Headshots against Players",
+        "dmz": "Get 250 Enemy Kills while Focused"
+      }
+    ],
+    "prestigeTerminus": null,
+    "complete": false
+  },
+  {
+    "weapon": "MAR-9",
+    "id": "mar-9",
+    "category": "marksman-rifles",
+    "military": [
+      10,
+      19,
+      29,
+      38,
+      45,
+      52,
+      58,
+      69
+    ],
+    "specials": [
+      {
+        "name": "Mangrove",
+        "id": "mangrove",
+        "multiplayer": "Get 20 Mounted Kills against Players",
+        "dmz": "Get 75 Mounted Kills against Enemies"
+      },
+      {
+        "name": "Fungal Grid",
+        "id": "fungal-grid",
+        "multiplayer": "Get 25 Player Kills while Crouched",
+        "dmz": "Get 75 Enemy Kills while Crouched"
+      },
+      {
+        "name": "White",
+        "id": "white",
+        "multiplayer": "Get 30 Longshot Kills against Players",
+        "dmz": "Get 100 Longshot Kills against Enemies"
+      }
+    ],
+    "prestigeTerminus": null,
+    "complete": false
+  },
+  {
+    "weapon": "ORIS 8.6",
+    "id": "oris-8-6",
+    "category": "marksman-rifles",
+    "military": [
+      11,
+      18,
+      27,
+      33,
+      42,
+      49,
+      55,
+      61
+    ],
+    "specials": [
+      {
+        "name": "Hibiscus",
+        "id": "hibiscus",
+        "multiplayer": "Get 10 Quickscope Kills against Players",
+        "dmz": "Get 50 Quickscope Kills against Enemies"
+      },
+      {
+        "name": "Fire Topo",
+        "id": "fire-topo",
+        "multiplayer": "Get 20 Double Kills against Players",
+        "dmz": "Get 50 Double Kills against Enemies"
+      },
+      {
+        "name": "Deep Space",
+        "id": "deep-space",
+        "multiplayer": "Get 3 Kills without Dying against Players 15 times",
+        "dmz": "Get 3 Enemy Kills without taking damage 50 times"
+      }
+    ],
+    "prestigeTerminus": null,
+    "complete": false
+  },
+  {
+    "weapon": "SIGNAL 50",
+    "id": "signal-50",
+    "category": "sniper-rifles",
+    "military": [
+      10,
+      18,
+      28,
+      35,
+      43,
+      52,
+      57,
+      67
+    ],
+    "specials": [
+      {
+        "name": "Anaconda",
+        "id": "anaconda",
+        "multiplayer": "Get 2 Player Kills within 5 Seconds 10 times",
+        "dmz": "Get 2 Kills within 5 Seconds 25 times"
+      },
+      {
+        "name": "Ripplewave",
+        "id": "ripplewave",
+        "multiplayer": "Get 20 Quickscope Kills against Players",
+        "dmz": "Get 30 Quickscope Kills against Enemies"
+      },
+      {
+        "name": "Sunburn",
+        "id": "sunburn",
+        "multiplayer": "Get 40 Longshot Kills against Players",
+        "dmz": "Get 100 One Shot Kills"
+      }
+    ],
+    "prestigeTerminus": null,
+    "complete": false
+  },
+  {
+    "weapon": "KG-7 VULCAN",
+    "id": "kg-7-vulcan",
+    "category": "sniper-rifles",
+    "military": [
+      13,
+      22,
+      31,
+      38,
+      47,
+      54,
+      61,
+      69
+    ],
+    "specials": [
+      {
+        "name": "Treeline",
+        "id": "treeline",
+        "multiplayer": "Get 10 Hipfire Kills against Players",
+        "dmz": "Get 1 Kills without taking Damage 25 times"
+      },
+      {
+        "name": "Spidersilk",
+        "id": "spidersilk",
+        "multiplayer": "Get 20 Headshot Kills against Players",
+        "dmz": "Get 75 Kills while Focused"
+      },
+      {
+        "name": "Tension",
+        "id": "tension",
+        "multiplayer": "Get 2 Player Kills without taking Damage 20 times",
+        "dmz": "Get 2 Enemy Kills without taking damage 30 times"
+      }
+    ],
+    "prestigeTerminus": null,
+    "complete": false
+  },
+  {
+    "weapon": "ASTAROTH .57",
+    "id": "astaroth-57",
+    "category": "sniper-rifles",
+    "military": [
+      10,
+      15,
+      20,
+      26,
+      32,
+      37,
+      42,
+      48
+    ],
+    "specials": [
+      {
+        "name": "Dry Brush",
+        "id": "dry-brush",
+        "multiplayer": "Get 3 Player Kills without Dying 10 times",
+        "dmz": "Get 3 Enemy Kills without taking damage 25 times"
+      },
+      {
+        "name": "Backcountry",
+        "id": "backcountry",
+        "multiplayer": "Get 20 Mounted Kills against Players",
+        "dmz": "Get 75 Mounted Kills against Enemies"
+      },
+      {
+        "name": "Dread Plague",
+        "id": "dread-plague",
+        "multiplayer": "Get 2 Player Kills within 5 Seconds 20 times",
+        "dmz": "Get 2 Enemy Kills within 5 Seconds 50 times"
+      }
+    ],
+    "prestigeTerminus": null,
+    "complete": false
+  },
+  {
+    "weapon": ".50 GS",
+    "id": "50-gs",
+    "category": "handguns",
+    "military": [
+      10,
+      16,
+      22,
+      28,
+      32,
+      36,
+      40,
+      46
+    ],
+    "specials": [
+      {
+        "name": "Frosted",
+        "id": "frosted",
+        "multiplayer": "Get 20 Headshot Kills against Players",
+        "dmz": "Get 75 Headshot Kills against Enemies"
+      },
+      {
+        "name": "Splatter Ops",
+        "id": "splatter-ops",
+        "multiplayer": "Get 7 Double Kills against Players",
+        "dmz": "Get 20 Double Kills against Enemies"
+      },
+      {
+        "name": "Red Tiger",
+        "id": "red-tiger",
+        "multiplayer": "Get 30 Point Blank Kills against Players",
+        "dmz": "Get 75 Point Blank Kills against Enemies"
+      }
+    ],
+    "prestigeTerminus": null,
+    "complete": false
+  },
+  {
+    "weapon": "KRAIT P68",
+    "id": "krait-p68",
+    "category": "handguns",
+    "military": [
+      10,
+      14,
+      18,
+      22,
+      25,
+      28,
+      32,
+      35
+    ],
+    "specials": [
+      {
+        "name": "Off Grid",
+        "id": "off-grid",
+        "multiplayer": "Get 15 Player Kills while Ledge Hanging",
+        "dmz": "Get 50 Enemy Kills while Ledge Hanging"
+      },
+      {
+        "name": "Urban Flamingo",
+        "id": "urban-flamingo",
+        "multiplayer": "Get 15 Point Blank Kills against Players",
+        "dmz": "Get 50 Point Blank Kills against Enemies"
+      },
+      {
+        "name": "Smokescreen",
+        "id": "smokescreen",
+        "multiplayer": "Get 50 Player Kills while using a Silencer",
+        "dmz": "Get 125 Enemy Kills while using a Silencer"
+      }
+    ],
+    "prestigeTerminus": null,
+    "complete": false
+  },
+  {
+    "weapon": "MOJAVE .357",
+    "id": "mojave-357",
+    "category": "handguns",
+    "military": [
+      9,
+      13,
+      18,
+      22,
+      26,
+      30,
+      35,
+      40
+    ],
+    "specials": [
+      {
+        "name": "Miami",
+        "id": "miami",
+        "multiplayer": "Get 20 Headshot Kills against Players",
+        "dmz": "Get 50 One Shot Kills against Players"
+      },
+      {
+        "name": "Wallpaper",
+        "id": "wallpaper",
+        "multiplayer": "Get 7 Double Kills against Players",
+        "dmz": "Get 2 Enemy Kills without Reloading 20 times"
+      },
+      {
+        "name": "Garland",
+        "id": "garland",
+        "multiplayer": "Get 30 Point Blank Kills against Players",
+        "dmz": "Get 75 Point Blank Kills against Enemies"
+      }
+    ],
+    "prestigeTerminus": null,
+    "complete": false
+  },
+  {
+    "weapon": "SANG 9MM",
+    "id": "sang-9mm",
+    "category": "handguns",
+    "military": [
+      9,
+      13,
+      17,
+      21,
+      25,
+      28,
+      31,
+      35
+    ],
+    "specials": [
+      {
+        "name": "Autumn",
+        "id": "autumn",
+        "multiplayer": "Get 25 Player Kills while Aiming Down Sights",
+        "dmz": "Get 75 Enemy Kills while Aiming Down Sights"
+      },
+      {
+        "name": "Snakeskin",
+        "id": "snakeskin",
+        "multiplayer": "Get 50 Player Kills while using Akimbo",
+        "dmz": "Get 3 Enemy Kills without taking damage 15 times"
+      },
+      {
+        "name": "Space Time",
+        "id": "space-time",
+        "multiplayer": "Get 3 Player Kills without Dying 5 times",
+        "dmz": "Get 125 Enemy Kills while using Akimbo"
+      }
+    ],
+    "prestigeTerminus": null,
+    "complete": false
+  },
+  {
+    "weapon": "JOKR",
+    "id": "jokr",
+    "category": "launchers",
+    "military": [
+      6,
+      11,
+      16,
+      21,
+      26,
+      31,
+      36,
+      41
+    ],
+    "specials": [
+      {
+        "name": "Thicket",
+        "id": "thicket",
+        "multiplayer": "Get 10 Direct Shot Kills against Players",
+        "dmz": "Get 15 Double Kills against Enemies"
+      },
+      {
+        "name": "Tectonic",
+        "id": "tectonic",
+        "multiplayer": "Get 5 Double Kills against Players",
+        "dmz": "Get 25 Longshot Kills against Enemies"
+      },
+      {
+        "name": "Blue Tiger",
+        "id": "blue-tiger",
+        "multiplayer": "Destroy 30 Killstreaks or Vehicles",
+        "dmz": "Destroy 50 Killstreaks or Vehicles"
+      }
+    ],
+    "prestigeTerminus": null,
+    "complete": false
+  },
+  {
+    "weapon": "PILA",
+    "id": "pila",
+    "category": "launchers",
+    "military": [
+      6,
+      11,
+      16,
+      21,
+      26,
+      31,
+      36,
+      41
+    ],
+    "specials": [
+      {
+        "name": "Frontier",
+        "id": "frontier",
+        "multiplayer": "Get 10 Direct Shot Kills against Players",
+        "dmz": "Get 25 Direct Shot Kills against Enemies"
+      },
+      {
+        "name": "Sandwash",
+        "id": "sandwash",
+        "multiplayer": "Get 5 Double Kills against Players",
+        "dmz": "Get 100 Double Kills against Enemies"
+      },
+      {
+        "name": "Digital Fall",
+        "id": "digital-fall",
+        "multiplayer": "Destroy 30 Killstreaks or Vehicles",
+        "dmz": "Destroy 50 Killstreaks or Vehicles"
+      }
+    ],
+    "prestigeTerminus": null,
+    "complete": false
+  },
+  {
+    "weapon": "PM-40 ANVIL",
+    "id": "pm-40-anvil",
+    "category": "launchers",
+    "military": [
+      6,
+      11,
+      16,
+      21,
+      26,
+      31,
+      36,
+      41
+    ],
+    "specials": [
+      {
+        "name": "Night Snow",
+        "id": "night-snow",
+        "multiplayer": "Get 10 Direct Shot Kills against Players",
+        "dmz": "Get 25 Direct Shot Kills against Enemies"
+      },
+      {
+        "name": "Recursive",
+        "id": "recursive",
+        "multiplayer": "Get 5 Double Kills against Players",
+        "dmz": "Get 2 Kills without Reloading 20 times against Enemies"
+      },
+      {
+        "name": "Urban Standard",
+        "id": "urban-standard",
+        "multiplayer": "Destroy 30 Killstreaks or Vehicles",
+        "dmz": "Get 100 Enemy Kills while Moving"
+      }
+    ],
+    "prestigeTerminus": null,
+    "complete": false
+  },
+  {
+    "weapon": "RPG 8",
+    "id": "rpg-8",
+    "category": "launchers",
+    "military": [
+      6,
+      11,
+      16,
+      21,
+      26,
+      31,
+      36,
+      41
+    ],
+    "specials": [
+      {
+        "name": "Digi Bark",
+        "id": "digi-bark",
+        "multiplayer": "Get 10 Direct Shot Kills against Players",
+        "dmz": "Get 25 Enemy Kills while Prone"
+      },
+      {
+        "name": "Stone Bits",
+        "id": "stone-bits",
+        "multiplayer": "Get 5 Double Kills against Players",
+        "dmz": "Get 25 Longshot Kills against Enemies"
+      },
+      {
+        "name": "Bubblegum Ops",
+        "id": "bubblegum-ops",
+        "multiplayer": "Destroy 30 Killstreaks or Vehicles",
+        "dmz": "Destroy 50 Killstreaks or Vehicles"
+      }
+    ],
+    "prestigeTerminus": null,
+    "complete": false
+  },
+  {
+    "weapon": "FSS CARBON EDGE 1095",
+    "id": "fss-carbon-edge-1095",
+    "category": "melee",
+    "military": [
+      6,
+      11,
+      16,
+      21,
+      26,
+      31,
+      36,
+      41
+    ],
+    "specials": [
+      {
+        "name": "Raster Lite",
+        "id": "raster-lite",
+        "multiplayer": "Get 25 Enemy Kills while Jumping",
+        "dmz": "Get 100 Enemy Kills while Jumping"
+      },
+      {
+        "name": "Stockpile",
+        "id": "stockpile",
+        "multiplayer": "Get 25 Enemy Kills using the Heavy Melee Finisher",
+        "dmz": "Get 75 Enemy Kills using the Heavy Melee Finisher"
+      },
+      {
+        "name": "Deathbed",
+        "id": "deathbed",
+        "multiplayer": "Get 2 Kills in 5 seconds against Enemies 25 times",
+        "dmz": "Get 2 Kills in 5 seconds against Enemies 50 times"
+      }
+    ],
+    "prestigeTerminus": 47,
+    "complete": false
+  }
+]
