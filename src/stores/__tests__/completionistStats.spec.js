@@ -46,13 +46,13 @@ describe('shared Completionist milestone applicability', () => {
     })
     expect(store.completionistStats.find((camo) => camo.id === 'gold')).toMatchObject({
       completed: 0,
-      total: 2,
+      total: 33,
     })
     expect(store.completionistStats.find((camo) => camo.id === 'platinum')).toMatchObject({
       completed: 1,
-      total: 2,
+      total: 33,
     })
-    expect(store.overallProgress.total).toBe(30)
+    expect(store.overallProgress.total).toBe(495)
   })
   it('counts the same explicit shared flags in every mode while excluding Prestige and mastery', () => {
     const store = useStore()
@@ -61,10 +61,10 @@ describe('shared Completionist milestone applicability', () => {
     store.toggleMastery('dmz', 'chiral')
     const expected = store.completionistStats.map((camo) => [camo.id, camo.completed, camo.total])
     expect(expected).toEqual([
-      ['gold', 1, 2],
-      ['platinum', 1, 2],
-      ['harmonic-break', 0, 2],
-      ['divergence', 0, 2],
+      ['gold', 1, 33],
+      ['platinum', 1, 33],
+      ['harmonic-break', 0, 33],
+      ['divergence', 0, 33],
     ])
     for (const mode of ['multiplayer', 'dmz', 'warzone']) {
       store.camoRows(store.weapons[0], mode)

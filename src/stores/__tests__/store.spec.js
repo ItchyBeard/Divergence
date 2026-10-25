@@ -112,7 +112,7 @@ describe('MW4 progression store', () => {
     expect(store.filteredWeapons.map((weapon) => weapon.id)).toEqual(['han-86', 'test-seasonal'])
     expect(store.releasedWeapons).toHaveLength(2)
     store.toggleCamo('test-seasonal', 'smoke', 'multiplayer')
-    expect(store.overallProgress).toEqual({ completed: 1, total: 30, percent: 3 })
+    expect(store.overallProgress).toEqual({ completed: 1, total: 495, percent: 0 })
   })
 
   it('rechecks dates on refresh and immediately before mutations, including release day', () => {

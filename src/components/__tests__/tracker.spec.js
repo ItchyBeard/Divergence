@@ -162,10 +162,10 @@ describe('MW4 tracker interface', () => {
       expect(sections[index].querySelector('.tier-band')).not.toBeNull()
       expect(sections[index].querySelector('.mini-fill').style.background).toBe('')
       expect(sections[index].querySelector('.mini-fill').style.width).toBe(
-        index === 0 ? '100%' : '0%'
+        index === 0 ? 100 / 33 + '%' : '0%'
       )
     }
-    expect(sections[0].querySelector('.progress-text').textContent).toBe('1 / 1')
+    expect(sections[0].querySelector('.progress-text').textContent).toBe('1 / 33')
   })
 
   it('double-clicks a weapon name and offers a direct accessible bulk toggle', async () => {
@@ -187,8 +187,8 @@ describe('MW4 tracker interface', () => {
     store.toggleMastery('dmz', 'chiral')
     store.togglePrestige('han-86', 'pyroclast')
     await nextTick()
-    expect(host.querySelector('[role="progressbar"]').getAttribute('aria-valuenow')).toBe('53')
-    expect(host.textContent).toContain('8/15')
+    expect(host.querySelector('[role="progressbar"]').getAttribute('aria-valuenow')).toBe('2')
+    expect(host.textContent).toContain('8/495')
     store.resetProgress()
     await nextTick()
     expect(host.querySelector('[role="progressbar"]').getAttribute('aria-valuenow')).toBe('0')
@@ -306,9 +306,9 @@ describe('mode context and compact Completionist milestones', () => {
     })
     store.toggleCamo('han-86', 'platinum', 'multiplayer')
     await nextTick()
-    expect(counters[0].querySelector('.progress-fill').style.width).toBe('100%')
+    expect(counters[0].querySelector('.progress-fill').style.width).toBe(100 / 33 + '%')
     expect(counters[1].querySelector('[role=progressbar]').getAttribute('aria-valuenow')).toBe(
-      '100'
+      String(100 / 33)
     )
     expect(counters[2].querySelector('[role=progressbar]').getAttribute('aria-valuenow')).toBe('0')
   })

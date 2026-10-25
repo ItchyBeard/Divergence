@@ -23,7 +23,7 @@
                 <div
                   class="mini-fill"
                   :style="{
-                    width: (camo.total ? (camo.completed / camo.total) * 100 : 0) + '%',
+                    width: progressPercentage(camo.completed, camo.total) + '%',
                   }"></div>
               </div>
             </div>
@@ -65,6 +65,7 @@
 import { ref, nextTick } from 'vue'
 import { useStore } from '@/stores/store'
 import { modes } from '@/data/mw4/modes'
+import { progressPercentage } from '@/data/mw4/launchRequirements'
 import ModalComponent from './ModalComponent.vue'
 defineProps({ mode: { type: String, required: true } })
 const store = useStore()

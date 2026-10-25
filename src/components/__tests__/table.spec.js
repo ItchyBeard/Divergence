@@ -230,7 +230,9 @@ describe('classic table rendering and interactions', () => {
     expect(ids()).toEqual(['test-bravo'])
     expect(host.querySelectorAll('thead [data-column-id]')).toHaveLength(7)
     expect(row('test-bravo').querySelectorAll('.table-indicator')).toHaveLength(7)
-    expect(host.querySelector('tbody .category-row').textContent).toBe('Submachine Guns')
+    expect(host.querySelector('tbody .category-row span:first-child').textContent).toBe(
+      'Submachine Guns'
+    )
     store.save.weapons['test-bravo'] = { sharedCamos: { gold: true } }
     store.setFilters({ hideCamoIds: ['gold'] })
     await nextTick()

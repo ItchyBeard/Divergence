@@ -32,7 +32,7 @@
         <section v-for="(weapons, category) in grouped" :key="category" class="category">
           <h2>
             <span>{{ category }}</span
-            ><span>{{ categoryProgress(weapons) }}</span>
+            ><span>{{ categoryProgress(category) }}</span>
           </h2>
           <div class="weapons">
             <WeaponComponent
@@ -87,17 +87,10 @@ const grouped = computed(() => {
 const favorites = computed(() =>
   visibleWeapons.value.filter((weapon) => store.isFavorite(weapon.id))
 )
-const categoryProgress = (weapons) => {
-  const released = weapons.filter((weapon) => weapon.available)
-  return (
-    released.filter((weapon) =>
-      props.track === 'prestige'
-        ? store.prestigeCompleted(weapon.id)
-        : store.camoCompleted(weapon.id, store.preferences.completionTarget)
-    ).length +
-    '/' +
-    released.length
-  )
+const categoryProgress = (name) => {
+  const id = store.weaponCategories.find((category) => category.name === name)?.id
+  const progress = store.categoryProgress(id, props.track === 'prestige')
+  return `${progress.completed}/${progress.total}`
 }
 </script>
 <style lang="scss" scoped>

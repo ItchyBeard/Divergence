@@ -4,12 +4,23 @@
       <div v-if="showBackdrop" v-show="show" class="backdrop" @click.self="close()"></div>
     </transition>
     <transition name="fadeInUp">
-      <div v-show="show" class="modal" :style="{ maxWidth: `${maxWidth}px` }">
+      <div
+        v-show="show"
+        ref="dialog"
+        class="modal"
+        role="dialog"
+        aria-modal="true"
+        :aria-labelledby="showHeader ? titleId : undefined"
+        :aria-label="showHeader ? undefined : 'Dialog'"
+        tabindex="-1"
+        :style="{ maxWidth: `${maxWidth}px` }">
         <div v-if="showHeader" :class="`modal-header ${mode}`">
-          <h5>
+          <h5 :id="titleId">
             <slot name="header"></slot>
           </h5>
-          <IconComponent name="times" size="18" @click="close()" />
+          <button class="modal-close" aria-label="Close dialog" @click="close()">
+            <IconComponent name="times" size="18" />
+          </button>
         </div>
         <div class="modal-body">
           <slot></slot>
@@ -26,6 +37,7 @@
 
 <script>
 export default {
+  emits: ['closed'],
   props: {
     showBackdrop: {
       type: Boolean,
@@ -56,24 +68,80 @@ export default {
     return {
       active: false,
       show: false,
+      openTimer: null,
+      closeTimer: null,
+      previousFocus: null,
     }
+  },
+  computed: {
+    titleId() {
+      return `modal-title-${this.$.uid}`
+    },
+  },
+  beforeUnmount() {
+    clearTimeout(this.openTimer)
+    clearTimeout(this.closeTimer)
+    document.removeEventListener('keydown', this.handleKeydown)
+    if (this.active) this.previousFocus?.focus?.()
   },
 
   methods: {
     open() {
+      if (this.active) return
+      clearTimeout(this.closeTimer)
+      this.previousFocus = document.activeElement
       this.active = true
-
-      setTimeout(() => {
+      document.addEventListener('keydown', this.handleKeydown)
+      this.openTimer = setTimeout(async () => {
         this.show = true
+        await this.$nextTick()
+        this.$refs.dialog?.focus()
       }, 100)
     },
 
     close() {
+      if (!this.active) return
+      clearTimeout(this.openTimer)
       this.show = false
-
-      setTimeout(() => {
+      document.removeEventListener('keydown', this.handleKeydown)
+      this.previousFocus?.focus?.()
+      this.$emit('closed')
+      this.closeTimer = setTimeout(() => {
         this.active = false
       }, 300)
+    },
+    handleKeydown(event) {
+      if (event.key === 'Escape') {
+        event.preventDefault()
+        this.close()
+        return
+      }
+      if (event.key !== 'Tab') return
+      const controls = [
+        ...this.$refs.dialog.querySelectorAll(
+          'button:not(:disabled), a[href], input:not(:disabled), select:not(:disabled), textarea:not(:disabled), [tabindex="0"]'
+        ),
+      ]
+      const first = controls[0],
+        last = controls.at(-1)
+      if (!controls.length) {
+        event.preventDefault()
+        this.$refs.dialog.focus()
+        return
+      }
+      if (
+        event.shiftKey &&
+        (document.activeElement === first || !controls.includes(document.activeElement))
+      ) {
+        event.preventDefault()
+        last.focus()
+      } else if (
+        !event.shiftKey &&
+        (document.activeElement === last || !controls.includes(document.activeElement))
+      ) {
+        event.preventDefault()
+        first.focus()
+      }
     },
   },
 }
@@ -108,6 +176,8 @@ export default {
     box-shadow: 0px 5px 10px 0px rgba(black, 0.5);
     margin-bottom: 20vh;
     overflow: hidden;
+    max-height: 85vh;
+    overflow-y: auto;
     position: relative;
     width: 90%;
     z-index: 2;
@@ -155,6 +225,25 @@ export default {
         margin-left: 15px;
       }
     }
+  }
+}
+.modal-close {
+  width: auto;
+  flex-shrink: 0;
+  min-width: 44px;
+  min-height: 44px;
+  background: transparent;
+  border: 0;
+  color: inherit;
+  padding: 0;
+}
+@media (prefers-reduced-motion: reduce) {
+  .fade-enter-active,
+  .fade-leave-active,
+  .fadeInUp-enter-active,
+  .fadeInUp-leave-active {
+    transition: none !important;
+    animation: none !important;
   }
 }
 </style>

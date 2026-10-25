@@ -27,6 +27,11 @@ export const emptySave = () => ({
   version: saveVersion,
   weapons: {},
   prestige: {},
+  prestigeLevel: null,
+  prestigeAutomatic: {},
+  firstCamoTracked: null,
+  completedAt: null,
+  celebrationHandled: false,
   mastery: Object.fromEntries(modeIds.map((mode) => [mode, {}])),
   favorites: [],
   filters: defaultFilters(),
@@ -70,6 +75,28 @@ export function parseSave(input) {
       !Object.entries(value.prestige).every(([id, camos]) => stableId(id) && flags(camos)))
   )
     fail('invalid weapon prestige records')
+  if (
+    'prestigeLevel' in value &&
+    value.prestigeLevel !== null &&
+    (!Number.isSafeInteger(value.prestigeLevel) || value.prestigeLevel < 0)
+  )
+    fail('invalid prestige level')
+  if (
+    'prestigeAutomatic' in value &&
+    (!object(value.prestigeAutomatic) ||
+      !Object.entries(value.prestigeAutomatic).every(([id, camos]) => stableId(id) && flags(camos)))
+  )
+    fail('invalid automatic prestige records')
+  for (const field of ['firstCamoTracked', 'completedAt']) {
+    if (
+      field in value &&
+      value[field] !== null &&
+      (typeof value[field] !== 'string' || !Number.isFinite(Date.parse(value[field])))
+    )
+      fail('invalid achievement date')
+  }
+  if ('celebrationHandled' in value && typeof value.celebrationHandled !== 'boolean')
+    fail('invalid celebration status')
   if (
     !object(value.mastery) ||
     !only(value.mastery, modeIds) ||

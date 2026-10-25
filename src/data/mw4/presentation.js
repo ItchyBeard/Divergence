@@ -92,7 +92,9 @@ export function prerequisiteText(camo, weapon) {
       .map((stage) => stage[0].toUpperCase() + stage.slice(1))
       .join(' and ')} camos.`
   else if (rule.scope === 'category')
-    summary = `Gold on ${rule.count ?? 'all required'} ${categoriesById[weapon.category].name}.`
+    summary = `Gold on ${rule.count ?? categoriesById[weapon.category].goldRequired} ${
+      categoriesById[weapon.category].name
+    }.`
   else if (rule.scope === 'arsenal' && rule.count) summary = `${name} on ${rule.count} weapons.`
   else if (rule.scope === 'arsenal') summary = 'Divergence across the arsenal.'
   else summary = `${name} in this mode.`

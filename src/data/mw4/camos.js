@@ -1,4 +1,5 @@
 import { challenge, warzoneUnavailable } from './challenges'
+import { launchRequirements } from './launchRequirements'
 
 export const militaryCamos = Array.from({ length: 8 }, (_, index) => ({
   id: `military-${index + 1}`,
@@ -30,14 +31,14 @@ export const completionistCamos = [
     id: 'harmonic-break',
     name: 'Harmonic Break',
     stage: 'completionist',
-    prerequisite: { scope: 'arsenal', camoId: 'platinum', count: 33 },
+    prerequisite: { scope: 'arsenal', camoId: 'platinum', count: launchRequirements.weapons },
     categoryRule: 'harmonicBreak',
   },
   {
     id: 'divergence',
     name: 'Divergence',
     stage: 'completionist',
-    prerequisite: { scope: 'arsenal', camoId: 'harmonic-break', count: 33 },
+    prerequisite: { scope: 'arsenal', camoId: 'harmonic-break', count: launchRequirements.weapons },
     award: 'prerequisite',
   },
 ]

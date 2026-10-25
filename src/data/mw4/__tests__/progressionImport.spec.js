@@ -7,9 +7,11 @@ import { getPrestigeCamos } from '../prestige'
 const counts = (weapon) => weapon.specialCamos.map((c) => c.unlockRequirements[0])
 describe('player-reported progression import', () => {
   it('keeps count maximums distinct from level maximums and preserves documented Military units', () => {
-    expect(weapons).toHaveLength(33)
+    expect(weapons.filter((w) => w.season === 0)).toHaveLength(33)
     expect(validateWeapons(weapons)).toEqual([])
-    expect(weapons.filter((w) => w.maxWeaponUnlocks !== undefined)).toHaveLength(28)
+    expect(weapons.filter((w) => w.season === 0 && w.maxWeaponUnlocks !== undefined)).toHaveLength(
+      28
+    )
     expect(weaponsById['han-86']).toMatchObject({ maxLevel: 72, maxWeaponUnlocks: 71 })
     expect(weaponsById['50-gs']).toMatchObject({
       maxLevel: 36,

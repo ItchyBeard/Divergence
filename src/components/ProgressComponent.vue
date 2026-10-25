@@ -9,7 +9,17 @@
         aria-valuemin="0"
         aria-valuemax="100"
         :aria-valuetext="
-          store.overallProgress.completed + '/' + store.overallProgress.total + ' camos'
+          store.overallProgress.completed +
+          '/' +
+          store.overallProgress.total +
+          ' recorded camos; progression uses the best ' +
+          launchRequirements.weapons +
+          ' released weapons'
+        "
+        :title="
+          'Recorded shared camos against the fixed launch target. Progression uses your best ' +
+          launchRequirements.weapons +
+          ' released weapons.'
         ">
         <div class="bar" :style="{ width: store.overallProgress.percent + '%' }"></div>
         <span class="progress-label"
@@ -24,6 +34,7 @@
 </template>
 <script setup>
 import { useStore } from '@/stores/store'
+import { launchRequirements } from '@/data/mw4/launchRequirements'
 const store = useStore()
 </script>
 <style lang="scss" scoped>

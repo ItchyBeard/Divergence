@@ -39,6 +39,21 @@
       </select>
       <div class="toolbar-actions">
         <slot name="mode-switch"></slot>
+        <label
+          v-if="prestige"
+          class="prestige-level"
+          title="Completes eligible level stages for weapons with base Pyroclast checked.">
+          Prestige Level
+          <input
+            type="number"
+            min="0"
+            step="1"
+            inputmode="numeric"
+            aria-label="Prestige Level"
+            :value="store.save.prestigeLevel ?? ''"
+            :disabled="Boolean(store.loadError)"
+            @input="updatePrestigeLevel" />
+        </label>
         <button
           class="compact-button"
           :class="{ active: store.filters.favoritesOnly }"
@@ -106,6 +121,12 @@ import { completionistCamos } from '@/data/mw4/camos'
 import LayoutToggleComponent from './LayoutToggleComponent.vue'
 const props = defineProps({ prestige: Boolean })
 const store = useStore()
+function updatePrestigeLevel(event) {
+  const input = event.target
+  if (input.validity.badInput || !store.setPrestigeLevel(input.value)) {
+    input.value = store.save.prestigeLevel ?? ''
+  }
+}
 const switches = computed(() => ({
   ...(!props.prestige ? { hideMilitaryCamos: 'Hide Military camos' } : {}),
   hideUnreleased: 'Hide unreleased weapons',
@@ -123,6 +144,25 @@ function toggleStage(id, checked) {
 .filters-component {
   margin: 22px 0 28px;
   text-align: left;
+}
+.prestige-level {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: #cdbade;
+  font-size: 12px;
+  padding: 4px 8px;
+  border: 1px solid #79618f;
+  border-radius: 3px;
+  min-height: 34px;
+  input {
+    width: 65px;
+    min-width: 0;
+    padding: 3px;
+    color: #eee;
+    background: $elevation-2-color;
+    border: 0;
+  }
 }
 .filter-toolbar {
   display: flex;

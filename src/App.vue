@@ -38,6 +38,8 @@
 
   <FooterComponent />
   <AnalyticsConsent />
+  <SupportBanner />
+  <CompletionCelebration />
   <ProgressComponent />
 </template>
 
@@ -45,6 +47,8 @@
 import { useStore } from '@/stores/store'
 import ProgressComponent from '@/components/ProgressComponent.vue'
 import AnalyticsConsent from '@/components/AnalyticsConsent.vue'
+import SupportBanner from '@/components/SupportBanner.vue'
+import CompletionCelebration from '@/components/CompletionCelebration.vue'
 
 import FooterComponent from '@/components/layout/FooterComponent.vue'
 import MobileNavigationComponent from '@/components/layout/MobileNavigationComponent.vue'
@@ -52,6 +56,8 @@ import NavigationComponent from '@/components/layout/NavigationComponent.vue'
 
 export default {
   components: {
+    SupportBanner,
+    CompletionCelebration,
     AnalyticsConsent,
     FooterComponent,
     ProgressComponent,

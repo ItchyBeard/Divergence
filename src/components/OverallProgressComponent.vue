@@ -28,8 +28,9 @@
 <script setup>
 import { useStore } from '@/stores/store'
 import CamoImage from './CamoImage.vue'
+import { progressPercentage } from '@/data/mw4/launchRequirements'
 const store = useStore()
-const percentage = (camo) => (camo.total ? (camo.completed / camo.total) * 100 : 0)
+const percentage = (camo) => progressPercentage(camo.completed, camo.total)
 </script>
 <style lang="scss" scoped>
 .overall-progress-component {

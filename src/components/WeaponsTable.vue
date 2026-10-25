@@ -41,6 +41,9 @@
         <tr class="category-row">
           <th :colspan="columns.length + 1" scope="rowgroup">
             <span>{{ category }}</span>
+            <span v-if="category !== 'Favourites'" class="category-progress">{{
+              categoryProgress(category)
+            }}</span>
           </th>
         </tr>
         <tr
@@ -109,6 +112,11 @@ const props = defineProps({
   mode: { type: String, required: true },
 })
 const store = useStore()
+const categoryProgress = (name) => {
+  const id = store.weaponCategories.find((category) => category.name === name)?.id
+  const progress = store.categoryProgress(id, props.track === 'prestige')
+  return `${progress.completed}/${progress.total}`
+}
 const rows = (weapon) =>
   props.track === 'prestige'
     ? store.prestigeRows(weapon)
@@ -133,6 +141,11 @@ const columns = computed(() => {
 })
 </script>
 <style lang="scss" scoped>
+.category-progress {
+  margin-left: 16px;
+  color: #aaa;
+  font-variant-numeric: tabular-nums;
+}
 .table-container {
   --weapon-width: 220px;
   --camo-width: 40px;

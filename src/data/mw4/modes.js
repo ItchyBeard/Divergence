@@ -1,4 +1,5 @@
 import { challenge, warzoneUnavailable } from './challenges'
+import { launchRequirements } from './launchRequirements'
 
 export const modeIds = ['multiplayer', 'dmz', 'warzone']
 
@@ -9,7 +10,7 @@ const track = (entries) =>
     stage: 'mastery',
     prerequisite:
       index === 0
-        ? { scope: 'arsenal', camoId: 'divergence' }
+        ? { scope: 'arsenal', camoId: 'divergence', count: launchRequirements.weapons }
         : { scope: 'mode', camoId: entries[index - 1][0] },
     challenge: requirement,
   }))

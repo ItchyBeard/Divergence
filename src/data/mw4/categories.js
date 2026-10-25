@@ -1,4 +1,5 @@
 import { challenge, unavailable, warzoneUnavailable } from './challenges'
+import { launchRequirements } from './launchRequirements'
 
 const rule = (type, multiplayerAmount, dmzAmount, conditions = {}) => ({
   type,
@@ -24,21 +25,21 @@ export const categories = [
   {
     id: 'assault-rifles',
     name: 'Assault Rifles',
-    goldRequired: 8,
+    goldRequired: launchRequirements.categories['assault-rifles'],
     platinum: rule('headshots', 50, 100),
     harmonicBreak: rule('double_kills', 25, 50),
   },
   {
     id: 'submachine-guns',
     name: 'Submachine Guns',
-    goldRequired: 5,
+    goldRequired: launchRequirements.categories['submachine-guns'],
     platinum: rule('kills_from_behind', 25, 75),
     harmonicBreak: rule('hipfire_kills', 50, 100),
   },
   {
     id: 'shotguns',
     name: 'Shotguns',
-    goldRequired: 2,
+    goldRequired: launchRequirements.categories.shotguns,
     platinum: rule('hipfire_kills', 50, 125),
     harmonicBreak: rule('kills_without_reloading', 2, 2, {
       multiplayerTimes: 25,
@@ -48,7 +49,7 @@ export const categories = [
   {
     id: 'light-machine-guns',
     name: 'Light Machine Guns',
-    goldRequired: 3,
+    goldRequired: launchRequirements.categories['light-machine-guns'],
     platinum: rule('kills_without_dying', 3, 3, {
       multiplayerTimes: 15,
       dmzTimes: 50,
@@ -62,28 +63,28 @@ export const categories = [
   {
     id: 'marksman-rifles',
     name: 'Marksman Rifles',
-    goldRequired: 3,
+    goldRequired: launchRequirements.categories['marksman-rifles'],
     platinum: rule('prone_kills', 75, 150),
     harmonicBreak: rule('one_shot_kills', 75, 150),
   },
   {
     id: 'sniper-rifles',
     name: 'Sniper Rifles',
-    goldRequired: 3,
+    goldRequired: launchRequirements.categories['sniper-rifles'],
     platinum: rule('prone_kills', 75, 150),
     harmonicBreak: rule('one_shot_kills', 75, 150),
   },
   {
     id: 'pistols',
     name: 'Pistols',
-    goldRequired: 4,
+    goldRequired: launchRequirements.categories.pistols,
     platinum: rule('kills_from_behind', 20, 75),
     harmonicBreak: rule('hipfire_kills', 40, 100),
   },
   {
     id: 'launchers',
     name: 'Launchers',
-    goldRequired: 4,
+    goldRequired: launchRequirements.categories.launchers,
     platinum: rule('kills_without_damage', 2, 2, {
       multiplayerTimes: 15,
       dmzTimes: 50,
@@ -96,7 +97,7 @@ export const categories = [
   {
     id: 'melee',
     name: 'Melee',
-    goldRequired: 1,
+    goldRequired: launchRequirements.categories.melee,
     platinum: rule('kills_without_dying', 3, 3, {
       multiplayerTimes: 15,
       dmzTimes: 50,

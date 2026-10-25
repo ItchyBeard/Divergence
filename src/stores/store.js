@@ -14,6 +14,8 @@ import { weaponAvailability } from '@/data/mw4/availability'
 import { emptySave, parseSave } from '@/data/mw4/save'
 import { storageKey } from '@/data/mw4/saveContract'
 import { getPrestigeCamos } from '@/data/mw4/prestige'
+import { applyPrestigeLevel } from '@/data/mw4/prestigeAutomation'
+import { launchRequirements, fixedSharedProgress } from '@/data/mw4/launchRequirements'
 
 const key = storageKey(import.meta.env.PROD)
 const sharedFlags = (save, id) => {
@@ -43,6 +45,7 @@ export const useStore = defineStore('divergence-mw4', {
     storageError: '',
     rawRecovery: null,
     progressionNotice: '',
+    celebrationPending: false,
   }),
   getters: {
     weapons: (state) =>
@@ -68,15 +71,23 @@ export const useStore = defineStore('divergence-mw4', {
     filteredPrestigeWeapons() {
       return filtered(this, true)
     },
+    sharedGrindProgress() {
+      return fixedSharedProgress(
+        this.releasedWeapons.map((weapon) => {
+          const camos = getWeaponCamos(weapon, 'multiplayer')
+          return {
+            total: camos.length,
+            completed: camos.filter((camo) => weapon.sharedCamos[camo.id] === true).length,
+          }
+        })
+      )
+    },
     overallProgress() {
-      let total = 0
-      let completed = 0
-      for (const weapon of this.releasedWeapons) {
-        const camos = getWeaponCamos(weapon, 'multiplayer')
-        total += camos.length
-        completed += camos.filter((camo) => weapon.sharedCamos[camo.id] === true).length
-      }
-      return { completed, total, percent: total ? Math.round((completed / total) * 100) : 0 }
+      const { completed, total, percent } = this.sharedGrindProgress
+      return { completed, total, percent }
+    },
+    launchCompleted() {
+      return this.sharedGrindProgress.complete
     },
     completionistStats() {
       return completionistCamos.map((camo) => {
@@ -86,17 +97,39 @@ export const useStore = defineStore('divergence-mw4', {
         return {
           ...camo,
           completed: applicable.filter((weapon) => weapon.sharedCamos[camo.id] === true).length,
-          total: applicable.length,
+          total: launchRequirements.weapons,
         }
       })
     },
   },
   actions: {
+    categoryProgress(categoryId, prestige = false) {
+      const weapons = this.releasedWeapons.filter(
+        (weapon) => !categoryId || weapon.category === categoryId
+      )
+      return {
+        completed: weapons.filter((weapon) =>
+          prestige
+            ? this.prestigeCompleted(weapon.id)
+            : this.camoCompleted(weapon.id, this.preferences.completionTarget)
+        ).length,
+        total: categoryId ? launchRequirements.categories[categoryId] : launchRequirements.weapons,
+      }
+    },
     sortedWeapons(mode = 'multiplayer', prestige = false) {
       return sortWeapons(
         prestige ? this.filteredPrestigeWeapons : this.filteredWeapons,
         this.preferences.sortBy,
-        (weapon) => sharedCompletion(weapon, getWeaponCamos(weapon, mode), weapon.sharedCamos),
+        (weapon) =>
+          prestige
+            ? sharedCompletion(
+                weapon,
+                this.prestigeRows(weapon),
+                Object.fromEntries(
+                  this.prestigeRows(weapon).map((camo) => [camo.id, camo.completed])
+                )
+              )
+            : sharedCompletion(weapon, getWeaponCamos(weapon, mode), weapon.sharedCamos),
         catalog.map((weapon) => weapon.id)
       )
     },
@@ -118,6 +151,7 @@ export const useStore = defineStore('divergence-mw4', {
         }
       }
       this.refreshAvailability()
+      this.suppressExistingAchievement()
     },
     storeProgress() {
       if (this.loadError) return false
@@ -143,12 +177,18 @@ export const useStore = defineStore('divergence-mw4', {
       this.rawRecovery = null
       this.progressionNotice = ''
       this.refreshAvailability()
+      this.suppressExistingAchievement()
     },
     resetProgress() {
       const next = {
         ...this.save,
         weapons: {},
         prestige: {},
+        prestigeLevel: null,
+        prestigeAutomatic: {},
+        firstCamoTracked: null,
+        completedAt: null,
+        celebrationHandled: false,
         mastery: emptySave().mastery,
         beganGrind: null,
       }
@@ -158,6 +198,7 @@ export const useStore = defineStore('divergence-mw4', {
       this.storageError = ''
       this.rawRecovery = null
       this.progressionNotice = ''
+      this.celebrationPending = false
     },
     isFavorite(id) {
       return this.favorites.includes(id)
@@ -197,12 +238,15 @@ export const useStore = defineStore('divergence-mw4', {
       if (!this.canToggleCamo(id, camoId, mode)) return false
       const weapon = catalog.find((entry) => entry.id === id)
       const plan = camoTogglePlan(getWeaponCamos(weapon, mode), camoId, sharedFlags(this.save, id))
+      const wasComplete = this.launchCompleted
       this.progressionNotice = ''
       this.$patch((state) => {
+        this.recordFirstCamo(plan.changes)
         state.save.weapons[id] = {
           sharedCamos: { ...sharedFlags(state.save, id), ...plan.changes },
         }
         state.save.beganGrind ||= new Date().toISOString()
+        this.recordAchievement(wasComplete)
       })
       return this.storeProgress()
     },
@@ -223,7 +267,9 @@ export const useStore = defineStore('divergence-mw4', {
       this.progressionNotice = ''
       const complete = !this.weaponModeCompleted(id, mode)
       const rows = getWeaponCamos(weapon, mode)
+      const wasComplete = this.launchCompleted
       this.$patch((state) => {
+        this.recordFirstCamo(Object.fromEntries(rows.map((camo) => [camo.id, complete])))
         state.save.weapons[id] = {
           sharedCamos: {
             ...sharedFlags(state.save, id),
@@ -231,6 +277,50 @@ export const useStore = defineStore('divergence-mw4', {
           },
         }
         state.save.beganGrind ||= new Date().toISOString()
+        this.recordAchievement(wasComplete)
+      })
+      return this.storeProgress()
+    },
+    suppressExistingAchievement() {
+      this.celebrationPending = false
+      if (this.launchCompleted || this.save.completedAt) this.save.celebrationHandled = true
+    },
+    recordFirstCamo(changes) {
+      if (
+        !Object.values(changes).some(Boolean) ||
+        this.save.beganGrind ||
+        this.save.firstCamoTracked
+      )
+        return
+      const hasHistory =
+        Object.values(this.save.weapons).some((record) =>
+          Object.values(record.sharedCamos).some(Boolean)
+        ) ||
+        Object.values(this.save.prestige).some((flags) => Object.values(flags).some(Boolean)) ||
+        Object.values(this.save.mastery).some((flags) => Object.values(flags).some(Boolean))
+      if (!hasHistory) this.save.firstCamoTracked = new Date().toISOString()
+    },
+    recordAchievement(wasComplete) {
+      if (
+        wasComplete ||
+        !this.launchCompleted ||
+        this.save.celebrationHandled ||
+        this.save.completedAt
+      )
+        return
+      this.save.completedAt = new Date().toISOString()
+      this.save.celebrationHandled = true
+      this.celebrationPending = true
+    },
+    setPrestigeLevel(input) {
+      if (this.loadError) return false
+      if (input !== '' && input !== null && !/^\d+$/.test(String(input))) return false
+      const level = input === '' || input === null ? null : Number(input)
+      if (level !== null && (!Number.isSafeInteger(level) || level < 0)) return false
+      if (level === this.save.prestigeLevel) return true
+      this.$patch((state) => {
+        state.save.prestigeLevel = level
+        applyPrestigeLevel(state.save, catalog, state.now)
       })
       return this.storeProgress()
     },
@@ -263,7 +353,12 @@ export const useStore = defineStore('divergence-mw4', {
       const plan = camoTogglePlan(getPrestigeCamos(weapon), camoId, flags, true)
       this.progressionNotice = ''
       this.$patch((state) => {
+        this.recordFirstCamo(plan.changes)
         state.save.prestige[id] = { ...flags, ...plan.changes }
+        for (const camoId of Object.keys(plan.changes))
+          delete state.save.prestigeAutomatic[id]?.[camoId]
+        if (camoId === 'pyroclast' && plan.changes.pyroclast)
+          applyPrestigeLevel(state.save, [weapon], state.now)
       })
       return this.storeProgress()
     },
@@ -274,10 +369,12 @@ export const useStore = defineStore('divergence-mw4', {
       const rows = this.prestigeRows(weapon)
       const complete = !this.prestigeApplicableCompleted(id)
       this.$patch((state) => {
+        this.recordFirstCamo(Object.fromEntries(rows.map((camo) => [camo.id, complete])))
         state.save.prestige[id] = {
           ...state.save.prestige[id],
           ...Object.fromEntries(rows.map((camo) => [camo.id, complete])),
         }
+        delete state.save.prestigeAutomatic[id]
       })
       return this.storeProgress()
     },
@@ -291,7 +388,10 @@ export const useStore = defineStore('divergence-mw4', {
       if (this.loadError || !modeIds.includes(mode)) return false
       const camo = modes[mode].mastery.find((entry) => entry.id === id)
       if (!camo) return false
-      this.save.mastery[mode][id] = !this.save.mastery[mode][id]
+      this.$patch((state) => {
+        this.recordFirstCamo({ [id]: !state.save.mastery[mode][id] })
+        state.save.mastery[mode][id] = !state.save.mastery[mode][id]
+      })
       return this.storeProgress()
     },
     toggleFavorite(id) {

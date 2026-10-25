@@ -34,6 +34,22 @@ Progress uses the existing versioned Divergence v1 browser storage contract.
 Export a JSON backup through Settings before changing browser or device.
 Legacy Singularity saves are never read, overwritten or migrated.
 
+Weapon Prestige includes an optional, automatically saved Prestige Level. Check a
+weapon's base Pyroclast to confirm its weapon prestige; eligible Player Prestige
+Master stages then follow that weapon's own thresholds. Lowering or clearing the
+level removes only automatic completions. Manual toggles and shortcuts still work.
+
+Completing any 33 released weapons' shared camos celebrates once with a modal
+and brief confetti (disabled with reduced motion). Dates are saved without inventing
+missing history. A slim support notice appears after 15 seconds, once per browser;
+its dismissal survives refreshes. See [Milestone 11 notes](docs/milestone-11.md).
+
+Launch requirements stay fixed as seasonal weapons are added. Category and global
+counters allow over-completion (such as 9/8 and 34/33); percentage fills cap at 100%.
+Overall progression uses the best 33 released weapons against the original 495-camo
+target, while the recorded camo count includes all released weapons. See the
+[fixed launch requirements](docs/launch-requirements.md) for category targets.
+
 ## GitHub and Netlify
 
 Create an empty GitHub repository, review local changes, then commit and push to
