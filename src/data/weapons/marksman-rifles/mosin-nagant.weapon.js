@@ -2,7 +2,7 @@ import { challenge, warzoneUnavailable } from '../../mw4/challenges'
 
 export default {
   id: 'mosin-nagant',
-  name: 'MOISIN NAGANT',
+  name: 'MOSIN NAGANT',
   category: 'marksman-rifles',
   order: 0,
   season: 0,

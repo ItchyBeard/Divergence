@@ -1,6 +1,22 @@
 <template>
   <div class="settings container">
     <div class="setting">
+      <h3>Weapon icons</h3>
+      <p id="weapon-icons-help" class="subtitle">
+        Show weapon silhouettes in card headers, coloured by your highest completed tier.
+      </p>
+      <label class="icon-toggle">
+        <input
+          type="checkbox"
+          role="switch"
+          aria-describedby="weapon-icons-help"
+          :checked="store.preferences.weaponIcons"
+          :disabled="Boolean(store.loadError)"
+          @change="store.setPreferences({ weaponIcons: $event.target.checked })" />
+        <span>Show weapon icons</span>
+      </label>
+    </div>
+    <div class="setting">
       <h3>Weapon completion indicator</h3>
       <p class="subtitle">Choose which shared camo is counted beside each weapon category.</p>
       <label
@@ -110,6 +126,49 @@ function reset() {
 }
 </script>
 <style lang="scss" scoped>
+.icon-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  font-size: 14px;
+  input {
+    appearance: none;
+    width: 40px;
+    height: 24px;
+    margin: 0;
+    flex-shrink: 0;
+    border: 1px solid #746b80;
+    border-radius: 20px;
+    background: #35313b;
+    cursor: pointer;
+    &::before {
+      content: '';
+      display: block;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      margin: 3px;
+      background: #ddd7e5;
+    }
+    &:checked {
+      background: #786396;
+      border-color: #bfa5df;
+      &::before {
+        transform: translateX(16px);
+        background: #fff;
+      }
+    }
+    &:focus-visible {
+      outline: 2px solid #d2b7ef;
+      outline-offset: 3px;
+    }
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  }
+}
 .setting {
   $setting-background-color: $elevation-2-color;
   $setting-border-color: $elevation-4-color;

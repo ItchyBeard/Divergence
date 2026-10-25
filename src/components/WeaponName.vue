@@ -4,6 +4,36 @@
     :class="['completion-' + tier, { completed, compact }]"
     :data-completion-tier="tier"
     :title="hint">
+    <svg
+      v-if="
+        store.preferences.weaponIcons && !compact && silhouette && failedSilhouette !== silhouette
+      "
+      class="weapon-silhouette"
+      :class="{ 'tier-unlocked': tier !== 'default' }"
+      viewBox="0 0 56 28"
+      aria-hidden="true"
+      focusable="false">
+      <defs>
+        <mask
+          :id="maskId"
+          x="0"
+          y="0"
+          width="56"
+          height="28"
+          maskUnits="userSpaceOnUse"
+          style="mask-type: alpha">
+          <image
+            :href="silhouette"
+            width="56"
+            height="28"
+            preserveAspectRatio="xMidYMid meet"
+            @error="failedSilhouette = silhouette" />
+        </mask>
+      </defs>
+      <g :mask="`url(#${maskId})`">
+        <rect width="56" height="28" :fill="silhouetteColor" />
+      </g>
+    </svg>
     <span
       v-if="compact"
       class="tier-accent"
@@ -33,9 +63,10 @@
   </div>
 </template>
 <script setup>
-import { computed } from 'vue'
+import { computed, ref, getCurrentInstance } from 'vue'
 import { useStore } from '@/stores/store'
 import { completionistCamos } from '@/data/mw4/camos'
+import { weaponSilhouetteUrl } from '@/data/mw4/artwork'
 const props = defineProps({
   weapon: { type: Object, required: true },
   mode: { type: String, default: 'multiplayer' },
@@ -43,6 +74,9 @@ const props = defineProps({
   compact: Boolean,
 })
 const store = useStore()
+const silhouette = computed(() => weaponSilhouetteUrl(props.weapon.id))
+const failedSilhouette = ref('')
+const maskId = `weapon-silhouette-${getCurrentInstance().uid}`
 const completed = computed(() =>
   props.track === 'prestige'
     ? store.prestigeApplicableCompleted(props.weapon.id)
@@ -50,6 +84,15 @@ const completed = computed(() =>
 )
 const tier = computed(() => store.weaponHeaderTier(props.weapon.id))
 const tierName = computed(() => completionistCamos.find((camo) => camo.id === tier.value)?.name)
+const silhouetteColor = computed(
+  () =>
+    ({
+      'gold': '#e5b75e',
+      'platinum': '#d6e0e9',
+      'harmonic-break': '#ef8296',
+      'divergence': '#cbb8f2',
+    })[tier.value] || '#ffffff'
+)
 const locked = computed(() => !props.weapon.available || !!store.loadError)
 const actionLabel = computed(
   () =>
@@ -80,6 +123,32 @@ function toggle() {
   border-radius: $border-radius;
   // Inset borders keep dimensions identical at every tier. Static layers respect reduced motion.
   box-shadow: inset 0 0 0 1px transparent;
+  .weapon-silhouette {
+    position: absolute;
+    left: 29px;
+    top: 50%;
+    width: 56px;
+    height: 28px;
+    object-fit: contain;
+    transform: translate(-50%, -50%) scaleX(-1) rotate(90deg);
+    opacity: 0.65;
+    pointer-events: none;
+    user-select: none;
+    transition:
+      filter 0.18s ease,
+      opacity 0.18s ease;
+  }
+  .weapon-silhouette.tier-unlocked {
+    opacity: 1;
+    filter: drop-shadow(0 1px 1px #0005);
+  }
+  &:hover .weapon-silhouette:not(.tier-unlocked),
+  &:focus-within .weapon-silhouette:not(.tier-unlocked) {
+    // Muted lavender from the Divergence brand palette, tinting the existing alpha artwork.
+    filter: brightness(0) saturate(100%) invert(65%) sepia(28%) saturate(630%) hue-rotate(219deg)
+      brightness(96%) contrast(91%);
+    opacity: 1;
+  }
   &:not(.compact):not(.completion-default) {
     background: var(--completion-gradient);
     box-shadow: var(--completion-shadow);
@@ -178,6 +247,11 @@ function toggle() {
       width: 30px;
       height: 44px;
     }
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .weapon-heading .weapon-silhouette {
+    transition: none;
   }
 }
 </style>
