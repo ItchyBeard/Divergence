@@ -1,4 +1,4 @@
-# Prestige Level and completion celebrations
+# Prestige checklist and completion celebrations
 
 ## Original implementation inspected
 
@@ -8,7 +8,7 @@
 - [Singularity store](https://github.com/ItchyBeard/singularity/blob/master/src/stores/store.js): `beganGrind` was initialized by any first save, rather than reliably recording a camo completion.
 - Donation destination: `https://www.buymeacoffee.com/itchybeard`; the creator's [canonical page](https://buymeacoffee.com/itchybeard) was verified and still describes support as buying a beer.
 
-## Save compatibility and ownership
+## Save compatibility and manual Prestige tracking
 
 The production key remains `divergence:mw4:v1` (development uses its existing `:dev` suffix). No catalog definitions, challenge IDs or existing progress structures changed.
 
@@ -16,17 +16,15 @@ The v1 parser accepts and validates optional additive fields:
 
 | Field | Default | Purpose |
 | --- | --- | --- |
-| `prestigeLevel` | `null` | Blank/unconfigured, or a non-negative safe integer |
-| `prestigeAutomatic` | `{}` | Weapon/camo ID flags identifying automatic completions only |
 | `firstCamoTracked` | `null` | Reliable first camo completion time recorded by this version |
 | `completedAt` | `null` | Original shared launch-roster achievement time |
 | `celebrationHandled` | `false` | Suppresses repeated celebrations, including legacy completed imports |
 
 Old saves receive defaults; their existing Prestige flags remain manual. Export/import preserve metadata. Progress reset clears these fields, keeping the existing preference/filter behavior. Legacy `beganGrind` remains intact, but is not presented as a reliable first-camo timestamp: older versions could set it without completing a camo. Missing history displays “Not recorded”.
 
-Automatic stages are evaluated from each weapon definition. Base Pyroclast is never inferred from a player level. A `weapon_prestige` condition requires the player to have checked that weapon's base Pyroclast. Unknown (`999`), unreleased, unavailable, player-level and custom additional conditions are never inferred. A definition containing only known Player Prestige Master conditions can qualify directly.
+Weapon Prestige is a manual sequential four-stage checklist: Pyroclast, Terminus, Scatter and Cascade. Clicking a later stage checks its prefix on that weapon; unchecking a stage clears its suffix. Bulk completion/reset, category counters, sorting, artwork and stable IDs are unchanged. Known Weapon Prestige Master thresholds and pending requirements remain informational and never block manual completion. The legacy definition key `player_prestige_master_level` is retained to avoid rewriting verified weapon definitions; its display text correctly describes the weapon's Prestige Master level.
 
-Changing the level adds eligible flags and removes only flags owned by automation. Manual chain toggles take ownership of all stages they touch, keeping progression shortcuts working. Manual unchecking works immediately; re-entering the same level is a no-op. A changed level reevaluates eligibility. Checking base Pyroclast also evaluates the configured level for that weapon. Prestige sorting uses Prestige progress rather than shared-camo progress.
+The former global Prestige Level input and automation have been removed. On load/import, the v1 parser ignores only the obsolete `prestigeLevel` and `prestigeAutomatic` fields, without mutating the supplied backup or clearing any recorded flag. Previously automated flags are treated as legitimate player progress, even if they are nonsequential. No normalization or inference occurs. The next normal save and every new export omit those fields. Loading alone does not rewrite storage. Older v1 exports without those fields remain supported; validation of real progress and other fields is unchanged.
 
 ## Celebration and notice lifecycle
 

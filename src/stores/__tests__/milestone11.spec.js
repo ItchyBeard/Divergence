@@ -4,7 +4,6 @@ import catalog from '@/data/weapons/index.js'
 import { getWeaponCamos as sharedCamos } from '@/data/mw4/catalog'
 import { useStore } from '../store'
 import { emptySave, parseSave } from '@/data/mw4/save'
-import { eligiblePrestigeCamos } from '@/data/mw4/prestigeAutomation'
 import { getWeaponCamos } from '@/data/mw4/catalog'
 import han from '@/data/weapons/assault-rifles/han-86.weapon'
 
@@ -29,139 +28,6 @@ afterEach(() => {
   vi.useRealTimers()
   vi.restoreAllMocks()
 })
-const flags = (store) => store.save.prestige['han-86'] || {}
-
-describe('Prestige Level ownership', () => {
-  it('starts blank and requires evidence of weapon prestige before applying levels', () => {
-    const store = useStore()
-    expect(store.save.prestigeLevel).toBeNull()
-    store.setPrestigeLevel('150')
-    expect(flags(store)).toEqual({})
-    store.togglePrestige('han-86', 'pyroclast')
-    expect(flags(store)).toEqual({
-      'pyroclast': true,
-      'pyroclast-terminus': true,
-      'pyroclast-scatter': true,
-    })
-    expect(store.save.prestigeAutomatic['han-86']).toEqual({
-      'pyroclast-terminus': true,
-      'pyroclast-scatter': true,
-    })
-    expect(store.save.prestige.future).toBeUndefined()
-    expect(store.overallProgress.completed).toBe(0)
-    expect(store.celebrationPending).toBe(false)
-  })
-  it('increases, decreases and clears only automatically owned stages', () => {
-    const store = useStore()
-    store.togglePrestige('han-86', 'pyroclast-terminus')
-    store.setPrestigeLevel(150)
-    store.setPrestigeLevel(250)
-    expect(flags(store)['pyroclast-cascade']).toBe(true)
-    store.setPrestigeLevel(100)
-    expect(flags(store)['pyroclast-terminus']).toBe(true)
-    expect(flags(store)['pyroclast-scatter']).toBe(false)
-    expect(flags(store)['pyroclast-cascade']).toBe(false)
-    store.setPrestigeLevel('')
-    expect(flags(store).pyroclast).toBe(true)
-    expect(flags(store)['pyroclast-terminus']).toBe(true)
-  })
-  it('keeps manual chain toggles and bulk completion/reset working', () => {
-    const store = useStore()
-    store.togglePrestige('han-86', 'pyroclast')
-    store.setPrestigeLevel(150)
-    store.togglePrestige('han-86', 'pyroclast-scatter')
-    expect(flags(store)['pyroclast-scatter']).toBe(false)
-    store.setPrestigeLevel(150)
-    expect(flags(store)['pyroclast-scatter']).toBe(false)
-    store.togglePrestige('han-86', 'pyroclast-scatter')
-    store.setPrestigeLevel('')
-    expect(flags(store)['pyroclast-scatter']).toBe(true)
-    expect(flags(store)['pyroclast-terminus']).toBe(true)
-    store.toggleWeaponPrestige('han-86')
-    store.setPrestigeLevel(0)
-    expect(store.prestigeCompleted('han-86')).toBe(true)
-    store.toggleWeaponPrestige('han-86')
-    expect(Object.values(flags(store)).some(Boolean)).toBe(false)
-  })
-  it('reads weapon-specific levels and never infers unknown or additional conditions', () => {
-    const weapon = {
-      ...han,
-      prestigeCamos: [
-        { id: 'pyroclast', requirements: [{ type: 'player_prestige_master_level', level: 1 }] },
-        {
-          id: 'pyroclast-terminus',
-          requirements: [{ type: 'player_prestige_master_level', level: 125 }],
-        },
-        {
-          id: 'pyroclast-scatter',
-          requirements: [{ type: 'player_prestige_master_level', level: 999 }],
-        },
-        {
-          id: 'pyroclast-cascade',
-          requirements: [
-            { type: 'player_prestige_master_level', level: 150 },
-            { type: 'player_level', level: 55 },
-          ],
-        },
-      ],
-    }
-    expect(eligiblePrestigeCamos(weapon, 124, {})).toEqual([])
-    expect(eligiblePrestigeCamos(weapon, 2000, {})).toEqual(['pyroclast-terminus'])
-    expect(eligiblePrestigeCamos({ ...weapon, releaseDate: null }, 2000, {})).toEqual([])
-  })
-  it.each(['-1', '1.5', '1e2', 'NaN', Infinity, '9007199254740992'])(
-    'rejects invalid level %s',
-    (level) => {
-      const store = useStore()
-      expect(store.setPrestigeLevel(level)).toBe(false)
-      expect(store.save.prestigeLevel).toBeNull()
-    }
-  )
-  it('round-trips ownership through reload/import/export and resets it', () => {
-    const store = useStore()
-    store.togglePrestige('han-86', 'pyroclast-terminus')
-    store.setPrestigeLevel(150)
-    const exported = store.exportProgress()
-    setActivePinia(createPinia())
-    const refreshed = useStore()
-    refreshed.getStoredProgress()
-    expect(refreshed.save.prestigeLevel).toBe(150)
-    expect(refreshed.exportProgress()).toBe(exported)
-    refreshed.resetProgress()
-    expect(refreshed.save.prestigeLevel).toBeNull()
-    expect(refreshed.save.prestigeAutomatic).toEqual({})
-    refreshed.importProgress(exported)
-    refreshed.setPrestigeLevel('')
-    expect(flags(refreshed)['pyroclast-terminus']).toBe(true)
-    expect(flags(refreshed)['pyroclast-scatter']).toBe(false)
-  })
-  it('preserves every existing manual flag when old saves gain optional metadata', () => {
-    const old = emptySave()
-    for (const key of [
-      'prestigeLevel',
-      'prestigeAutomatic',
-      'firstCamoTracked',
-      'completedAt',
-      'celebrationHandled',
-    ])
-      delete old[key]
-    old.prestige['han-86'] = { 'pyroclast': true, 'pyroclast-scatter': true }
-    const store = useStore()
-    store.importProgress(old)
-    store.setPrestigeLevel(150)
-    store.setPrestigeLevel('')
-    expect(flags(store)['pyroclast-scatter']).toBe(true)
-    expect(parseSave(old).prestigeLevel).toBeNull()
-  })
-  it('sorts Prestige using its own instantly updated completion', () => {
-    const store = useStore()
-    store.setPreferences({ sortBy: 'closest' })
-    store.togglePrestige('seasonal', 'pyroclast')
-    store.setPrestigeLevel(150)
-    expect(store.sortedWeapons('multiplayer', true)[0].id).toBe('seasonal')
-  })
-})
-
 describe('shared launch achievement', () => {
   it('retains an earlier recorded Prestige or Mastery camo date without celebrating those pages', () => {
     const store = useStore()
@@ -203,7 +69,6 @@ describe('shared launch achievement', () => {
       expect(store.save.completedAt).toBe('2026-10-26T12:00:00.000Z')
       store.setFilters({ search: 'something' })
       store.setPreferences({ trackerMode: 'dmz', layout: 'table' })
-      store.setPrestigeLevel(500)
       expect(store.celebrationPending).toBe(false)
       const exported = store.exportProgress()
       store.importProgress(exported)
@@ -252,15 +117,12 @@ describe('shared launch achievement', () => {
     expect(store.save.celebrationHandled).toBe(false)
     expect(store.celebrationPending).toBe(false)
   })
-  it.each([
-    { prestigeLevel: -1 },
-    { prestigeAutomatic: [] },
-    { firstCamoTracked: 'invalid' },
-    { completedAt: 12 },
-    { celebrationHandled: 'yes' },
-  ])('rejects malformed metadata %j', (patch) => {
-    expect(() => parseSave({ ...emptySave(), ...patch })).toThrow()
-  })
+  it.each([{ firstCamoTracked: 'invalid' }, { completedAt: 12 }, { celebrationHandled: 'yes' }])(
+    'rejects malformed metadata %j',
+    (patch) => {
+      expect(() => parseSave({ ...emptySave(), ...patch })).toThrow()
+    }
+  )
 })
 
 function completeOtherWeapons(save) {

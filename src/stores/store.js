@@ -14,7 +14,6 @@ import { weaponAvailability } from '@/data/mw4/availability'
 import { emptySave, parseSave } from '@/data/mw4/save'
 import { storageKey } from '@/data/mw4/saveContract'
 import { getPrestigeCamos } from '@/data/mw4/prestige'
-import { applyPrestigeLevel } from '@/data/mw4/prestigeAutomation'
 import { launchRequirements, fixedSharedProgress } from '@/data/mw4/launchRequirements'
 
 const key = storageKey(import.meta.env.PROD)
@@ -184,8 +183,6 @@ export const useStore = defineStore('divergence-mw4', {
         ...this.save,
         weapons: {},
         prestige: {},
-        prestigeLevel: null,
-        prestigeAutomatic: {},
         firstCamoTracked: null,
         completedAt: null,
         celebrationHandled: false,
@@ -312,18 +309,6 @@ export const useStore = defineStore('divergence-mw4', {
       this.save.celebrationHandled = true
       this.celebrationPending = true
     },
-    setPrestigeLevel(input) {
-      if (this.loadError) return false
-      if (input !== '' && input !== null && !/^\d+$/.test(String(input))) return false
-      const level = input === '' || input === null ? null : Number(input)
-      if (level !== null && (!Number.isSafeInteger(level) || level < 0)) return false
-      if (level === this.save.prestigeLevel) return true
-      this.$patch((state) => {
-        state.save.prestigeLevel = level
-        applyPrestigeLevel(state.save, catalog, state.now)
-      })
-      return this.storeProgress()
-    },
     prestigeRows(weapon) {
       const flags = this.save.prestige[weapon.id]
       return getPrestigeCamos(weapon).map((camo) => ({
@@ -355,10 +340,6 @@ export const useStore = defineStore('divergence-mw4', {
       this.$patch((state) => {
         this.recordFirstCamo(plan.changes)
         state.save.prestige[id] = { ...flags, ...plan.changes }
-        for (const camoId of Object.keys(plan.changes))
-          delete state.save.prestigeAutomatic[id]?.[camoId]
-        if (camoId === 'pyroclast' && plan.changes.pyroclast)
-          applyPrestigeLevel(state.save, [weapon], state.now)
       })
       return this.storeProgress()
     },
@@ -374,7 +355,6 @@ export const useStore = defineStore('divergence-mw4', {
           ...state.save.prestige[id],
           ...Object.fromEntries(rows.map((camo) => [camo.id, complete])),
         }
-        delete state.save.prestigeAutomatic[id]
       })
       return this.storeProgress()
     },

@@ -71,6 +71,14 @@ array takes precedence. Saves contain stable camo flags, not these prerequisites
 so no save migration or new storage key is needed. Tracker, mobile and Gallery
 details share `CamoRequirements.vue` and the formatting in `presentation.js`.
 
+## Weapon Prestige checklist
+
+Prestige completion is a manual four-camo sequence per weapon. Known Weapon Prestige
+Master thresholds are shown as information only; no player or weapon levels are
+tracked. The legacy requirement type `player_prestige_master_level` remains in
+verified definitions for compatibility and is displayed as Weapon Prestige Master
+Level. Do not add level-based automation or change confirmed threshold values.
+
 ## Temporary unknown numeric values
 
 The exact number **999** is reserved as an explicit unknown value only for:

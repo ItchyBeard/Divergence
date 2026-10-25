@@ -27,8 +27,6 @@ export const emptySave = () => ({
   version: saveVersion,
   weapons: {},
   prestige: {},
-  prestigeLevel: null,
-  prestigeAutomatic: {},
   firstCamoTracked: null,
   completedAt: null,
   celebrationHandled: false,
@@ -51,12 +49,17 @@ const only = (value, keys) => Object.keys(value).every((key) => keys.includes(ke
 
 // Validate before any mutation. Unknown weapon/camo IDs are retained for future catalog additions.
 export function parseSave(input) {
-  const value = typeof input === 'string' ? JSON.parse(input) : input
+  const source = typeof input === 'string' ? JSON.parse(input) : input
   const fail = (message) => {
     throw new Error(`Invalid Divergence save: ${message}`)
   }
-  if (!object(value) || value.game !== gameId || value.version !== saveVersion)
+  if (!object(source) || source.game !== gameId || source.version !== saveVersion)
     fail('expected MW4 version 1. Other game saves cannot be imported.')
+  // Deployed automation fields are obsolete. Discard only metadata, never camo flags.
+  // Work on a copy so importing an object cannot mutate the caller's backup.
+  const value = { ...source }
+  delete value.prestigeLevel
+  delete value.prestigeAutomatic
   const defaults = emptySave()
   if (!only(value, Object.keys(defaults))) fail('unknown top-level fields')
   if (!object(value.weapons)) fail('weapons must be an ID-keyed object')
@@ -75,18 +78,6 @@ export function parseSave(input) {
       !Object.entries(value.prestige).every(([id, camos]) => stableId(id) && flags(camos)))
   )
     fail('invalid weapon prestige records')
-  if (
-    'prestigeLevel' in value &&
-    value.prestigeLevel !== null &&
-    (!Number.isSafeInteger(value.prestigeLevel) || value.prestigeLevel < 0)
-  )
-    fail('invalid prestige level')
-  if (
-    'prestigeAutomatic' in value &&
-    (!object(value.prestigeAutomatic) ||
-      !Object.entries(value.prestigeAutomatic).every(([id, camos]) => stableId(id) && flags(camos)))
-  )
-    fail('invalid automatic prestige records')
   for (const field of ['firstCamoTracked', 'completedAt']) {
     if (
       field in value &&

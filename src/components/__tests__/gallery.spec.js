@@ -196,7 +196,7 @@ describe('read-only Gallery and weapon navigation', () => {
   })
   it('jumps to existing Prestige and mode mastery sections with the original stable IDs', async () => {
     let dialog = await open('Pyroclast Terminus')
-    expect(dialog.textContent).toContain('overall player Prestige Master Level 73')
+    expect(dialog.textContent).toContain('Weapon Prestige Master Level 73')
     dialog.querySelector('a').click()
     await settle()
     await settle()

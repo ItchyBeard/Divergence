@@ -34,10 +34,11 @@ Progress uses the existing versioned Divergence v1 browser storage contract.
 Export a JSON backup through Settings before changing browser or device.
 Legacy Singularity saves are never read, overwritten or migrated.
 
-Weapon Prestige includes an optional, automatically saved Prestige Level. Check a
-weapon's base Pyroclast to confirm its weapon prestige; eligible Player Prestige
-Master stages then follow that weapon's own thresholds. Lowering or clearing the
-level removes only automatic completions. Manual toggles and shortcuts still work.
+Weapon Prestige is a manual four-camo checklist. Checking a later camo completes
+its preceding stages; unchecking a camo clears its following stages on that weapon.
+Weapon Prestige Master thresholds are informational only. Old exports with global
+level automation metadata remain importable, preserving every saved camo flag;
+new saves and exports omit those obsolete settings.
 
 Completing any 33 released weapons' shared camos celebrates once with a modal
 and brief confetti (disabled with reduced motion). Dates are saved without inventing

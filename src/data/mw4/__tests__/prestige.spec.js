@@ -14,14 +14,14 @@ describe('weapon-specific Prestige requirements', () => {
     ['Rocket Launcher', 47],
     ['VEL 46', 61],
     ['HAN 86', 73],
-  ])('renders the confirmed overall player Terminus threshold for %s', (name, level) => {
+  ])('renders the confirmed weapon Prestige Master Terminus threshold for %s', (name, level) => {
     const weapon = copy()
     weapon.name = name
     weapon.prestigeCamos[1].requirements[1].level = level
     const camos = getPrestigeCamos(weapon)
     expect(validateWeapons([weapon])).toEqual([])
     expect(camos[1].challenge.description).toBe(
-      'Prestige this weapon. Reach overall player Prestige Master Level ' + level + '.'
+      'Prestige this weapon. Reach Weapon Prestige Master Level ' + level + '.'
     )
     expect(camos[0].challenge.description).toBe('Prestige this weapon.')
     expect(camos.slice(1).map((camo) => camo.requirements[1].level)).toEqual([level, 150, 250])

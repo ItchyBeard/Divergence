@@ -63,9 +63,10 @@ function requirementText(requirement) {
     case 'weapon_prestige':
       return 'Prestige this weapon.'
     case 'player_prestige_master_level':
+      // Retain the legacy definition key; the level describes this weapon, not the player.
       return requirementPending(requirement.level)
         ? pendingRequirementText
-        : 'Reach overall player Prestige Master Level ' + requirement.level + '.'
+        : 'Reach Weapon Prestige Master Level ' + requirement.level + '.'
     case 'player_level':
       return 'Reach overall player Level ' + requirement.level + '.'
     case 'unavailable':

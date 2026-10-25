@@ -113,9 +113,7 @@ describe('responsive challenge details', () => {
     expect(tooltip.textContent).toContain('Smoke')
     expect(tooltip.textContent).toContain('Special · HAN 86 · MP')
     expect(tooltip.textContent).toContain('20 kills while mounted')
-    expect(tooltip.querySelector('.mode-challenge-label').textContent.trim()).toBe(
-      'MP challenges'
-    )
+    expect(tooltip.querySelector('.mode-challenge-label').textContent.trim()).toBe('MP challenges')
     expect(tooltip.textContent).toContain('Weapon Level 25')
     expect([...tooltip.querySelectorAll('dt')].map((node) => node.textContent)).toEqual([
       'Unlock',
@@ -209,7 +207,7 @@ describe('responsive challenge details', () => {
         /Also completes|Also clears|First complete|Blocked if/
       )
       expect(tooltip.textContent).toContain(
-        id === 'gold' ? 'All Military and Special camos' : 'overall player Prestige Master Level 73'
+        id === 'gold' ? 'All Military and Special camos' : 'Weapon Prestige Master Level 73'
       )
     }
   )
@@ -279,14 +277,14 @@ describe('artwork and Prestige definitions', () => {
     expect(host.textContent).not.toContain('✓')
   })
 
-  it('shows weapon prestige and overall player Prestige Master levels', () => {
+  it('shows weapon prestige and Weapon Prestige Master levels', () => {
     const camos = getPrestigeCamos(han)
     expect(camos[0].challenge.description).toBe('Prestige this weapon.')
     expect(camos[1].challenge.description).toBe(
-      'Prestige this weapon. Reach overall player Prestige Master Level 73.'
+      'Prestige this weapon. Reach Weapon Prestige Master Level 73.'
     )
-    expect(camos[2].challenge.description).toContain('overall player Prestige Master Level 150')
-    expect(camos[3].challenge.description).toContain('overall player Prestige Master Level 250')
+    expect(camos[2].challenge.description).toContain('Weapon Prestige Master Level 150')
+    expect(camos[3].challenge.description).toContain('Weapon Prestige Master Level 250')
     expect(camos.every((camo) => camo.challenge.status === 'available')).toBe(true)
   })
 })
@@ -303,7 +301,7 @@ describe('Prestige requirement details on touch', () => {
     await settle()
     const dialog = document.querySelector('[role=dialog]')
     expect(dialog.textContent).toContain('Prestige this weapon.')
-    expect(dialog.textContent).toContain('overall player Prestige Master Level 73')
+    expect(dialog.textContent).toContain('Weapon Prestige Master Level 73')
     expect(toggle).not.toHaveBeenCalled()
     document.querySelector('.completion-action').click()
     expect(toggle).toHaveBeenCalledTimes(1)

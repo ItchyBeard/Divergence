@@ -177,22 +177,16 @@ describe('celebration accessibility and motion', () => {
   })
 })
 
-it('renders a blank compact Prestige input and updates immediately on input', async () => {
+it('keeps the Prestige toolbar free of global and per-weapon level inputs', () => {
   const { store } = mount(PrestigeView)
-  const input = host.querySelector('[aria-label="Prestige Level"]')
-  expect(input.value).toBe('')
-  expect(input.closest('.toolbar-actions')).not.toBeNull()
+  expect(host.querySelector('[aria-label="Prestige Level"]')).toBeNull()
+  expect(host.querySelector('input[type="number"]')).toBeNull()
+  expect(host.querySelector('[aria-label="Search weapons"]')).not.toBeNull()
+  expect(host.querySelector('[aria-label="Weapon category"]')).not.toBeNull()
+  expect(host.querySelector('[aria-label="Sort by"]')).not.toBeNull()
+  expect(host.querySelector('[aria-label="Only favourites"]')).not.toBeNull()
   store.togglePrestige('han-86', 'pyroclast')
-  input.value = '150'
-  input.dispatchEvent(new Event('input', { bubbles: true }))
-  await nextTick()
-  expect(store.save.prestigeLevel).toBe(150)
-  const scatter = host.querySelector('[aria-label^="Pyroclast Scatter —"]')
-  expect(scatter.getAttribute('aria-pressed')).toBe('true')
-  input.value = ''
-  input.dispatchEvent(new Event('input', { bubbles: true }))
-  await nextTick()
-  expect(scatter.getAttribute('aria-pressed')).toBe('false')
+  expect(store.prestigeRows(catalog[0]).filter((camo) => camo.completed)).toHaveLength(1)
 })
 
 function completeOtherWeapons(save) {

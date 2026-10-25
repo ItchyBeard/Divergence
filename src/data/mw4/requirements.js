@@ -1,4 +1,4 @@
-// Reserved for maxLevel, numeric Special unlock prerequisites and player Prestige Master level.
+// Reserved for maxLevel, numeric Special unlock prerequisites and Weapon Prestige Master level.
 // Other challenge amounts retain their ordinary numeric meaning.
 export const UNKNOWN_REQUIREMENT = 999
 export const requirementPending = (value) => value === UNKNOWN_REQUIREMENT

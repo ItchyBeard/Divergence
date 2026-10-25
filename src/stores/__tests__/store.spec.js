@@ -413,7 +413,7 @@ describe('Prestige refinement compatibility and isolation', () => {
     expect(store.save.prestige).toEqual(previous.prestige)
     expect(localStorage.getItem(key)).toBe(raw)
     expect(store.prestigeRows(han)[1].challenge.description).toContain(
-      'overall player Prestige Master Level 73'
+      'Weapon Prestige Master Level 73'
     )
     expect(store.prestigeRows(han).map((camo) => camo.completed)).toEqual([
       false,

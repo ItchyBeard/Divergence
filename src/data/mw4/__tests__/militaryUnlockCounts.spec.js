@@ -23,7 +23,7 @@ describe('confirmed .50 GS unlock-count semantics', () => {
       38, 150, 250,
     ])
     expect(getPrestigeCamos(weapon)[1].challenge.description).toContain(
-      'overall player Prestige Master Level 38'
+      'Weapon Prestige Master Level 38'
     )
     expect(
       getPrestigeCamos(weapon)
