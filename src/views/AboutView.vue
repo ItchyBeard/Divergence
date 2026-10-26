@@ -76,6 +76,7 @@
 
 <script setup>
 import IconComponent from '@/components/IconComponent.vue'
+import singularityIcon from '@/assets/singularity.png'
 import nebulaIcon from '@/assets/nebula.png'
 import interstellarIcon from '@/assets/interstellar.png'
 import orionIcon from '@/assets/orion.png'
@@ -119,9 +120,14 @@ const features = [
 
 const trackers = [
   {
-    title: 'Black Ops 6 — Singularity',
-    icon: nebulaIcon,
+    title: 'Black Ops 7',
+    icon: singularityIcon,
     url: 'https://singularity-tracker.netlify.app/',
+  },
+  {
+    title: 'Black Ops 6',
+    icon: nebulaIcon,
+    url: 'https://nebula.emca.app',
   },
   {
     title: 'Modern Warfare III',
