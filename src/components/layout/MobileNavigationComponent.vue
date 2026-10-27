@@ -4,7 +4,7 @@
       <div class="header">
         <router-link to="/tracker" class="logo"
           ><div class="icon"></div>
-          <p>Divergence</p></router-link
+          <p class="brand-wordmark">Divergence</p></router-link
         ><button aria-label="Close navigation" @click="$emit('toggleMobileNavigation')">×</button>
       </div>
       <div>

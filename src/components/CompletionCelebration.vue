@@ -1,6 +1,6 @@
 <template>
   <ModalComponent ref="modal" :max-width="560" @closed="stopConfetti">
-    <template #header>Divergence completed!</template>
+    <template #header><span class="brand-wordmark">Divergence completed!</span></template>
     <div class="celebration">
       <p>
         Congratulations on completing the Divergence camo grind! You've worked through every weapon

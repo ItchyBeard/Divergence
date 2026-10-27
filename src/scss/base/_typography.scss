@@ -11,6 +11,15 @@ a {
 	}
 }
 
+// CamoVault display identity: opt in on wordmarks, never on a UI container.
+.brand-wordmark {
+	font-family: 'Russo One', $font-family;
+	font-weight: 400;
+	text-transform: uppercase;
+	letter-spacing: -0.03em;
+	line-height: 1.15;
+}
+
 h1 {
 	font-size: 28px;
 	font-weight: 600;

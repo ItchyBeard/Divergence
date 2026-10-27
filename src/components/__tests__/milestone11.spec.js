@@ -120,6 +120,9 @@ describe('celebration accessibility and motion', () => {
     const dialog = host.querySelector('[role=dialog]')
     expect(document.activeElement).toBe(dialog)
     expect(dialog.getAttribute('aria-modal')).toBe('true')
+    expect(dialog.querySelector('.modal-header .brand-wordmark').textContent).toBe(
+      'Divergence completed!'
+    )
     expect(document.getElementById(dialog.getAttribute('aria-labelledby')).textContent).toContain(
       'Divergence completed!'
     )

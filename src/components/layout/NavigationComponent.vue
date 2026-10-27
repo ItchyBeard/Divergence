@@ -2,7 +2,7 @@
   <nav class="container">
     <router-link to="/tracker" class="logo"
       ><div class="icon"></div>
-      <p>Divergence</p></router-link
+      <p class="brand-wordmark">Divergence</p></router-link
     >
     <div class="nav-links">
       <router-link class="mode-link" :class="'mode-' + currentMode" to="/tracker"
@@ -11,6 +11,7 @@
       <router-link to="/prestige">Weapon Prestige</router-link>
       <router-link to="/mastery">Mastery</router-link>
       <router-link to="/gallery">Camo Gallery</router-link>
+      <a href="https://discord.gg/HswvED9v6a" class="icon"><IconComponent name="discord" /></a>
       <button
         class="icon-btn"
         title="Download progress image"
@@ -18,9 +19,9 @@
         @click="share.generateImage()">
         <IconComponent name="download-alt" />
       </button>
-      <router-link to="/settings" class="icon-btn settings" aria-label="Settings"
-        ><IconComponent name="cog"
-      /></router-link>
+      <router-link to="/settings" class="icon-btn settings" aria-label="Settings">
+        <IconComponent name="cog"/>
+      </router-link>
     </div>
     <button
       class="mobile-nav-toggle icon-btn"

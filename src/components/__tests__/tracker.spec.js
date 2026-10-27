@@ -119,7 +119,7 @@ describe('MW4 tracker interface', () => {
     await nextTick()
     const exported = host.querySelector('[aria-label="Export progress JSON"]').value
     const button = (text) =>
-      [...host.querySelectorAll('button')].find((entry) => entry.textContent === text)
+      [...host.querySelectorAll('button')].find((entry) => entry.textContent.trim() === text)
     await click(button('Reset progress'))
     expect(store.camoCompleted('han-86', 'smoke')).toBe(true)
     await click(button('Confirm reset'))
@@ -130,6 +130,9 @@ describe('MW4 tracker interface', () => {
     input.dispatchEvent(new Event('input', { bubbles: true }))
     await nextTick()
     await click(button('Replace Divergence progress'))
+    expect(store.camoCompleted('han-86', 'smoke')).toBe(false)
+    expect(host.querySelector('[aria-labelledby="import-confirmation-heading"]')).not.toBeNull()
+    await click(button('Confirm replace'))
     expect(store.camoCompleted('han-86', 'smoke')).toBe(true)
     expect(host.textContent).toContain('Progress imported.')
     input.value = '{bad'
@@ -137,6 +140,66 @@ describe('MW4 tracker interface', () => {
     await nextTick()
     await click(button('Replace Divergence progress'))
     expect(store.camoCompleted('han-86', 'smoke')).toBe(true)
+    expect(host.querySelector('[aria-labelledby="import-confirmation-heading"]')).toBeNull()
+    expect(host.querySelector('[role="status"]').textContent).toContain('JSON')
+  })
+
+  it('keeps JSON collapsed and stages file imports until explicitly confirmed', async () => {
+    const { store } = mount(SettingsView)
+    expect([...host.querySelectorAll('details')].map((details) => details.open)).toEqual([
+      false,
+      false,
+    ])
+    expect([...host.querySelectorAll('summary')].map((summary) => summary.textContent)).toEqual([
+      'View JSON',
+      'Paste JSON',
+    ])
+    store.toggleCamo('han-86', 'smoke', 'multiplayer')
+    const exported = store.exportProgress()
+    store.resetProgress()
+    const before = store.exportProgress()
+    const fileInput = host.querySelector('input[type="file"]')
+    expect(fileInput.hidden).toBe(true)
+    expect(host.querySelector('label[for="import-file"]')).toBeNull()
+    Object.defineProperty(fileInput, 'files', {
+      value: [{ name: 'backup.json', text: async () => exported }],
+    })
+    fileInput.dispatchEvent(new Event('change', { bubbles: true }))
+    await Promise.resolve()
+    await nextTick()
+    expect(host.textContent).toContain('Selected file: backup.json')
+    expect(store.exportProgress()).toBe(before)
+    const button = (text) =>
+      [...host.querySelectorAll('button')].find((el) => el.textContent.trim() === text)
+    await click(button('Replace Divergence progress'))
+    expect(document.activeElement).toBe(host.querySelector('.import-confirmation'))
+    await click(button('Cancel import'))
+    expect(store.exportProgress()).toBe(before)
+    expect(document.activeElement).toBe(button('Replace Divergence progress'))
+    await click(button('Replace Divergence progress'))
+    await click(button('Confirm replace'))
+    expect(store.camoCompleted('han-86', 'smoke')).toBe(true)
+    expect(store.preferences).toEqual(JSON.parse(exported).preferences)
+  })
+
+  it('withdraws import confirmation when the pasted backup changes', async () => {
+    const { store } = mount(SettingsView)
+    const before = store.exportProgress()
+    const input = host.querySelector('[aria-label="Import progress JSON"]')
+    input.closest('details').open = true
+    input.value = before
+    input.dispatchEvent(new Event('input', { bubbles: true }))
+    await nextTick()
+    const replace = [...host.querySelectorAll('button')].find(
+      (el) => el.textContent.trim() === 'Replace Divergence progress'
+    )
+    await click(replace)
+    expect(host.querySelector('.import-confirmation')).not.toBeNull()
+    input.value = '{bad'
+    input.dispatchEvent(new Event('input', { bubbles: true }))
+    await nextTick()
+    expect(host.querySelector('.import-confirmation')).toBeNull()
+    expect(store.exportProgress()).toBe(before)
   })
 
   it('generates a share image with MW4 shared totals and selected mode mastery', async () => {
@@ -151,6 +214,9 @@ describe('MW4 tracker interface', () => {
     )
     expect(host.textContent).toContain('Modern Warfare 4 · DMZ')
     expect(host.textContent).toContain('DMZ mastery: 1/3')
+    const signature = host.querySelector('.share-card .card-footer .family-signature')
+    // expect(signature.textContent).toBe('CamoVault')
+    // expect(signature.querySelector('.brand-wordmark').textContent).toBe('CamoVault')
     const download = host.querySelector('a[download]')
     expect(download.download).toBe('divergence-dmz-progress.png')
     expect(download.href).toBe('data:image/png;base64,dGVzdA==')

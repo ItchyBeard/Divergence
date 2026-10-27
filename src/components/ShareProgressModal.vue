@@ -5,7 +5,7 @@
         <div class="card-header">
           <div class="logo-area">
             <div class="dynamic-icon"></div>
-            <h1>Divergence</h1>
+            <h1 class="brand-wordmark">Divergence</h1>
           </div>
           <div class="url">Modern Warfare 4 · {{ modes[mode].name }}</div>
         </div>
@@ -40,6 +40,7 @@
             {{ store.releasedWeapons.length }} weapons ·
             {{ new Date(store.now).toLocaleDateString('en-GB') }}
           </p>
+<!--          <p class="family-signature"><span class="brand-wordmark">CamoVault</span></p>-->
         </div>
       </div>
     </div>
@@ -57,6 +58,7 @@
         :download="'divergence-' + mode + '-progress.png'"
         >Download PNG</a
       >
+      &emsp;
       <button @click="preview.close()">Close</button>
     </template>
   </ModalComponent>
@@ -83,6 +85,7 @@ async function generateImage() {
   try {
     store.refreshAvailability()
     await nextTick()
+    await document.fonts?.ready
     const { default: html2canvas } = await import('html2canvas')
     const canvas = await html2canvas(card.value, {
       scale: 2,
@@ -128,6 +131,7 @@ defineExpose({ generateImage })
 }
 
 .share-card {
+  position: relative;
   width: 1200px;
   height: 630px;
   background: linear-gradient(145deg, #1b1b20, #121212 65%);
@@ -161,10 +165,8 @@ defineExpose({ generateImage })
 
       h1 {
         font-size: 48px;
-        font-weight: 800;
         margin: 0;
         color: white;
-        letter-spacing: -1px;
       }
     }
 
@@ -248,6 +250,20 @@ defineExpose({ generateImage })
     font-weight: 500;
     p {
       margin: 4px 0;
+    }
+
+    .family-signature {
+      // Use the existing bottom padding without moving the summary or progress cards.
+      position: absolute;
+      bottom: 12px;
+      left: 40px;
+      right: 40px;
+      margin: 0;
+      font-size: 12px;
+      line-height: 16px;
+      text-transform: uppercase;
+      color: #b8adbf;
+      opacity: 0.7;
     }
   }
 }
