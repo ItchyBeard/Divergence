@@ -4,7 +4,7 @@ export default {
   id: 'patriot-xmr',
   name: 'PATRIOT XMR',
   category: 'assault-rifles',
-  order: 6,
+  order: 4,
   season: 0,
   releaseDate: '2026-10-23',
   maxLevel: 71,

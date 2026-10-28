@@ -4,7 +4,7 @@ export default {
   id: 'sang-9mm',
   name: 'SANG 9MM',
   category: 'pistols',
-  order: 3,
+  order: 0,
   season: 0,
   releaseDate: '2026-10-23',
   maxLevel: 37,

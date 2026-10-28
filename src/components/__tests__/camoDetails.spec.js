@@ -1,11 +1,11 @@
 // @vitest-environment jsdom
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
-import { createApp, h, nextTick } from 'vue'
+import { createApp, h, nextTick, reactive } from 'vue'
 import CamoButton from '../CamoButton.vue'
 import CamoImage from '../CamoImage.vue'
 import han from '@/data/weapons/assault-rifles/han-86.weapon'
 import { getWeaponCamos } from '@/data/mw4/catalog'
-import { camoCdnBase, camoImageUrl } from '@/data/mw4/artwork'
+import { camoCdnBase, camoImageUrl, missingCamoImageUrl } from '@/data/mw4/artwork'
 import { getPrestigeCamos } from '@/data/mw4/prestige'
 import { validateWeapons } from '@/data/mw4/validate'
 import m4 from '@/data/weapons/assault-rifles/m4.weapon'
@@ -257,16 +257,77 @@ describe('artwork and Prestige definitions', () => {
     expect(validateWeapons([weapon]).join('\n')).toContain('image')
   })
 
-  it('falls back to a neutral named tile on image failure, never to another camo', async () => {
+  it('tries the missing image once on image failure, then stops at a neutral background', async () => {
     mount(CamoImage, { camo: smoke() })
     expect(host.querySelector('img').src).toBe(camoCdnBase + 'smoke.png')
     host.querySelector('img').dispatchEvent(new Event('error'))
     await settle()
+    expect(host.querySelector('img').src).toBe(missingCamoImageUrl)
+    expect(host.querySelector('img').alt).toBe('Smoke')
+    host.querySelector('img').dispatchEvent(new Event('error'))
+    await settle()
     expect(host.querySelector('img')).toBeNull()
-    expect(host.querySelector('.missing-art').textContent).toContain('Smoke')
+    expect(host.querySelector('.missing-art').textContent).toBe('')
+    expect(host.querySelector('[data-icon=image-slash]')).toBeNull()
     expect(host.querySelector('.missing-art').getAttribute('aria-label')).toContain(
       'artwork unavailable'
     )
+  })
+
+  it.each([
+    { name: 'Unknown design' },
+    { id: 'unknown', name: 'Unknown design', image: null },
+    { id: 'unknown', name: 'Unknown design', image: '' },
+    { id: 'special-1', name: 'Special Camo 1 (pending)', stage: 'special' },
+    { id: 'smoke', name: 'Smoke', artworkStatus: 'pending' },
+    { id: 'smoke', name: 'Smoke', artworkPending: true },
+    { id: 'bad', name: 'Bad file', image: '../invalid.png' },
+  ])('uses the placeholder immediately for missing or pending artwork: %j', async (camo) => {
+    mount(CamoImage, { camo })
+    expect(camoImageUrl(camo)).toBeNull()
+    expect(host.querySelector('img').src).toBe(missingCamoImageUrl)
+    expect(host.querySelector('img').getAttribute('loading')).toBe('lazy')
+    host.querySelector('img').dispatchEvent(new Event('error'))
+    await settle()
+    expect(host.querySelector('img')).toBeNull()
+    expect(host.querySelector('.missing-art')).not.toBeNull()
+  })
+
+  it('loads confirmed artwork normally and retries only when the artwork source changes', async () => {
+    const camo = reactive(smoke())
+    mount(CamoImage, { camo })
+    expect(host.querySelector('img').src).toBe(camoCdnBase + 'smoke.png')
+    host.querySelector('img').dispatchEvent(new Event('error'))
+    await settle()
+    host.querySelector('img').dispatchEvent(new Event('error'))
+    await settle()
+    camo.completed = true
+    await settle()
+    expect(host.querySelector('img')).toBeNull()
+    camo.image = 'red.png'
+    await settle()
+    expect(host.querySelector('img').src).toBe(camoCdnBase + 'red.png')
+  })
+
+  it('does not retry an explicitly supplied missing image if it fails', async () => {
+    mount(CamoImage, { camo: { id: 'missing', name: 'Missing', image: '_missing.png' } })
+    expect(host.querySelector('img').src).toBe(missingCamoImageUrl)
+    host.querySelector('img').dispatchEvent(new Event('error'))
+    await settle()
+    expect(host.querySelector('img')).toBeNull()
+  })
+
+  it('keeps a camo manually completable after primary and placeholder artwork failures', async () => {
+    const toggle = vi.fn()
+    mount(CamoButton, { camo: smoke(), weapon: han, onToggle: toggle })
+    host.querySelector('img').dispatchEvent(new Event('error'))
+    await settle()
+    expect(host.querySelector('img').src).toBe(missingCamoImageUrl)
+    host.querySelector('img').dispatchEvent(new Event('error'))
+    await settle()
+    host.querySelector('button').click()
+    expect(toggle).toHaveBeenCalledTimes(1)
+    expect(host.querySelector('button').disabled).toBe(false)
   })
 
   it('retains the original check/times indicators and completion overlay classes', () => {

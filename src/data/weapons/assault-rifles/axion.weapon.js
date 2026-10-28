@@ -4,7 +4,7 @@ export default {
   id: 'axion',
   name: 'AXION',
   category: 'assault-rifles',
-  order: 1,
+  order: 6,
   season: 0,
   releaseDate: '2026-10-23',
   maxLevel: 68,

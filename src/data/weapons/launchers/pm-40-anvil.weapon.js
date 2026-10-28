@@ -4,7 +4,7 @@ export default {
   id: 'pm-40-anvil',
   name: 'PM-40 ANVIL',
   category: 'launchers',
-  order: 2,
+  order: 3,
   season: 0,
   releaseDate: '2026-10-23',
   maxLevel: 46,

@@ -96,7 +96,7 @@ async function select(element, value) {
 
 describe('read-only Gallery and weapon navigation', () => {
   it('renders unique lazy-loaded designs and accessible, dismissible requirements without saving', async () => {
-    expect(host.querySelectorAll('.gallery-tile')).toHaveLength(28)
+    expect(host.querySelectorAll('.gallery-tile')).toHaveLength(35)
     for (const img of host.querySelectorAll('.gallery-grid img'))
       expect(img.loading || img.getAttribute('loading')).toBe('lazy')
     const before = store.exportProgress()
@@ -226,7 +226,12 @@ describe('read-only Gallery and weapon navigation', () => {
       'https://cdn.itchy-beard.co.uk/divergence/camouflages/parallax.png'
     )
     expect(dialog.querySelector('.detail-art img').getAttribute('alt')).toBe('Parallax')
-    // A genuine image-load failure still uses the neutral fallback, independently of challenge availability.
+    // Image fallback remains independent of challenge availability.
+    dialog.querySelector('.detail-art img').dispatchEvent(new Event('error'))
+    await settle()
+    expect(dialog.querySelector('.detail-art img').getAttribute('src')).toBe(
+      'https://cdn.itchy-beard.co.uk/divergence/camouflages/_missing.png'
+    )
     dialog.querySelector('.detail-art img').dispatchEvent(new Event('error'))
     await settle()
     expect(dialog.querySelector('.detail-art img')).toBeNull()

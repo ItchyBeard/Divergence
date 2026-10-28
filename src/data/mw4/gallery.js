@@ -6,6 +6,14 @@ import { camoImageUrl } from './artwork'
 import { challengeText, prerequisiteText } from './presentation'
 import { weaponAvailability } from './availability'
 import { camoApplicable } from './tracker'
+import {
+  collectibles,
+  collectibleCategories,
+  collectibleOwned,
+  collectibleAvailabilityLabels,
+  collectibleWeaponEligible,
+} from './collectibles'
+import { launchRequirements, progressPercentage } from './launchRequirements'
 
 export const galleryStages = [
   { id: 'military', name: 'Military' },
@@ -13,6 +21,10 @@ export const galleryStages = [
   { id: 'completionist', name: 'Completionist' },
   { id: 'prestige', name: 'Weapon Prestige' },
   { id: 'mastery', name: 'Mode Mastery' },
+  ...collectibleCategories.map((category) => ({
+    id: 'collectible-' + category.id,
+    name: category.name,
+  })),
 ]
 export const modeTrackerPath = (mode) => (mode === 'multiplayer' ? '/' : '/' + mode)
 
@@ -20,8 +32,53 @@ export const modeTrackerPath = (mode) => (mode === 'multiplayer' ? '/' : '/' + m
 // design metadata; completion and availability always come from the live save.
 const galleryCatalogs = new WeakMap()
 export function getGallery(weapons) {
-  if (!galleryCatalogs.has(weapons)) galleryCatalogs.set(weapons, buildGallery(weapons))
+  if (!galleryCatalogs.has(weapons))
+    galleryCatalogs.set(weapons, [...buildGallery(weapons), ...buildCollectibleGallery(weapons)])
   return galleryCatalogs.get(weapons)
+}
+
+export function buildCollectibleGallery(weapons, definitions = collectibles) {
+  return definitions.map((definition) => {
+    const camo = { ...definition, stage: 'collectible-' + definition.category }
+    const eligible =
+      definition.ownership === 'weapon'
+        ? weapons.filter((weapon) => collectibleWeaponEligible(definition, weapon.id))
+        : [null]
+    return {
+      key: 'collectible:' + camo.id,
+      kind: 'collectible',
+      camo,
+      stage: camo.stage,
+      name: camo.name,
+      associations: eligible.map((weapon) => ({
+        camo,
+        weapon,
+        mode: definition.mode || null,
+        search: [
+          camo.name,
+          camo.requirement,
+          camo.requirementNote,
+          camo.eligibilityNote,
+          weapon?.name,
+          weapon && categoriesById[weapon.category].name,
+        ]
+          .filter(Boolean)
+          .join(' ')
+          .toLocaleLowerCase('en-GB'),
+      })),
+    }
+  })
+}
+
+export function galleryProgress(record, { category = '' } = {}) {
+  const completed = record.instances.filter((instance) => instance.completed).length
+  const total =
+    record.stage === 'completionist'
+      ? category
+        ? launchRequirements.categories[category]
+        : launchRequirements.weapons
+      : record.instances.length
+  return { completed, total, percent: progressPercentage(completed, total) }
 }
 
 // Derived once from discovered definitions. Canonical artwork distinguishes equal
@@ -80,9 +137,13 @@ export function galleryInstances(
     const key = weapon ? weapon.id + ':' + camo.id : association.mode
     if (!instances.has(key)) {
       const completed = weapon
-        ? record.stage === 'prestige'
+        ? record.kind === 'collectible'
+          ? collectibleOwned(save, camo, weapon.id)
+          : record.stage === 'prestige'
           ? save.prestige[weapon.id]?.[camo.id] === true
           : save.weapons[weapon.id]?.sharedCamos[camo.id] === true
+        : record.kind === 'collectible'
+        ? collectibleOwned(save, camo)
         : save.mastery[association.mode]?.[camo.id] === true
       instances.set(key, {
         key,
@@ -91,12 +152,20 @@ export function galleryInstances(
         completed,
         available: false,
         associations: [],
-        label: weapon ? availability(weapon).label : modes[association.mode].name,
+        label:
+          record.kind === 'collectible'
+            ? collectibleAvailabilityLabels[camo.availability]
+            : weapon
+            ? availability(weapon).label
+            : modes[association.mode].name,
       })
     }
     const instance = instances.get(key)
     instance.associations.push(association)
-    instance.available ||= (!weapon || availability(weapon).available) && camoApplicable(camo)
+    instance.available ||=
+      record.kind === 'collectible'
+        ? ['available', 'limited-time'].includes(camo.availability)
+        : (!weapon || availability(weapon).available) && camoApplicable(camo)
   }
   return [...instances.values()]
 }
@@ -112,7 +181,10 @@ export function filterGallery(records, save, filters = {}) {
   const entries = records
     .filter(
       (record) =>
-        (!filters.stage || record.stage === filters.stage) &&
+        (!filters.stage ||
+          record.stage === filters.stage ||
+          (filters.stage === 'collectibles' && record.kind === 'collectible') ||
+          (filters.stage === 'progression' && record.kind !== 'collectible')) &&
         record.associations.some(
           (association) =>
             (!filters.mode ||
@@ -123,7 +195,10 @@ export function filterGallery(records, save, filters = {}) {
             (!query || association.search.includes(query))
         )
     )
-    .map((record) => ({ ...record, instances: galleryInstances(record, save, instanceOptions) }))
+    .map((record) => {
+      const entry = { ...record, instances: galleryInstances(record, save, instanceOptions) }
+      return { ...entry, progress: galleryProgress(entry, filters) }
+    })
     .filter(
       (record) =>
         record.instances.length &&
@@ -133,11 +208,29 @@ export function filterGallery(records, save, filters = {}) {
         (filters.availability !== 'available' ||
           record.instances.some((instance) => instance.available)) &&
         (filters.availability !== 'upcoming' ||
-          record.instances.some((instance) => !instance.available))
+          (record.kind === 'collectible'
+            ? record.camo.availability === 'unobtainable'
+            : record.instances.some((instance) => !instance.available))) &&
+        (filters.availability !== 'unknown' ||
+          (record.kind === 'collectible' && record.camo.availability === 'unknown'))
     )
-  return filters.sort === 'name'
-    ? entries.sort((a, b) => a.name.localeCompare(b.name, 'en-GB') || a.key.localeCompare(b.key))
-    : entries
+  const byName = (a, b) => a.name.localeCompare(b.name, 'en-GB') || a.key.localeCompare(b.key)
+  // Compare completion fractions so single-owner and per-weapon designs sort fairly.
+  // Keep over-completion meaningful even though the visual progress bar caps at 100%.
+  const ratio = (entry) =>
+    entry.progress.total > 0 ? entry.progress.completed / entry.progress.total : 0
+  switch (filters.sort) {
+    case 'stage':
+      return entries
+    case 'name-desc':
+      return entries.sort((a, b) => byName(b, a))
+    case 'progress-desc':
+      return entries.sort((a, b) => ratio(b) - ratio(a) || byName(a, b))
+    case 'progress-asc':
+      return entries.sort((a, b) => ratio(a) - ratio(b) || byName(a, b))
+    default:
+      return entries.sort(byName)
+  }
 }
 
 export function galleryWeaponLocation(association) {

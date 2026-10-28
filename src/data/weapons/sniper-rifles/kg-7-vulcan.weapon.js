@@ -4,7 +4,7 @@ export default {
   id: 'kg-7-vulcan',
   name: 'KG-7 VULCAN',
   category: 'sniper-rifles',
-  order: 1,
+  order: 0,
   season: 0,
   releaseDate: '2026-10-23',
   maxLevel: 74,

@@ -28,6 +28,7 @@ export const emptySave = () => ({
   version: saveVersion,
   weapons: {},
   prestige: {},
+  collectibles: { standalone: {}, perWeapon: {} },
   firstCamoTracked: null,
   completedAt: null,
   celebrationHandled: false,
@@ -63,6 +64,17 @@ export function parseSave(input) {
   delete value.prestigeAutomatic
   const defaults = emptySave()
   if (!only(value, Object.keys(defaults))) fail('unknown top-level fields')
+  if ('collectibles' in value) {
+    const collection = value.collectibles
+    if (
+      !object(collection) ||
+      !only(collection, ['standalone', 'perWeapon']) ||
+      !flags(collection.standalone) ||
+      !object(collection.perWeapon) ||
+      !Object.entries(collection.perWeapon).every(([id, weapons]) => stableId(id) && flags(weapons))
+    )
+      fail('invalid collectible records')
+  }
   if (!object(value.weapons)) fail('weapons must be an ID-keyed object')
   for (const [key, record] of Object.entries(value.weapons)) {
     if (

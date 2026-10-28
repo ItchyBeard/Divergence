@@ -4,7 +4,7 @@ export default {
   id: 'apoc-338',
   name: 'APOC 338',
   category: 'light-machine-guns',
-  order: 0,
+  order: 2,
   season: 0,
   releaseDate: '2026-10-23',
   maxLevel: 56,

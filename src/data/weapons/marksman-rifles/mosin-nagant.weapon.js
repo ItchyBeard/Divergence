@@ -4,7 +4,7 @@ export default {
   id: 'mosin-nagant',
   name: 'MOSIN NAGANT',
   category: 'marksman-rifles',
-  order: 0,
+  order: 2,
   season: 0,
   releaseDate: '2026-10-23',
   maxLevel: 69,

@@ -4,7 +4,7 @@ export default {
   id: 'wz-55-striga',
   name: 'WZ.55 STRIGA',
   category: 'submachine-guns',
-  order: 1,
+  order: 2,
   season: 0,
   releaseDate: '2026-10-23',
   maxLevel: 59,

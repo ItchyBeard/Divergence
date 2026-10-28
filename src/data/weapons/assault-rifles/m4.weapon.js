@@ -4,7 +4,7 @@ export default {
   id: 'm4',
   name: 'M4',
   category: 'assault-rifles',
-  order: 7,
+  order: 1,
   season: 0,
   releaseDate: '2026-10-23',
   maxLevel: 71,

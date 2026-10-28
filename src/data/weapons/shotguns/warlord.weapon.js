@@ -4,7 +4,7 @@ export default {
   id: 'warlord',
   name: 'WARLORD',
   category: 'shotguns',
-  order: 0,
+  order: 1,
   season: 0,
   releaseDate: '2026-10-23',
   maxLevel: 60,

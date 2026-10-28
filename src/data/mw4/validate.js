@@ -102,7 +102,9 @@ export function validateWeapons(weapons) {
     const militaryField = usesCounts ? 'militaryUnlockCounts' : 'militaryUnlockLevels'
     if (usesCounts && Object.hasOwn(weapon, 'militaryUnlockLevels'))
       fail(militaryField, 'declare either unlock counts or unlock levels, not both')
-    if (!Array.isArray(weapon[militaryField]) || weapon[militaryField].length !== 8) {
+    if (weapon[militaryField] === null) {
+      // Explicitly unpublished thresholds; missing fields and partial arrays still fail.
+    } else if (!Array.isArray(weapon[militaryField]) || weapon[militaryField].length !== 8) {
       fail(militaryField, 'expected eight unlock ' + (usesCounts ? 'counts' : 'levels'))
     } else {
       weapon[militaryField].forEach((level, i, levels) => {

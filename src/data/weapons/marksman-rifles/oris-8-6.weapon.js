@@ -4,7 +4,7 @@ export default {
   id: 'oris-8-6',
   name: 'ORIS 8.6',
   category: 'marksman-rifles',
-  order: 2,
+  order: 1,
   season: 0,
   releaseDate: '2026-10-23',
   maxLevel: 69,

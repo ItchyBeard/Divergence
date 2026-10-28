@@ -4,7 +4,7 @@ export default {
   id: 'kastov-762',
   name: 'KASTOV 762',
   category: 'assault-rifles',
-  order: 5,
+  order: 3,
   season: 0,
   releaseDate: '2026-10-23',
   maxLevel: 67,

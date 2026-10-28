@@ -4,7 +4,7 @@ export default {
   id: 'vel-46',
   name: 'VEL 46',
   category: 'submachine-guns',
-  order: 0,
+  order: 1,
   season: 0,
   releaseDate: '2026-10-23',
   maxLevel: 59,

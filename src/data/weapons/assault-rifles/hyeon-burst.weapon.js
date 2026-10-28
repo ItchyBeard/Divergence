@@ -4,7 +4,7 @@ export default {
   id: 'hyeon-burst',
   name: 'HYEON BURST',
   category: 'assault-rifles',
-  order: 4,
+  order: 2,
   season: 0,
   releaseDate: '2026-10-23',
   maxLevel: 67,

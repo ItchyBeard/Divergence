@@ -28,9 +28,17 @@
               tabindex="0"
               :aria-label="column.description"
               :title="column.description">
-              <span v-if="column.special" class="special-header" aria-hidden="true"
-                >Special<br />{{ column.position }}</span
-              >
+              <span v-if="column.special" class="special-header" aria-hidden="true">
+                <span class="special-collage">
+                  <span
+                    v-for="(camo, index) in column.previews"
+                    :key="index"
+                    class="special-strip"
+                    :class="'strip-' + index">
+                    <CamoImage :camo="camo" />
+                  </span>
+                </span>
+              </span>
               <span v-else class="header-art"><CamoImage :camo="column.camo" /></span>
               <span class="header-tooltip" role="tooltip">{{ column.description }}</span>
             </span>
@@ -106,12 +114,35 @@ import { modes } from '@/data/mw4/modes'
 import CamoButton from './CamoButton.vue'
 import CamoImage from './CamoImage.vue'
 import WeaponName from './WeaponName.vue'
+import catalog from '@/data/weapons/index.js'
+import { camoImageUrl, missingCamoImageUrl } from '@/data/mw4/artwork'
 const props = defineProps({
   track: { type: String, default: 'shared' },
   categories: { type: Object, required: true },
   mode: { type: String, required: true },
 })
 const store = useStore()
+// Stable catalogue samples keep headers consistent when rows are filtered or sorted.
+// Each collage uses only designs from its own Special slot, deduplicated by artwork.
+const specialPreviews = [0, 1, 2].map((slot) => {
+  const designs = new Map()
+  for (const weapon of catalog) {
+    const camo = weapon.specialCamos[slot]
+    const artwork = camo && camoImageUrl(camo)
+    if (artwork && artwork !== missingCamoImageUrl) designs.set(artwork, camo)
+    if (designs.size === 3) break
+  }
+  const samples = [...designs.values()]
+  return Array.from(
+    { length: 3 },
+    (_, index) =>
+      samples[index % samples.length] || {
+        id: 'special-' + (slot + 1),
+        name: 'Special ' + (slot + 1),
+        image: null,
+      }
+  )
+})
 const categoryProgress = (name) => {
   const id = store.weaponCategories.find((category) => category.name === name)?.id
   const progress = store.categoryProgress(id, props.track === 'prestige')
@@ -134,6 +165,7 @@ const columns = computed(() => {
       key: 'special-' + (index + 1),
       special: true,
       position: index + 1,
+      previews: specialPreviews[index],
       description: 'Special ' + (index + 1) + ' — camo and requirements vary by weapon.',
     })),
     ...completionistCamos.map(sharedColumn),
@@ -233,16 +265,43 @@ const columns = computed(() => {
     border-radius: 3px;
   }
   .special-header {
-    width: 28px;
-    height: 28px;
-    border: 1px solid #5b5064;
-    border-radius: 3px;
-    display: grid;
-    align-content: center;
+    width: 32px;
+    height: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
     color: #c3b1d1;
-    font-size: 8px;
+    font-size: 7px;
     font-weight: 500;
     line-height: 1.1;
+  }
+  .special-label {
+    white-space: nowrap;
+  }
+  .special-collage {
+    position: relative;
+    display: block;
+    width: 28px;
+    height: 28px;
+    overflow: hidden;
+    border-radius: 3px;
+    background: #303030;
+    box-shadow: 0 0 0 1px #5b5064;
+  }
+  .special-strip {
+    position: absolute;
+    inset: 0;
+  }
+  .strip-0 {
+    clip-path: polygon(0 0, 50% 0, 16.667% 100%, 0 100%);
+  }
+  .strip-1 {
+    clip-path: polygon(50% 0, 83.333% 0, 50% 100%, 16.667% 100%);
+  }
+  .strip-2 {
+    clip-path: polygon(83.333% 0, 100% 0, 100% 100%, 50% 100%);
   }
   .header-tooltip {
     visibility: hidden;

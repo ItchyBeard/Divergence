@@ -2,7 +2,7 @@
   <div class="container gallery-view">
     <header class="gallery-heading">
       <h1>Camo Gallery</h1>
-      <p>Find a camo. Choose a weapon. View its challenges.</p>
+      <p>Explore weapon camos and track your personal collection.</p>
     </header>
     <div class="gallery-filters">
       <input
@@ -12,6 +12,8 @@
         placeholder="Search camos, weapons or challenges" />
       <select v-model="filters.stage" aria-label="Camo category">
         <option value="">All camos</option>
+        <option value="progression">Standard weapon progression</option>
+        <option value="collectibles">Collectible camos</option>
         <option v-for="stage in galleryStages" :key="stage.id" :value="stage.id">
           {{ stage.name }}
         </option>
@@ -27,19 +29,30 @@
         <option v-for="mode in modeIds" :key="mode" :value="mode">{{ modes[mode].name }}</option>
       </select>
       <select v-model="filters.status" aria-label="Unlock status">
-        <option value="all">Any progress</option>
-        <option value="unlocked">Unlocked somewhere</option>
-        <option value="locked">Still to unlock</option>
+        <option value="all">All ownership / progress</option>
+        <option value="unlocked">Owned / unlocked somewhere</option>
+        <option value="locked">Not owned / still to unlock</option>
       </select>
       <select v-model="filters.availability" aria-label="Camo availability">
         <option value="all">Any availability</option>
         <option value="available">Available</option>
         <option value="upcoming">Upcoming / unavailable</option>
+        <option value="unknown">Unknown collectible availability</option>
       </select>
       <select v-model="filters.sort" aria-label="Gallery sort">
-        <option value="default">Default order</option>
         <option value="name">Name (A–Z)</option>
+        <option value="name-desc">Name (Z–A)</option>
+        <option value="progress-desc">Highest progress</option>
+        <option value="progress-asc">Lowest progress</option>
+        <option value="stage">Camo type</option>
       </select>
+    </div>
+    <div class="collection-summary" aria-label="Collectible collection progress">
+      <span>Collectibles: {{ collection.completed }}/{{ collection.total }} owned</span>
+      <span v-for="entry in weaponCollections" :key="entry.key">
+        {{ entry.name }}: {{ entry.progress.completed }}/{{ entry.progress.total }} unlocked
+        {{ entry.camo.eligibilityComplete ? '' : '(supported subset)' }}
+      </span>
     </div>
     <p class="result-count" role="status">
       {{ entries.length }} {{ entries.length === 1 ? 'camo' : 'camos' }}
@@ -53,7 +66,19 @@
         :aria-label="'View ' + entry.name + ' details'"
         @click="openDetails(entry, $event)">
         <span class="gallery-art"><CamoImage :camo="entry.camo" /></span>
-        <strong>{{ entry.name }}</strong>
+        <strong
+          >{{ entry.name
+          }}<span
+            v-if="
+              entry.kind === 'collectible' &&
+              entry.camo.ownership === 'standalone' &&
+              entry.progress.completed
+            "
+            class="owned-check"
+            aria-hidden="true">
+            ✓</span
+          ></strong
+        >
         <small
           >{{ stageName(entry.stage)
           }}<template v-if="entry.stage === 'mastery'">
@@ -61,11 +86,27 @@
           ></small
         >
         <span class="gallery-progress"
-          >{{ entry.instances.filter((instance) => instance.completed).length }}/{{
-            entry.instances.length
+          >{{ entry.progress.completed }}/{{ entry.progress.total }}
+          {{
+            entry.kind === 'collectible' && entry.camo.ownership === 'standalone'
+              ? 'owned'
+              : 'unlocked'
           }}
-          unlocked</span
+          <template
+            v-if="
+              entry.kind === 'collectible' &&
+              entry.camo.ownership === 'weapon' &&
+              !entry.camo.eligibilityComplete
+            ">
+            · supported subset</template
+          ></span
         >
+        <span v-if="entry.kind === 'collectible'" class="availability-label">{{
+          collectibleAvailabilityLabels[entry.camo.availability]
+        }}</span>
+        <span class="gallery-progress-track" aria-hidden="true"
+          ><span :style="{ width: entry.progress.percent + '%' }"></span
+        ></span>
       </button>
     </div>
     <p v-if="!entries.length" class="empty-gallery">No camos match these filters.</p>
@@ -88,7 +129,7 @@
             <span class="detail-art"><CamoImage :camo="selected.camo" /></span>
             <div>
               <p>{{ stageName(selected.stage) }}</p>
-              <label v-if="selected.stage !== 'prestige'"
+              <label v-if="selected.kind !== 'collectible' && selected.stage !== 'prestige'"
                 >Challenge mode
                 <select v-model="detailMode" aria-label="Detail game mode">
                   <option v-for="mode in detailModes" :key="mode" :value="mode">
@@ -98,7 +139,62 @@
               >
             </div>
           </div>
-          <div class="unlock-list">
+          <div v-if="selected.kind === 'collectible'" class="collectible-details">
+            <p>{{ selected.camo.requirement }}</p>
+            <p>Availability: {{ collectibleAvailabilityLabels[selected.camo.availability] }}</p>
+            <p v-if="selected.camo.requirementVerified === false" class="unavailable-status">
+              {{ selected.camo.requirementNote }}
+            </p>
+            <p v-if="selected.camo.eligibilityNote" class="unavailable-status">
+              {{ selected.camo.eligibilityNote }}
+            </p>
+            <div v-if="selected.camo.ownership === 'weapon'" class="weapon-ownership-groups">
+              <section
+                v-for="group in weaponOwnershipGroups"
+                :key="group.id"
+                class="weapon-ownership-category"
+                :aria-label="group.name">
+                <h3>
+                  {{ group.name }}
+                  <span
+                    >{{ group.instances.filter((instance) => instance.completed).length }}/{{
+                      group.instances.length
+                    }}</span
+                  >
+                </h3>
+                <div class="weapon-ownership-grid">
+                  <WeaponOwnershipButton
+                    v-for="instance in group.instances"
+                    :key="instance.key"
+                    :weapon="instance.weapon"
+                    :owned="instance.completed"
+                    :label="'Own ' + selected.name + ' for ' + instance.weapon.name"
+                    :disabled="Boolean(store.loadError)"
+                    @toggle="store.toggleCollectible(selected.camo.id, instance.weapon.id)" />
+                </div>
+              </section>
+            </div>
+            <div v-else class="unlock-list">
+              <article v-for="instance in detailInstances" :key="instance.key" class="unlock-row">
+                <div class="unlock-heading">
+                  <strong>{{ instance.weapon?.name || selected.name }}</strong>
+                  <span>{{ instance.completed ? 'Owned' : 'Not owned' }}</span>
+                </div>
+                <button
+                  type="button"
+                  class="ownership-toggle"
+                  :aria-pressed="instance.completed"
+                  :aria-label="
+                    'Own ' + selected.name + (instance.weapon ? ' for ' + instance.weapon.name : '')
+                  "
+                  :disabled="Boolean(store.loadError)"
+                  @click="store.toggleCollectible(selected.camo.id, instance.weapon?.id)">
+                  {{ instance.completed ? 'Mark not owned' : 'Mark owned' }}
+                </button>
+              </article>
+            </div>
+          </div>
+          <div v-else class="unlock-list">
             <article
               v-for="instance in detailInstances"
               :key="instance.key"
@@ -148,10 +244,14 @@ import {
   galleryInstances,
   galleryStages,
   galleryWeaponLocation,
+  galleryProgress,
 } from '@/data/mw4/gallery'
+import { collectionSummary, collectibleAvailabilityLabels } from '@/data/mw4/collectibles'
 import { weaponAvailability } from '@/data/mw4/availability'
 import CamoImage from '@/components/CamoImage.vue'
 import CamoRequirements from '@/components/CamoRequirements.vue'
+import WeaponOwnershipButton from '@/components/WeaponOwnershipButton.vue'
+import { categories } from '@/data/mw4/categories'
 
 const store = useStore()
 const records = getGallery(catalog)
@@ -162,9 +262,18 @@ const filters = reactive({
   mode: 'all',
   status: 'all',
   availability: 'all',
-  sort: 'default',
+  sort: 'name',
 })
 const entries = computed(() => filterGallery(records, store.save, { ...filters, now: store.now }))
+const collection = computed(() => collectionSummary(store.save))
+const weaponCollections = computed(() =>
+  records
+    .filter((entry) => entry.kind === 'collectible' && entry.camo.ownership === 'weapon')
+    .map((entry) => ({
+      ...entry,
+      progress: galleryProgress({ ...entry, instances: galleryInstances(entry, store.save) }),
+    }))
+)
 const selected = shallowRef(null),
   details = ref(null),
   detailMode = ref('multiplayer')
@@ -178,6 +287,16 @@ const detailInstances = computed(() =>
     ? galleryInstances(selected.value, store.save, { mode: detailMode.value, now: store.now })
     : []
 )
+const weaponOwnershipGroups = computed(() =>
+  categories
+    .map((category) => ({
+      ...category,
+      instances: detailInstances.value
+        .filter((instance) => instance.weapon?.category === category.id)
+        .sort((a, b) => a.weapon.name.localeCompare(b.weapon.name, 'en-GB')),
+    }))
+    .filter((group) => group.instances.length)
+)
 const stageName = (id) => galleryStages.find((stage) => stage.id === id)?.name
 let previousFocus, previousOverflow
 async function openDetails(entry, event) {
@@ -185,7 +304,9 @@ async function openDetails(entry, event) {
   previousOverflow = document.body.style.overflow
   selected.value = entry
   detailMode.value =
-    entry.stage === 'mastery'
+    entry.kind === 'collectible'
+      ? entry.camo.mode || 'all'
+      : entry.stage === 'mastery'
       ? entry.associations[0].mode
       : filters.mode === 'all'
       ? 'multiplayer'
@@ -197,7 +318,8 @@ async function openDetails(entry, event) {
 function closeDetails() {
   selected.value = null
   document.body.style.overflow = previousOverflow || ''
-  previousFocus?.focus()
+  if (previousFocus?.isConnected) previousFocus.focus()
+  else document.querySelector('.gallery-filters input')?.focus()
 }
 function trapFocus(event) {
   const controls = [...details.value.querySelectorAll('button, select, a[href]')]
@@ -260,6 +382,7 @@ select {
   gap: 14px;
 }
 .gallery-tile {
+  position: relative;
   display: block;
   width: 100%;
   border: 1px solid #303030;
@@ -291,6 +414,74 @@ select {
   }
   &:hover {
     border-color: #8b749f;
+  }
+}
+.gallery-progress-track {
+  position: absolute;
+  inset: auto 0 0;
+  height: 4px;
+  background: #353039;
+  span {
+    display: block;
+    height: 100%;
+    background: linear-gradient(90deg, #9973bd, #d1b5ed);
+  }
+}
+.owned-check {
+  color: #d1b5ed;
+}
+.availability-label {
+  display: block;
+  margin: 4px 8px 0;
+  font-size: 10px;
+  color: #aaa;
+}
+.collection-summary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+  margin-top: 14px;
+  color: #cdb6df;
+  font-size: 12px;
+}
+.collectible-details > p {
+  margin-bottom: 10px;
+}
+.weapon-ownership-groups {
+  display: grid;
+  gap: 16px;
+}
+.weapon-ownership-category h3 {
+  margin: 0 0 8px;
+  font-size: 12px;
+  font-weight: 600;
+  span {
+    margin-left: 5px;
+    color: #aaa;
+    font-size: 11px;
+    font-weight: 400;
+  }
+}
+.weapon-ownership-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 64px);
+  gap: 8px;
+}
+.ownership-toggle {
+  margin-top: 8px;
+  padding: 7px 12px;
+  min-height: 36px;
+  color: #eee;
+  background: #392d43;
+  border: 1px solid #8b749f;
+  border-radius: 3px;
+  cursor: pointer;
+  &[aria-pressed='true'] {
+    background: #594368;
+  }
+  &:disabled {
+    opacity: 0.5;
+    cursor: default;
   }
 }
 .gallery-art {

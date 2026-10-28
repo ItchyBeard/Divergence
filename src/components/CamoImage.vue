@@ -1,17 +1,35 @@
 <template>
-  <img v-if="src && !failed" :src="src" :alt="camo.name" loading="lazy" @error="failed = true" />
-  <span v-else class="missing-art" :aria-label="camo.name + ' artwork unavailable'">
-    <IconComponent name="image-slash" size="16" /><span>{{ camo.name }}</span>
-  </span>
+  <img
+    v-if="!fallbackFailed"
+    :src="src"
+    :alt="camo.name"
+    :aria-label="usingFallback ? camo.name + ' artwork unavailable' : undefined"
+    loading="lazy"
+    @error="imageFailed" />
+  <span
+    v-else
+    class="missing-art"
+    role="img"
+    :aria-label="camo.name + ' artwork unavailable'"></span>
 </template>
 <script setup>
 import { computed, ref, watch } from 'vue'
-import { camoImageUrl } from '@/data/mw4/artwork'
+import { camoImageUrl, missingCamoImageUrl } from '@/data/mw4/artwork'
 const props = defineProps({ camo: { type: Object, required: true } })
-const src = computed(() => camoImageUrl(props.camo))
+const artwork = computed(() => camoImageUrl(props.camo))
 const failed = ref(false)
-watch(src, () => {
+const fallbackFailed = ref(false)
+const usingFallback = computed(
+  () => failed.value || !artwork.value || artwork.value === missingCamoImageUrl
+)
+const src = computed(() => (usingFallback.value ? missingCamoImageUrl : artwork.value))
+function imageFailed() {
+  if (usingFallback.value) fallbackFailed.value = true
+  else failed.value = true
+}
+watch(artwork, () => {
   failed.value = false
+  fallbackFailed.value = false
 })
 </script>
 <style lang="scss" scoped>
@@ -22,18 +40,9 @@ img {
   object-fit: cover;
 }
 .missing-art {
-  display: flex;
+  display: block;
   height: 100%;
   width: 100%;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  gap: 2px;
-  padding: 2px;
   background: #303030;
-  color: #aaa;
-  font-size: 8px;
-  line-height: 1.1;
-  overflow: hidden;
 }
 </style>

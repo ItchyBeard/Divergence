@@ -4,7 +4,7 @@ export default {
   id: 'oden',
   name: 'ODEN',
   category: 'assault-rifles',
-  order: 3,
+  order: 5,
   season: 0,
   releaseDate: '2026-10-23',
   maxLevel: 65,

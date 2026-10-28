@@ -4,7 +4,7 @@ export default {
   id: 'mar-9',
   name: 'MAR-9',
   category: 'marksman-rifles',
-  order: 1,
+  order: 0,
   season: 0,
   releaseDate: '2026-10-23',
   maxLevel: 72,

@@ -19,12 +19,13 @@ const definitionSources = import.meta.glob('../../weapons/*/*.weapon.js', {
 })
 
 describe('explicit unknown numeric requirements', () => {
-  it('discovers comment-free definitions without source or exception notes', () => {
+  it('discovers comment-free definitions without source or exception notes and preserves launch overrides', () => {
     expect(Object.keys(definitionSources)).toHaveLength(weapons.length)
     for (const source of Object.values(definitionSources)) expect(source).not.toMatch(/\/\/|\/\*/)
     for (const weapon of weapons) {
       expect(weapon).not.toHaveProperty('source')
-      expect(weapon.exceptions).toEqual({ challengeOverrides: [], notes: [] })
+      expect(weapon.exceptions.notes).toEqual([])
+      if (weapon.season === 0) expect(weapon.exceptions.challengeOverrides).toEqual([])
     }
   })
 
@@ -82,7 +83,7 @@ describe('explicit unknown numeric requirements', () => {
     ])
     expect(weaponsById['type-73'].specialCamos[1].image).toBe('outcrop.png')
     expect(weaponsById['type-73'].specialCamos[2].image).toBe('foxtrail.png')
-    expect(weapons.filter((weapon) => weapon.maxLevel === 999)).toEqual([])
+    expect(weapons.filter((weapon) => weapon.season === 0 && weapon.maxLevel === 999)).toEqual([])
   })
 
   it('accepts the sentinel in the three permitted numeric fields without imposing a fake upper bound', () => {

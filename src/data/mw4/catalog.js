@@ -1,6 +1,6 @@
 import { categories, categoriesById } from './categories'
 import { militaryCamos, completionistCamos } from './camos'
-import { challenge } from './challenges'
+import { challenge, unavailable } from './challenges'
 import { modeIds } from './modes'
 import { assertValidWeapons } from './validate'
 import { specialUnlockPending, specialUnlockRequirements } from './requirements'
@@ -33,9 +33,12 @@ export function getWeaponCamos(weapon, mode) {
   return [
     ...militaryCamos.map((camo, index) => ({
       ...camo,
-      challenge: weapon.militaryUnlockCounts
-        ? challenge('weapon_unlocks', weapon.militaryUnlockCounts[index], 'weapon')
-        : challenge('weapon_level', weapon.militaryUnlockLevels[index], 'weapon'),
+      challenge:
+        weapon.militaryUnlockCounts === null || weapon.militaryUnlockLevels === null
+          ? unavailable('Military unlock requirements not published.')
+          : weapon.militaryUnlockCounts
+            ? challenge('weapon_unlocks', weapon.militaryUnlockCounts[index], 'weapon')
+            : challenge('weapon_level', weapon.militaryUnlockLevels[index], 'weapon'),
     })),
     ...weapon.specialCamos.map(({ challenges, ...camo }) => ({
       ...camo,

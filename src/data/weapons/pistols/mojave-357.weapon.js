@@ -4,7 +4,7 @@ export default {
   id: 'mojave-357',
   name: 'MOJAVE .357',
   category: 'pistols',
-  order: 2,
+  order: 3,
   season: 0,
   releaseDate: '2026-10-23',
   maxLevel: 43,

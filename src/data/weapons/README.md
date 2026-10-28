@@ -12,6 +12,15 @@ unlock thresholds, three Special camos, four Prestige camos and `exceptions`.
 Use exactly one of `militaryUnlockLevels` (documented weapon levels) or
 `militaryUnlockCounts` (documented weapon unlock counts), each containing eight
 strictly increasing positive safe integers. Military thresholds cannot be `999`.
+For a weapon whose Military thresholds are entirely unpublished, explicitly set
+`militaryUnlockLevels: null` (or `militaryUnlockCounts: null` when the unit is known
+to be counts). This displays unavailable requirements for all eight Military camos;
+omitting the field or supplying partial/guessed thresholds still fails validation.
+Use pending Special names and unavailable prerequisites, challenges and Prestige
+conditions until confirmed. Override each non-award Completionist challenge in
+every mode with `unavailable(reason)` so shared objectives are not shown as confirmed.
+Omit `maxWeaponUnlocks` when unknown; `999` is not valid for that field.
+Keep `releaseDate: null` for mid-season weapons until a date is announced.
 Counts are not levels, are not bounded by `maxLevel`, and are never automatically
 converted with a +1 offset. The .50 GS uses in-game-confirmed counts; existing
 level-based definitions retain their original meaning.

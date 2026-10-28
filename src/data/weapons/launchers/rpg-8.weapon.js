@@ -4,7 +4,7 @@ export default {
   id: 'rpg-8',
   name: 'RPG 8',
   category: 'launchers',
-  order: 3,
+  order: 1,
   season: 0,
   releaseDate: '2026-10-23',
   maxLevel: 46,

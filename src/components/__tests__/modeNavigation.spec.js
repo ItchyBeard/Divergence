@@ -158,6 +158,7 @@ describe('unified Camo Tracker navigation', () => {
       'Mastery',
       'Camo Gallery',
       '',
+      '',
     ])
     expect(host.querySelector('[aria-label="Settings"]')).not.toBeNull()
     expect(host.querySelector('[aria-label="Download progress image"]')).not.toBeNull()

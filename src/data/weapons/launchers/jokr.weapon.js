@@ -4,7 +4,7 @@ export default {
   id: 'jokr',
   name: 'JOKR',
   category: 'launchers',
-  order: 0,
+  order: 2,
   season: 0,
   releaseDate: '2026-10-23',
   maxLevel: 46,

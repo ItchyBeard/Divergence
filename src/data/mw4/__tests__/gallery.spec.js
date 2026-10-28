@@ -22,6 +22,36 @@ const copy = (patch = {}) => ({
 const find = (records, id) => records.find((record) => record.camo.id === id)
 
 describe('derived Camo Gallery', () => {
+  it('keeps unrelated designs separate when both lack confirmed artwork', () => {
+    const first = copy({ id: 'first-weapon' })
+    const second = copy({ id: 'second-weapon' })
+    first.specialCamos[0] = { ...first.specialCamos[0], id: 'pending-a', image: null }
+    second.specialCamos[0] = { ...second.specialCamos[0], id: 'pending-b', image: null }
+    const records = buildGallery([first, second])
+    const a = find(records, 'pending-a')
+    const b = find(records, 'pending-b')
+    expect(a).toBeDefined()
+    expect(b).toBeDefined()
+    expect(a.key).not.toBe(b.key)
+    expect(a.associations.every((association) => association.weapon.id === 'first-weapon')).toBe(true)
+    expect(b.associations.every((association) => association.weapon.id === 'second-weapon')).toBe(true)
+  })
+  it('defaults to A–Z and sorts completion fractions with alphabetical ties', () => {
+    const all = buildGallery([han, copy()])
+    const records = ['smoke', 'military-1', 'gold'].map((id) => find(all, id))
+    const save = emptySave()
+    save.weapons['han-86'] = { sharedCamos: { smoke: true, gold: true } }
+    const names = (sort) => filterGallery(records, save, { now, sort }).map((record) => record.name)
+    expect(names()).toEqual(['Gold', 'Military Camo 1', 'Smoke'])
+    expect(names('name-desc')).toEqual(['Smoke', 'Military Camo 1', 'Gold'])
+    // Smoke is 1/2; Gold is 1/33. Raw unlocked counts must not tie them.
+    expect(names('progress-desc')).toEqual(['Smoke', 'Gold', 'Military Camo 1'])
+    expect(names('progress-asc')).toEqual(['Military Camo 1', 'Gold', 'Smoke'])
+    expect(names('stage')).toEqual(records.map((record) => record.name))
+    save.weapons = {}
+    expect(names('progress-desc')).toEqual(names())
+    expect(names('progress-asc')).toEqual(names())
+  })
   it('reuses design metadata across visits while keeping completion reactive and unrelated preferences cached', () => {
     const catalog = [han, copy()]
     const records = getGallery(catalog)

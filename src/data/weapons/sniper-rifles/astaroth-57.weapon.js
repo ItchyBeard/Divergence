@@ -4,7 +4,7 @@ export default {
   id: 'astaroth-57',
   name: 'ASTAROTH .57',
   category: 'sniper-rifles',
-  order: 2,
+  order: 1,
   season: 0,
   releaseDate: '2026-10-23',
   maxLevel: 53,

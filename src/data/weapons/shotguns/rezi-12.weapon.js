@@ -4,7 +4,7 @@ export default {
   id: 'rezi-12',
   name: 'REZI 12',
   category: 'shotguns',
-  order: 1,
+  order: 0,
   season: 0,
   releaseDate: '2026-10-23',
   maxLevel: 59,

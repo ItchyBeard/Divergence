@@ -4,7 +4,7 @@ export default {
   id: 'iso-nightshade',
   name: 'ISO NIGHTSHADE',
   category: 'submachine-guns',
-  order: 2,
+  order: 0,
   season: 0,
   releaseDate: '2026-10-23',
   maxLevel: 63,

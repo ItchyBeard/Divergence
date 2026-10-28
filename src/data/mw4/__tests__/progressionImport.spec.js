@@ -19,7 +19,7 @@ describe('player-reported progression import', () => {
       militaryUnlockCounts: [6, 9, 11, 14, 17, 21, 25, 28],
     })
     expect(weaponsById['mojave-357'].maxWeaponUnlocks).toBe(43)
-    for (const w of weapons.filter((w) => ['launchers', 'melee'].includes(w.category))) {
+    for (const w of weapons.filter((w) => w.season === 0 && ['launchers', 'melee'].includes(w.category))) {
       expect(w).not.toHaveProperty('maxWeaponUnlocks')
       expect(counts(w).every((c) => c.type === 'weapon_level')).toBe(true)
     }
@@ -45,7 +45,7 @@ describe('player-reported progression import', () => {
     })
   })
   it('keeps all weapon-specific Prestige thresholds, stable IDs and unpublished challenge information', () => {
-    for (const w of weapons) {
+    for (const w of weapons.filter((w) => w.season === 0)) {
       expect(w.prestigeCamos.map((c) => c.requirements[0])).toEqual(
         Array(4).fill({ type: 'weapon_prestige', required: true })
       )

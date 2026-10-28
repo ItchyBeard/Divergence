@@ -4,7 +4,7 @@ export default {
   id: 'type-73',
   name: 'TYPE 73',
   category: 'light-machine-guns',
-  order: 2,
+  order: 1,
   season: 0,
   releaseDate: '2026-10-23',
   maxLevel: 64,

@@ -4,7 +4,7 @@ export default {
   id: 'cronen-squall',
   name: 'CRONEN SQUALL',
   category: 'assault-rifles',
-  order: 2,
+  order: 7,
   season: 0,
   releaseDate: '2026-10-23',
   maxLevel: 67,

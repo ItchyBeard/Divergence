@@ -7,6 +7,8 @@ import HomeView from '@/views/HomeView.vue'
 import PrestigeView from '@/views/PrestigeView.vue'
 import { useStore } from '@/stores/store'
 import messages from '@/i18n/locales/en-GB.json'
+import catalog from '@/data/weapons/index.js'
+import { camoImageUrl, missingCamoImageUrl } from '@/data/mw4/artwork'
 
 vi.mock('@/data/weapons/index.js', async () => {
   const { default: han } = await import('@/data/weapons/assault-rifles/han-86.weapon')
@@ -92,7 +94,7 @@ async function click(button) {
 }
 
 describe('classic table rendering and interactions', () => {
-  it('uses artwork only in shared headers, neutral Special columns and compact per-weapon indicators', () => {
+  it('uses shared artwork and slot-specific Special collages above compact per-weapon indicators', () => {
     expect(
       [...host.querySelectorAll('thead [data-column-id]')].map((header) => header.dataset.columnId)
     ).toEqual([
@@ -105,8 +107,16 @@ describe('classic table rendering and interactions', () => {
       'harmonic-break',
       'divergence',
     ])
-    expect(host.querySelectorAll('thead img')).toHaveLength(12)
+    expect(host.querySelectorAll('thead img')).toHaveLength(21)
     expect(host.querySelectorAll('thead .special-header')).toHaveLength(3)
+    for (const slot of [0, 1, 2]) {
+      const header = host.querySelector(`[data-column-id="special-${slot + 1}"]`)
+      const validArtwork = new Set(catalog.map((weapon) => camoImageUrl(weapon.specialCamos[slot])))
+      const images = [...header.querySelectorAll('.special-strip img')]
+      expect(images).toHaveLength(3)
+      expect(images.every((image) => validArtwork.has(image.getAttribute('src')))).toBe(true)
+      expect(header.querySelector('.special-label').textContent).toBe(`Special ${slot + 1}`)
+    }
     expect(
       host.querySelector('[data-column-id="special-1"] [tabindex]').getAttribute('aria-label')
     ).toContain('vary by weapon')
@@ -121,6 +131,15 @@ describe('classic table rendering and interactions', () => {
     expect(host.querySelector('[role="region"]').getAttribute('tabindex')).toBe('0')
     expect(row().textContent).not.toContain('Launch')
     expect(host.querySelectorAll('tbody')).toHaveLength(2)
+  })
+
+  it('uses the shared missing-image fallback in a collage without affecting completion controls', async () => {
+    const image = host.querySelector('[data-column-id="special-1"] .special-strip img')
+    image.dispatchEvent(new Event('error'))
+    await nextTick()
+    expect(image.getAttribute('src')).toBe(missingCamoImageUrl)
+    await click(cell('smoke'))
+    expect(store.camoCompleted('test-alpha', 'smoke')).toBe(true)
   })
 
   it('persists a Military prefix/suffix atomically and uses white checkmarks on completed squares', async () => {
