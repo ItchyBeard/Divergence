@@ -4,7 +4,7 @@
     role="region"
     aria-label="Weapon camo table — scroll horizontally"
     tabindex="0">
-    <table class="camo-table" :style="{ '--camo-count': columns.length }">
+    <table class="camo-table" :style="{ '--camo-count': camoCount }">
       <caption class="sr-only">
         {{
           track === 'prestige' ? 'Weapon Prestige' : modes[mode].name + ' shared camos'
@@ -12,46 +12,18 @@
       </caption>
       <colgroup>
         <col class="weapon-column" />
-        <col v-for="column in columns" :key="column.key" />
+        <col v-for="index in camoCount" :key="index" />
+        <col class="progress-column" />
       </colgroup>
-      <thead>
-        <tr>
-          <th scope="col" class="weapon-column">Weapon</th>
-          <th
-            v-for="column in columns"
-            :key="column.key"
-            scope="col"
-            class="camo-header"
-            :data-column-id="column.key">
-            <span
-              class="column-heading"
-              tabindex="0"
-              :aria-label="column.description"
-              :title="column.description">
-              <span v-if="column.special" class="special-header" aria-hidden="true">
-                <span class="special-collage">
-                  <span
-                    v-for="(camo, index) in column.previews"
-                    :key="index"
-                    class="special-strip"
-                    :class="'strip-' + index">
-                    <CamoImage :camo="camo" />
-                  </span>
-                </span>
-              </span>
-              <span v-else class="header-art"><CamoImage :camo="column.camo" /></span>
-              <span class="header-tooltip" role="tooltip">{{ column.description }}</span>
-            </span>
-          </th>
-        </tr>
-      </thead>
       <tbody v-for="(weapons, category) in categories" :key="category">
         <tr class="category-row">
-          <th :colspan="columns.length + 1" scope="rowgroup">
-            <span>{{ category }}</span>
-            <span v-if="category !== 'Favourites'" class="category-progress">{{
-              categoryProgress(category)
-            }}</span>
+          <th :colspan="camoCount + 2" scope="rowgroup">
+            <div class="category-label">
+              <span>{{ category }}</span>
+              <span v-if="category !== 'Favourites'" class="category-progress">{{
+                categoryProgress(category)
+              }}</span>
+            </div>
           </th>
         </tr>
         <tr
@@ -86,7 +58,6 @@
             <CamoButton
               :camo="camo"
               :weapon="weapon"
-              indicator
               :locked="!weapon.available"
               :mode="track === 'prestige' ? '' : mode"
               :disabled="
@@ -100,6 +71,17 @@
                   : store.toggleCamo(weapon.id, camo.id, mode)
               " />
           </td>
+          <td class="progress-column">
+            <div class="weapon-progress">
+              <span class="progress-count"
+                >{{ progress(weapon).completed }}<span>/{{ progress(weapon).total }}</span></span
+              >
+              <progress
+                :value="progress(weapon).completed"
+                :max="progress(weapon).total || 1"
+                :aria-label="weapon.name + ' camo progress'" />
+            </div>
+          </td>
         </tr>
       </tbody>
     </table>
@@ -108,41 +90,15 @@
 <script setup>
 import { computed } from 'vue'
 import { useStore } from '@/stores/store'
-import { militaryCamos, completionistCamos } from '@/data/mw4/camos'
-import { prestigeCamos } from '@/data/mw4/prestige'
 import { modes } from '@/data/mw4/modes'
 import CamoButton from './CamoButton.vue'
-import CamoImage from './CamoImage.vue'
 import WeaponName from './WeaponName.vue'
-import catalog from '@/data/weapons/index.js'
-import { camoImageUrl, missingCamoImageUrl } from '@/data/mw4/artwork'
 const props = defineProps({
   track: { type: String, default: 'shared' },
   categories: { type: Object, required: true },
   mode: { type: String, required: true },
 })
 const store = useStore()
-// Stable catalogue samples keep headers consistent when rows are filtered or sorted.
-// Each collage uses only designs from its own Special slot, deduplicated by artwork.
-const specialPreviews = [0, 1, 2].map((slot) => {
-  const designs = new Map()
-  for (const weapon of catalog) {
-    const camo = weapon.specialCamos[slot]
-    const artwork = camo && camoImageUrl(camo)
-    if (artwork && artwork !== missingCamoImageUrl) designs.set(artwork, camo)
-    if (designs.size === 3) break
-  }
-  const samples = [...designs.values()]
-  return Array.from(
-    { length: 3 },
-    (_, index) =>
-      samples[index % samples.length] || {
-        id: 'special-' + (slot + 1),
-        name: 'Special ' + (slot + 1),
-        image: null,
-      }
-  )
-})
 const categoryProgress = (name) => {
   const id = store.weaponCategories.find((category) => category.name === name)?.id
   const progress = store.categoryProgress(id, props.track === 'prestige')
@@ -154,23 +110,20 @@ const rows = (weapon) =>
     : store
         .camoRows(weapon, props.mode)
         .filter((camo) => !store.filters.hideMilitaryCamos || camo.stage !== 'military')
-const columns = computed(() => {
-  const weapon = Object.values(props.categories).flat()[0]
-  if (!weapon) return []
-  const sharedColumn = (camo) => ({ key: camo.id, description: camo.name, camo })
-  if (props.track === 'prestige') return prestigeCamos.map(sharedColumn)
-  return [
-    ...(store.filters.hideMilitaryCamos ? [] : militaryCamos.map(sharedColumn)),
-    ...weapon.specialCamos.map((_, index) => ({
-      key: 'special-' + (index + 1),
-      special: true,
-      position: index + 1,
-      previews: specialPreviews[index],
-      description: 'Special ' + (index + 1) + ' — camo and requirements vary by weapon.',
-    })),
-    ...completionistCamos.map(sharedColumn),
-  ]
-})
+const allRows = (weapon) =>
+  props.track === 'prestige' ? store.prestigeRows(weapon) : store.camoRows(weapon, props.mode)
+const progress = (weapon) => {
+  const camos = allRows(weapon)
+  return { completed: camos.filter((camo) => camo.completed).length, total: camos.length }
+}
+const camoCount = computed(() =>
+  Math.max(
+    1,
+    ...Object.values(props.categories)
+      .flat()
+      .map((weapon) => rows(weapon).length)
+  )
+)
 </script>
 <style lang="scss" scoped>
 .category-progress {
@@ -180,7 +133,8 @@ const columns = computed(() => {
 }
 .table-container {
   --weapon-width: 220px;
-  --camo-width: 40px;
+  --camo-width: 42px;
+  --progress-width: 104px;
   max-width: 100%;
   overflow-x: auto;
   scroll-padding-inline-start: calc(var(--weapon-width) + 4px);
@@ -204,7 +158,9 @@ const columns = computed(() => {
   border-spacing: 0;
   table-layout: fixed;
   width: 100%;
-  min-width: calc(var(--weapon-width) + var(--camo-count) * var(--camo-width));
+  min-width: calc(
+    var(--weapon-width) + var(--camo-count) * var(--camo-width) + var(--progress-width)
+  );
   margin: 0;
   overflow: visible;
   thead,
@@ -217,7 +173,7 @@ const columns = computed(() => {
     text-align: center;
     vertical-align: middle;
     border: 0;
-    border-right: 1px solid #303030;
+
     border-bottom: 1px solid #303030;
     line-height: 1.3;
   }
@@ -238,108 +194,74 @@ const columns = computed(() => {
     font-size: 11px;
     font-weight: 600;
   }
-  .camo-header {
-    height: 42px;
-    position: relative;
+  thead th {
+    height: 34px;
+    color: #aaa;
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .camos-heading {
+    text-align: left;
+    padding-left: 4px;
   }
   .camo-cell {
-    position: relative;
-    z-index: 0;
+    padding: 7px 3px;
   }
-  .column-heading {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 32px;
-    min-height: 36px;
-    &:focus-visible {
-      outline: 2px solid #c5b0e8;
-      outline-offset: -1px;
-    }
+  .progress-column {
+    width: var(--progress-width);
+    padding: 0 14px;
   }
-  .header-art {
-    display: block;
-    width: 28px;
-    height: 28px;
-    overflow: hidden;
-    border-radius: 3px;
-  }
-  .special-header {
-    width: 32px;
-    height: 40px;
+  .weapon-progress {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 2px;
-    color: #c3b1d1;
-    font-size: 7px;
-    font-weight: 500;
-    line-height: 1.1;
+    gap: 6px;
+    padding: 7px 0;
   }
-  .special-label {
-    white-space: nowrap;
+  .progress-count {
+    font-size: 12px;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    text-align: right;
+    span {
+      color: #999;
+      font-size: 10px;
+      font-weight: 400;
+    }
   }
-  .special-collage {
-    position: relative;
+  progress {
     display: block;
-    width: 28px;
-    height: 28px;
+    appearance: none;
+    width: 100%;
+    height: 4px;
+    border: 0;
+    border-radius: 3px;
     overflow: hidden;
-    border-radius: 3px;
-    background: #303030;
-    box-shadow: 0 0 0 1px #5b5064;
-  }
-  .special-strip {
-    position: absolute;
-    inset: 0;
-  }
-  .strip-0 {
-    clip-path: polygon(0 0, 50% 0, 16.667% 100%, 0 100%);
-  }
-  .strip-1 {
-    clip-path: polygon(50% 0, 83.333% 0, 50% 100%, 16.667% 100%);
-  }
-  .strip-2 {
-    clip-path: polygon(83.333% 0, 100% 0, 100% 100%, 50% 100%);
-  }
-  .header-tooltip {
-    visibility: hidden;
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-    width: max-content;
-    max-width: 170px;
-    padding: 6px 8px;
-    border: 1px solid #56505e;
-    border-radius: 3px;
-    background: #27252b;
-    color: #eee;
-    font-size: 11px;
-    font-weight: 400;
-    z-index: 5;
-    pointer-events: none;
-    white-space: normal;
-  }
-  .column-heading:hover .header-tooltip,
-  .column-heading:focus-visible .header-tooltip {
-    visibility: visible;
-  }
-  .camo-header:last-child .header-tooltip {
-    left: auto;
-    right: 0;
-    transform: none;
+    background: #363636;
+    color: $green;
+    &::-webkit-progress-bar {
+      background: #363636;
+    }
+    &::-webkit-progress-value {
+      background: $green;
+      border-radius: 3px;
+    }
+    &::-moz-progress-bar {
+      background: $green;
+      border-radius: 3px;
+    }
   }
   .category-row th {
-    padding: 4px 8px;
-    font-size: 11px;
-    font-weight: 600;
+    padding: 8px 16px;
+    font-size: 16px;
     text-align: left;
     color: #bbb;
     background: #161616;
   }
-  .category-row span {
+  .category-label {
+    display: inline-flex;
+    align-items: center;
     position: sticky;
     left: 8px;
   }

@@ -7,8 +7,7 @@ import HomeView from '@/views/HomeView.vue'
 import PrestigeView from '@/views/PrestigeView.vue'
 import { useStore } from '@/stores/store'
 import messages from '@/i18n/locales/en-GB.json'
-import catalog from '@/data/weapons/index.js'
-import { camoImageUrl, missingCamoImageUrl } from '@/data/mw4/artwork'
+import { missingCamoImageUrl } from '@/data/mw4/artwork'
 
 vi.mock('@/data/weapons/index.js', async () => {
   const { default: han } = await import('@/data/weapons/assault-rifles/han-86.weapon')
@@ -94,35 +93,14 @@ async function click(button) {
 }
 
 describe('classic table rendering and interactions', () => {
-  it('uses shared artwork and slot-specific Special collages above compact per-weapon indicators', () => {
-    expect(
-      [...host.querySelectorAll('thead [data-column-id]')].map((header) => header.dataset.columnId)
-    ).toEqual([
-      ...Array.from({ length: 8 }, (_, index) => 'military-' + (index + 1)),
-      'special-1',
-      'special-2',
-      'special-3',
-      'gold',
-      'platinum',
-      'harmonic-break',
-      'divergence',
+  it('shows each weapon�s camo artwork inline with card-style completion overlays', () => {
+    expect([...host.querySelectorAll('thead th')].map((header) => header.textContent)).toEqual([
+      'Weapon',
+      'Camos',
+      'Progress',
     ])
-    expect(host.querySelectorAll('thead img')).toHaveLength(21)
-    expect(host.querySelectorAll('thead .special-header')).toHaveLength(3)
-    for (const slot of [0, 1, 2]) {
-      const header = host.querySelector(`[data-column-id="special-${slot + 1}"]`)
-      const validArtwork = new Set(catalog.map((weapon) => camoImageUrl(weapon.specialCamos[slot])))
-      const images = [...header.querySelectorAll('.special-strip img')]
-      expect(images).toHaveLength(3)
-      expect(images.every((image) => validArtwork.has(image.getAttribute('src')))).toBe(true)
-      expect(header.querySelector('.special-label').textContent).toBe(`Special ${slot + 1}`)
-    }
-    expect(
-      host.querySelector('[data-column-id="special-1"] [tabindex]').getAttribute('aria-label')
-    ).toContain('vary by weapon')
-    expect(host.querySelectorAll('tbody img')).toHaveLength(0)
-    expect(row().querySelectorAll('.table-check')).toHaveLength(15)
-    expect(row().querySelectorAll('.table-check [data-icon="check"]')).toHaveLength(0)
+    expect(row().querySelectorAll('.thumbnail img')).toHaveLength(15)
+    expect(row().querySelectorAll('.camo-button.completed')).toHaveLength(0)
     expect(cell('bravo-special-0', 'test-bravo').getAttribute('aria-label')).toContain(
       'Bravo Special 1'
     )
@@ -133,8 +111,8 @@ describe('classic table rendering and interactions', () => {
     expect(host.querySelectorAll('tbody')).toHaveLength(2)
   })
 
-  it('uses the shared missing-image fallback in a collage without affecting completion controls', async () => {
-    const image = host.querySelector('[data-column-id="special-1"] .special-strip img')
+  it('uses the shared missing-image fallback in a row without affecting completion controls', async () => {
+    const image = cell('smoke').querySelector('img')
     image.dispatchEvent(new Event('error'))
     await nextTick()
     expect(image.getAttribute('src')).toBe(missingCamoImageUrl)
@@ -142,14 +120,14 @@ describe('classic table rendering and interactions', () => {
     expect(store.camoCompleted('test-alpha', 'smoke')).toBe(true)
   })
 
-  it('persists a Military prefix/suffix atomically and uses white checkmarks on completed squares', async () => {
+  it('persists a Military prefix/suffix atomically and updates card-style completion checks', async () => {
     const write = vi.spyOn(Storage.prototype, 'setItem')
     await click(cell('military-8'))
     expect(write).toHaveBeenCalledTimes(1)
-    expect(row().querySelectorAll('.table-check [data-icon="check"]')).toHaveLength(8)
-    expect(cell('military-8').querySelector('[data-icon="check"]').dataset.fill).toBe('white')
+    expect(row().querySelectorAll('.camo-button.completed .complete')).toHaveLength(8)
+    expect(cell('military-8').querySelector('[data-icon="check"]').dataset.fill).toBe('#10ac84')
     await click(cell('military-3'))
-    expect(row().querySelectorAll('.table-check [data-icon="check"]')).toHaveLength(2)
+    expect(row().querySelectorAll('.camo-button.completed .complete')).toHaveLength(2)
     expect(store.overallProgress.completed).toBe(2)
     expect(store.save.weapons['test-bravo']).toBeUndefined()
     expect(store.save.prestige).toEqual({})
@@ -159,17 +137,35 @@ describe('classic table rendering and interactions', () => {
     await click(cell('smoke'))
     expect(Object.keys(store.save.weapons['test-alpha'].sharedCamos)).toEqual(['smoke'])
     await click(cell('divergence'))
-    expect(row().querySelectorAll('.table-check [data-icon="check"]')).toHaveLength(15)
+    expect(row().querySelectorAll('.camo-button.completed .complete')).toHaveLength(15)
     expect(row().querySelector('.tier-accent').getAttribute('aria-label')).toBe(
       'Divergence unlocked'
     )
     await click(cell('platinum'))
-    expect(row().querySelectorAll('.table-check [data-icon="check"]')).toHaveLength(12)
+    expect(row().querySelectorAll('.camo-button.completed .complete')).toHaveLength(12)
     expect(row().querySelector('.tier-accent').getAttribute('aria-label')).toBe('Gold unlocked')
     await click(cell('smoke'))
     expect(store.camoCompleted('test-alpha', 'gold')).toBe(true)
     expect(store.camoCompleted('test-alpha', 'smoke')).toBe(false)
     expect(Object.keys(store.save.weapons)).toEqual(['test-alpha'])
+  })
+
+  it('updates each weapon�s count and progress independently, including hidden military camos', async () => {
+    const progress = () => row().querySelector('progress')
+    expect(progress().value).toBe(0)
+    expect(progress().max).toBe(15)
+    await click(cell('military-8'))
+    expect(progress().value).toBe(8)
+    expect(row().querySelector('.progress-count').textContent).toBe('8/15')
+    expect(row('test-bravo').querySelector('progress').value).toBe(0)
+    store.setFilters({ hideMilitaryCamos: true })
+    await nextTick()
+    expect(progress().value).toBe(8)
+    expect(progress().max).toBe(15)
+    await click(cell('divergence'))
+    expect(progress().value).toBe(15)
+    await click(cell('platinum'))
+    expect(progress().value).toBe(12)
   })
 
   it('supports double-click, keyboard and explicit weapon completion actions', async () => {
@@ -247,8 +243,8 @@ describe('classic table rendering and interactions', () => {
     })
     await nextTick()
     expect(ids()).toEqual(['test-bravo'])
-    expect(host.querySelectorAll('thead [data-column-id]')).toHaveLength(7)
-    expect(row('test-bravo').querySelectorAll('.table-indicator')).toHaveLength(7)
+    expect(host.querySelector('.camos-heading').getAttribute('colspan')).toBe('7')
+    expect(row('test-bravo').querySelectorAll('.camo-button')).toHaveLength(7)
     expect(host.querySelector('tbody .category-row span:first-child').textContent).toBe(
       'Submachine Guns'
     )
@@ -299,7 +295,7 @@ describe('classic table rendering and interactions', () => {
     const pinia = createPinia()
     useStore(pinia).save.preferences.layout = 'table'
     await mount(pinia, true)
-    expect(host.querySelectorAll('thead img')).toHaveLength(4)
+    expect(row().querySelectorAll('.thumbnail img')).toHaveLength(4)
     await click(cell('pyroclast-scatter'))
     expect(store.save.prestige['test-alpha']).toEqual({
       'pyroclast': true,
@@ -307,6 +303,8 @@ describe('classic table rendering and interactions', () => {
       'pyroclast-scatter': true,
     })
     expect(store.save.weapons).toEqual({})
+    expect(row().querySelector('progress').value).toBe(3)
+    expect(row().querySelector('progress').max).toBe(4)
     expect(store.overallProgress.completed).toBe(0)
   })
 })
