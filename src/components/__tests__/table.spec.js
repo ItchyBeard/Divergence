@@ -4,7 +4,6 @@ import { createApp, h, nextTick, ref } from 'vue'
 import { createPinia } from 'pinia'
 import { createI18n } from 'vue-i18n'
 import HomeView from '@/views/HomeView.vue'
-import PrestigeView from '@/views/PrestigeView.vue'
 import { useStore } from '@/stores/store'
 import messages from '@/i18n/locales/en-GB.json'
 import { missingCamoImageUrl } from '@/data/mw4/artwork'
@@ -46,9 +45,10 @@ vi.mock('@/data/weapons/index.js', async () => {
 let app, host, store, mode
 async function mount(pinia = createPinia(), prestige = false) {
   store = useStore(pinia)
+  if (prestige) store.setPreferences({ showPrestigeCamos: true })
   mode = ref('multiplayer')
   app = createApp({
-    render: () => (prestige ? h(PrestigeView) : h(HomeView, { mode: mode.value })),
+    render: () => h(HomeView, { mode: mode.value }),
   })
   app.use(pinia)
   app.use(createI18n({ locale: 'en-GB', messages: { 'en-GB': messages } }))
@@ -295,7 +295,7 @@ describe('classic table rendering and interactions', () => {
     const pinia = createPinia()
     useStore(pinia).save.preferences.layout = 'table'
     await mount(pinia, true)
-    expect(row().querySelectorAll('.thumbnail img')).toHaveLength(4)
+    expect(row().querySelectorAll('.thumbnail img')).toHaveLength(19)
     await click(cell('pyroclast-scatter'))
     expect(store.save.prestige['test-alpha']).toEqual({
       'pyroclast': true,
@@ -303,8 +303,8 @@ describe('classic table rendering and interactions', () => {
       'pyroclast-scatter': true,
     })
     expect(store.save.weapons).toEqual({})
-    expect(row().querySelector('progress').value).toBe(3)
-    expect(row().querySelector('progress').max).toBe(4)
+    expect(row().querySelector('progress').value).toBe(0)
+    expect(row().querySelector('progress').max).toBe(15)
     expect(store.overallProgress.completed).toBe(0)
   })
 })

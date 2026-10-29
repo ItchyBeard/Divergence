@@ -16,7 +16,15 @@ export const routes = [
     ['/warzone', 'warzone'],
   ].map(([path, mode]) => ({ path, redirect: (route) => legacyTrackerLocation(route, mode) })),
   { path: '/gallery', name: 'gallery', component: () => import('../views/GalleryView.vue') },
-  { path: '/prestige', name: 'prestige', component: () => import('../views/PrestigeView.vue') },
+  {
+    path: '/prestige',
+    name: 'prestige',
+    redirect: (route) => ({
+      path: '/tracker',
+      query: { ...route.query, prestige: '1' },
+      hash: route.hash,
+    }),
+  },
   { path: '/mastery', name: 'mastery', component: () => import('../views/MasteryView.vue') },
   { path: '/settings', name: 'settings', component: () => import('../views/SettingsView.vue') },
   { path: '/about', name: 'about', component: () => import('../views/AboutView.vue') },

@@ -70,18 +70,13 @@ import { weaponSilhouetteUrl } from '@/data/mw4/artwork'
 const props = defineProps({
   weapon: { type: Object, required: true },
   mode: { type: String, default: 'multiplayer' },
-  track: { type: String, default: 'shared' },
   compact: Boolean,
 })
 const store = useStore()
 const silhouette = computed(() => weaponSilhouetteUrl(props.weapon.id))
 const failedSilhouette = ref('')
 const maskId = `weapon-silhouette-${getCurrentInstance().uid}`
-const completed = computed(() =>
-  props.track === 'prestige'
-    ? store.prestigeApplicableCompleted(props.weapon.id)
-    : store.weaponModeCompleted(props.weapon.id, props.mode)
-)
+const completed = computed(() => store.weaponModeCompleted(props.weapon.id, props.mode))
 const tier = computed(() => store.weaponHeaderTier(props.weapon.id))
 const tierName = computed(() => completionistCamos.find((camo) => camo.id === tier.value)?.name)
 const silhouetteColor = computed(
@@ -94,12 +89,7 @@ const silhouetteColor = computed(
     })[tier.value] || '#ffffff'
 )
 const locked = computed(() => !props.weapon.available || !!store.loadError)
-const actionLabel = computed(
-  () =>
-    `${completed.value ? 'Reset' : 'Complete'} ${props.weapon.name}${
-      props.track === 'prestige' ? ' prestige' : ''
-    }`
-)
+const actionLabel = computed(() => `${completed.value ? 'Reset' : 'Complete'} ${props.weapon.name}`)
 const hint = computed(
   () =>
     `Double-click to ${
@@ -108,8 +98,7 @@ const hint = computed(
 )
 function toggle() {
   if (!locked.value) {
-    if (props.track === 'prestige') store.toggleWeaponPrestige(props.weapon.id)
-    else store.toggleWeaponCompleted(props.weapon.id, props.mode)
+    store.toggleWeaponCompleted(props.weapon.id, props.mode)
   }
 }
 </script>

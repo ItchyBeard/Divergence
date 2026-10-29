@@ -23,6 +23,18 @@ const store = useStore()
 const router = inject(routerKey, null)
 const mode = computed(() => resolveTrackerMode(props.mode, store.preferences.trackerMode))
 watch(
+  () => router?.currentRoute.value.query.prestige,
+  (value) => {
+    if (value !== '1') return
+    store.setPreferences({ showPrestigeCamos: true })
+    const route = router.currentRoute.value
+    const query = { ...route.query }
+    delete query.prestige
+    router.replace({ path: route.path, query, hash: route.hash })
+  },
+  { immediate: true }
+)
+watch(
   mode,
   (value) => {
     // Only the routed tracker owns the saved mode; embedded previews remain read-only.

@@ -11,7 +11,6 @@
         <router-link class="mode-link" :class="'mode-' + currentMode" to="/tracker"
           >Camo Tracker</router-link
         >
-        <router-link to="/prestige">Weapon Prestige</router-link>
         <router-link to="/mastery">Mastery</router-link>
         <router-link to="/gallery">Camo Gallery</router-link>
       </div>

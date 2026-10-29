@@ -154,7 +154,6 @@ describe('unified Camo Tracker navigation', () => {
     await mount('/tracker?mode=warzone')
     expect([...host.querySelectorAll('.nav-links a')].map((a) => a.textContent.trim())).toEqual([
       'Camo Tracker',
-      'Weapon Prestige',
       'Mastery',
       'Camo Gallery',
       '',
@@ -167,8 +166,9 @@ describe('unified Camo Tracker navigation', () => {
         input.getAttribute('aria-label')
       )
     ).toEqual(['MP', 'DMZ', 'WZ'])
-    expect([...host.querySelectorAll('.mode-label')].map((label) => label.textContent.trim()))
-      .toEqual(['MP', 'DMZ', 'WZ'])
+    expect(
+      [...host.querySelectorAll('.mode-label')].map((label) => label.textContent.trim())
+    ).toEqual(['MP', 'DMZ', 'WZ'])
     expect(host.querySelectorAll('.mode-switch img')).toHaveLength(0)
     expect(host.querySelector('[aria-label="Challenge mode"]')).not.toBeNull()
   })

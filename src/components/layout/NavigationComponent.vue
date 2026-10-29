@@ -8,7 +8,6 @@
       <router-link class="mode-link" :class="'mode-' + currentMode" to="/tracker"
         >Camo Tracker</router-link
       >
-      <router-link to="/prestige">Weapon Prestige</router-link>
       <router-link to="/mastery">Mastery</router-link>
       <router-link to="/gallery">Camo Gallery</router-link>
       <a href="https://discord.gg/HswvED9v6a" class="icon"><IconComponent name="discord" /></a>
@@ -20,7 +19,7 @@
         <IconComponent name="download-alt" />
       </button>
       <router-link to="/settings" class="icon-btn settings" aria-label="Settings">
-        <IconComponent name="cog"/>
+        <IconComponent name="cog" />
       </router-link>
     </div>
     <button
@@ -132,6 +131,11 @@ nav.container {
     display: block;
     min-width: 44px;
     min-height: 44px;
+  }
+}
+@media (max-width: 600px) {
+  nav.container {
+    padding: 16px 0 18px;
   }
 }
 </style>

@@ -4,7 +4,7 @@ import { createPinia } from 'pinia'
 import SupportBanner from '../SupportBanner.vue'
 import CompletionCelebration from '../CompletionCelebration.vue'
 import ModalComponent from '../ModalComponent.vue'
-import PrestigeView from '@/views/PrestigeView.vue'
+import HomeView from '@/views/HomeView.vue'
 import catalog from '@/data/weapons/index.js'
 import { getWeaponCamos as sharedCamos } from '@/data/mw4/catalog'
 import { useStore } from '@/stores/store'
@@ -181,7 +181,8 @@ describe('celebration accessibility and motion', () => {
 })
 
 it('keeps the Prestige toolbar free of global and per-weapon level inputs', () => {
-  const { store } = mount(PrestigeView)
+  const { store } = mount(HomeView)
+  store.setPreferences({ showPrestigeCamos: true })
   expect(host.querySelector('[aria-label="Prestige Level"]')).toBeNull()
   expect(host.querySelector('input[type="number"]')).toBeNull()
   expect(host.querySelector('[aria-label="Search weapons"]')).not.toBeNull()

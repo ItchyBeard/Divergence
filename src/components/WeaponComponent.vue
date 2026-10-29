@@ -5,12 +5,13 @@
     :data-weapon-id="weapon.id">
     <div class="weapon" :class="{ 'label': !!weapon.label, 'coming-soon': !weapon.available }">
       <div class="name" :data-label="weapon.label || null">
-        <WeaponName :weapon="weapon" :mode="mode" :track="track" />
+        <WeaponName :weapon="weapon" :mode="mode" />
       </div>
       <div
         v-for="(group, index) in groups"
         :key="index"
         class="progress"
+        :class="{ 'prestige-progress': group[0]?.stage === 'prestige' }"
         :style="{
           gridTemplateColumns:
             layout === 'grid' ? 'repeat(' + group.length + ', minmax(0, 1fr))' : '1fr',
@@ -20,16 +21,16 @@
           :key="camo.id"
           :camo="camo"
           :weapon="weapon"
-          :mode="track === 'prestige' ? '' : mode"
+          :mode="camo.stage === 'prestige' ? '' : mode"
           :list="layout === 'list'"
           :locked="!weapon.available"
           :disabled="
-            track === 'prestige'
+            camo.stage === 'prestige'
               ? !store.canTogglePrestige(weapon.id, camo.id)
               : !store.canToggleCamo(weapon.id, camo.id, mode)
           "
           @toggle="
-            track === 'prestige'
+            camo.stage === 'prestige'
               ? store.togglePrestige(weapon.id, camo.id)
               : store.toggleCamo(weapon.id, camo.id, mode)
           " />
@@ -57,16 +58,15 @@ import WeaponName from './WeaponName.vue'
 const props = defineProps({
   weapon: { type: Object, required: true },
   mode: { type: String, default: 'multiplayer' },
-  track: { type: String, default: 'shared' },
 })
 const store = useStore()
 const layout = computed(() => store.preferences.layout)
 const groups = computed(() => {
-  if (props.track === 'prestige') return [store.prestigeRows(props.weapon)]
   const camos = store.camoRows(props.weapon, props.mode)
   return [
     store.filters.hideMilitaryCamos ? [] : camos.filter((camo) => camo.stage === 'military'),
     camos.filter((camo) => camo.stage !== 'military'),
+    store.preferences.showPrestigeCamos ? store.prestigeRows(props.weapon) : [],
   ].filter((group) => group.length)
 })
 </script>

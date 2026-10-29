@@ -9,15 +9,13 @@
         <WeaponsTable
           v-if="store.preferences.layout === 'table' && favorites.length"
           :categories="{ Favourites: favorites }"
-          :mode="mode"
-          :track="track" />
+          :mode="mode" />
         <div v-else class="weapons">
           <WeaponComponent
             v-for="weapon in favorites"
             :key="weapon.id"
             :weapon="weapon"
-            :mode="mode"
-            :track="track" />
+            :mode="mode" />
         </div>
         <p v-if="!favorites.length">
           Use the star on a weapon to add a favourite. Current filters also apply here.
@@ -26,8 +24,7 @@
       <WeaponsTable
         v-if="store.preferences.layout === 'table'"
         :categories="grouped"
-        :mode="mode"
-        :track="track" />
+        :mode="mode" />
       <template v-else>
         <section v-for="(weapons, category) in grouped" :key="category" class="category">
           <h2>
@@ -39,8 +36,7 @@
               v-for="weapon in weapons"
               :key="weapon.id"
               :weapon="weapon"
-              :mode="mode"
-              :track="track" />
+              :mode="mode" />
           </div>
         </section>
       </template>
@@ -59,13 +55,12 @@ import WeaponComponent from './WeaponComponent.vue'
 import WeaponsTable from './WeaponsTable.vue'
 const props = defineProps({
   mode: { type: String, default: 'multiplayer' },
-  track: { type: String, default: 'shared' },
 })
 const store = useStore()
 const root = ref(null)
 const route = useTrackerJump(root)
 const visibleWeapons = computed(() => {
-  const visible = store.sortedWeapons(props.mode, props.track === 'prestige')
+  const visible = store.sortedWeapons(props.mode)
   // A Gallery jump reveals only its target; saved visibility filters remain intact.
   const target = store.weapons.find((weapon) => weapon.id === route?.query.weapon)
   return target && !visible.some((weapon) => weapon.id === target.id)
@@ -89,7 +84,7 @@ const favorites = computed(() =>
 )
 const categoryProgress = (name) => {
   const id = store.weaponCategories.find((category) => category.name === name)?.id
-  const progress = store.categoryProgress(id, props.track === 'prestige')
+  const progress = store.categoryProgress(id)
   return `${progress.completed}/${progress.total}`
 }
 </script>

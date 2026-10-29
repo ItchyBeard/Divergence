@@ -6,7 +6,7 @@ import { createI18n } from 'vue-i18n'
 import { createMemoryHistory, createRouter, RouterView } from 'vue-router'
 import GalleryView from '@/views/GalleryView.vue'
 import HomeView from '@/views/HomeView.vue'
-import PrestigeView from '@/views/PrestigeView.vue'
+import { routes } from '@/router'
 import MasteryView from '@/views/MasteryView.vue'
 import { useStore } from '@/stores/store'
 import messages from '@/i18n/locales/en-GB.json'
@@ -61,7 +61,7 @@ beforeEach(async () => {
       { path: '/', component: HomeView, props: { mode: 'multiplayer' } },
       { path: '/dmz', component: HomeView, props: { mode: 'dmz' } },
       { path: '/warzone', component: HomeView, props: { mode: 'warzone' } },
-      { path: '/prestige', component: PrestigeView },
+      ...routes.filter((route) => ['/prestige', '/tracker'].includes(route.path)),
       { path: '/mastery', component: MasteryView },
     ],
   })
@@ -200,7 +200,8 @@ describe('read-only Gallery and weapon navigation', () => {
     dialog.querySelector('a').click()
     await settle()
     await settle()
-    expect(router.currentRoute.value.path).toBe('/prestige')
+    expect(router.currentRoute.value.path).toBe('/tracker')
+    expect(store.preferences.showPrestigeCamos).toBe(true)
     expect(
       host.querySelector('[data-camo-id="pyroclast-terminus"].weapon-jump-highlight')
     ).not.toBeNull()

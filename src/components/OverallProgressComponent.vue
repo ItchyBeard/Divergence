@@ -85,11 +85,14 @@ const percentage = (camo) => progressPercentage(camo.completed, camo.total)
   .overall-progress-component {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 12px;
+    gap: 10px 16px;
+    padding: 0;
+    margin-bottom: 12px;
   }
   .counter-label {
     justify-content: flex-start;
-    min-height: 28px;
+    min-height: 20px;
+    margin-bottom: 5px;
     font-size: 10px;
     gap: 5px;
     p {

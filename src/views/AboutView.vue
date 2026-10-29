@@ -20,7 +20,7 @@
     </section>
 
     <section aria-labelledby="previous-trackers-heading" class="about-section">
-      <h2 id="previous-trackers-heading">Previous trackers</h2>
+      <h2 id="previous-trackers-heading">Previous Trackers</h2>
       <p>
         Looking for camouflage trackers from previous Call of Duty games? Explore the earlier
         trackers that led to Divergence.
@@ -30,12 +30,18 @@
           v-for="tracker in trackers"
           :key="tracker.title"
           class="tracker"
+          :style="{ '--tracker-accent': tracker.accent }"
           :href="tracker.url"
           target="_blank"
           rel="noopener noreferrer"
-          :aria-label="`${tracker.title} (opens in a new tab)`">
+          @pointerenter="updateTrackerGlow"
+          @pointermove="updateTrackerGlow"
+          :aria-label="`${tracker.title} — ${tracker.game} (opens in a new tab)`">
           <img :src="tracker.icon" alt="" width="32" height="32" />
-          <span>{{ tracker.title }}</span>
+          <div class="tracker-copy">
+            <h3 class="tracker-title brand-wordmark">{{ tracker.title }}</h3>
+            <span class="tracker-game">{{ tracker.game }}</span>
+          </div>
           <IconComponent
             class="external-icon"
             name="external-link-alt"
@@ -84,6 +90,19 @@ import vanguardIcon from '@/assets/vanguard.png'
 import coldWarIcon from '@/assets/coldwar.png'
 import damascusIcon from '@/assets/damascus.png'
 
+function updateTrackerGlow(event) {
+  if (
+    event.pointerType === 'touch' ||
+    window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  )
+    return
+
+  const card = event.currentTarget
+  const bounds = card.getBoundingClientRect()
+  card.style.setProperty('--glow-x', `${event.clientX - bounds.left}px`)
+  card.style.setProperty('--glow-y', `${event.clientY - bounds.top}px`)
+}
+
 const features = [
   {
     title: 'Autosaving',
@@ -120,24 +139,54 @@ const features = [
 
 const trackers = [
   {
-    title: 'Black Ops 7',
+    title: 'SINGULARITY',
+    game: 'Black Ops 7',
+    accent: '#d11f91',
     icon: singularityIcon,
     url: 'https://singularity-tracker.netlify.app/',
   },
   {
-    title: 'Black Ops 6',
+    title: 'NEBULA',
+    game: 'Black Ops 6',
+    accent: '#d11f91',
     icon: nebulaIcon,
-    url: 'https://nebula.emca.app',
+    url: 'https://nebula.emca.app/',
   },
   {
-    title: 'Modern Warfare III',
+    title: 'INTERSTELLAR',
+    game: 'Modern Warfare III',
+    accent: '#d11f91',
     icon: interstellarIcon,
-    url: 'https://interstellar.emca.app',
+    url: 'https://interstellar.emca.app/',
   },
-  { title: 'Modern Warfare II', icon: orionIcon, url: 'https://orion.emca.app' },
-  { title: 'Vanguard', icon: vanguardIcon, url: 'https://vanguard.emca.app' },
-  { title: 'Black Ops Cold War', icon: coldWarIcon, url: 'https://coldwar.vercel.app' },
-  { title: 'Modern Warfare (2019)', icon: damascusIcon, url: 'https://damascus.vercel.app/' },
+  {
+    title: 'ORION',
+    game: 'Modern Warfare II',
+    accent: '#9560ce',
+    icon: orionIcon,
+    url: 'https://orion.emca.app/',
+  },
+  {
+    title: 'VANGUARD',
+    game: 'Call of Duty: Vanguard',
+    accent: '#ff9f00',
+    icon: vanguardIcon,
+    url: 'https://vanguard.emca.app/',
+  },
+  {
+    title: 'COLDWAR',
+    game: 'Black Ops Cold War',
+    accent: '#d7d7d7',
+    icon: coldWarIcon,
+    url: 'https://coldwar.vercel.app/',
+  },
+  {
+    title: 'DAMASCUS',
+    game: 'Modern Warfare (2019)',
+    accent: '#5f27cd',
+    icon: damascusIcon,
+    url: 'https://damascus.vercel.app/',
+  },
 ]
 </script>
 
@@ -241,20 +290,76 @@ a:focus-visible {
   align-items: center;
   background: $elevation-2-color;
   border: 1px solid $elevation-3-color;
+  border-left: 2px solid var(--tracker-accent);
   border-radius: $border-radius;
   color: $text-color;
   display: flex;
   gap: 14px;
   min-height: 76px;
   padding: 16px;
+  position: relative;
+  isolation: isolate;
   transition:
     background-color $transition,
     border-color $transition;
 
-  &:hover {
-    background: $elevation-3-color;
-    border-color: #756a9b;
+  &::before,
+  &::after {
+    border-radius: inherit;
+    content: '';
+    opacity: 0;
+    pointer-events: none;
+    position: absolute;
+    transition: opacity $transition;
+  }
+
+  &::before {
+    inset: 0;
+    z-index: -1;
+    background: radial-gradient(
+      260px circle at var(--glow-x, 50%) var(--glow-y, 50%),
+      color-mix(in srgb, var(--tracker-accent) 18%, transparent),
+      transparent 75%
+    );
+  }
+
+  &::after {
+    inset: -1px;
+    padding: 1px;
+    background: radial-gradient(
+      180px circle at var(--glow-x, 50%) var(--glow-y, 50%),
+      color-mix(in srgb, var(--tracker-accent) 75%, white),
+      transparent 80%
+    );
+    -webkit-mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      text-decoration: none;
+
+      &::before,
+      &::after {
+        opacity: 1;
+      }
+    }
+  }
+
+  &:focus-visible {
+    border-color: var(--tracker-accent);
     text-decoration: none;
+
+    &::before,
+    &::after {
+      opacity: 1;
+    }
   }
 
   img {
@@ -262,7 +367,20 @@ a:focus-visible {
     object-fit: contain;
   }
 
-  span {
+  .tracker-copy {
+    min-width: 0;
+  }
+
+  .tracker-title {
+    font-size: 16px;
+    margin: 0 0 4px;
+    overflow-wrap: anywhere;
+  }
+
+  .tracker-game {
+    color: #bbb;
+    font-family: $font-family;
+    font-size: 13px;
     line-height: 1.5;
   }
 
@@ -275,7 +393,9 @@ a:focus-visible {
 
 @media (prefers-reduced-motion: reduce) {
   .feature,
-  .tracker {
+  .tracker,
+  .tracker::before,
+  .tracker::after {
     transition: none;
   }
 }

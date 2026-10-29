@@ -20,6 +20,7 @@ export const defaultPreferences = () => ({
   trackerMode: 'multiplayer',
   favorites: false,
   weaponIcons: false,
+  showPrestigeCamos: false,
   locale: 'en-GB',
   completionTarget: completionistCamos.at(-1).id,
 })
@@ -137,6 +138,7 @@ export function parseSave(input) {
       ('layout' in preferences && !['grid', 'list', 'table'].includes(preferences.layout)) ||
       ('favorites' in preferences && typeof preferences.favorites !== 'boolean') ||
       ('weaponIcons' in preferences && typeof preferences.weaponIcons !== 'boolean') ||
+      ('showPrestigeCamos' in preferences && typeof preferences.showPrestigeCamos !== 'boolean') ||
       ('locale' in preferences && preferences.locale !== 'en-GB') ||
       ('completionTarget' in preferences && !stableId(preferences.completionTarget))
     )

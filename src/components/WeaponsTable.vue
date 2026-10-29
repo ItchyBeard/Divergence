@@ -1,5 +1,7 @@
 <template>
+  <MobileWeaponsList v-if="mobile" :categories="categories" :mode="mode" />
   <div
+    v-else
     class="table-container"
     role="region"
     aria-label="Weapon camo table — scroll horizontally"
@@ -7,7 +9,10 @@
     <table class="camo-table" :style="{ '--camo-count': camoCount }">
       <caption class="sr-only">
         {{
-          track === 'prestige' ? 'Weapon Prestige' : modes[mode].name + ' shared camos'
+          modes[mode].name + ' shared camos'
+        }}
+        {{
+          store.preferences.showPrestigeCamos ? ' and Weapon Prestige' : ''
         }}
       </caption>
       <colgroup>
@@ -47,26 +52,29 @@
                   size="14" />
               </button>
               <div class="weapon-details">
-                <WeaponName :weapon="weapon" :mode="mode" :track="track" compact /><small
-                  v-if="weapon.label"
-                  >{{ weapon.label }}</small
-                >
+                <WeaponName :weapon="weapon" :mode="mode" compact /><small v-if="weapon.label">{{
+                  weapon.label
+                }}</small>
               </div>
             </div>
           </th>
-          <td v-for="camo in rows(weapon)" :key="camo.id" class="camo-cell">
+          <td
+            v-for="camo in rows(weapon)"
+            :key="camo.id"
+            class="camo-cell"
+            :class="{ 'prestige-start': camo.id === 'pyroclast' }">
             <CamoButton
               :camo="camo"
               :weapon="weapon"
               :locked="!weapon.available"
-              :mode="track === 'prestige' ? '' : mode"
+              :mode="camo.stage === 'prestige' ? '' : mode"
               :disabled="
-                track === 'prestige'
+                camo.stage === 'prestige'
                   ? !store.canTogglePrestige(weapon.id, camo.id)
                   : !store.canToggleCamo(weapon.id, camo.id, mode)
               "
               @toggle="
-                track === 'prestige'
+                camo.stage === 'prestige'
                   ? store.togglePrestige(weapon.id, camo.id)
                   : store.toggleCamo(weapon.id, camo.id, mode)
               " />
@@ -88,32 +96,37 @@
   </div>
 </template>
 <script setup>
-import { computed } from 'vue'
+import { computed, onBeforeUnmount, ref } from 'vue'
 import { useStore } from '@/stores/store'
 import { modes } from '@/data/mw4/modes'
 import CamoButton from './CamoButton.vue'
 import WeaponName from './WeaponName.vue'
+import MobileWeaponsList from './MobileWeaponsList.vue'
 const props = defineProps({
-  track: { type: String, default: 'shared' },
   categories: { type: Object, required: true },
   mode: { type: String, required: true },
 })
 const store = useStore()
+const mobileQuery = window.matchMedia?.('(max-width: 600px)')
+const mobile = ref(mobileQuery?.matches || false)
+const updateMobile = (event) => {
+  mobile.value = event.matches
+}
+mobileQuery?.addEventListener?.('change', updateMobile)
+onBeforeUnmount(() => mobileQuery?.removeEventListener?.('change', updateMobile))
 const categoryProgress = (name) => {
   const id = store.weaponCategories.find((category) => category.name === name)?.id
-  const progress = store.categoryProgress(id, props.track === 'prestige')
+  const progress = store.categoryProgress(id)
   return `${progress.completed}/${progress.total}`
 }
-const rows = (weapon) =>
-  props.track === 'prestige'
-    ? store.prestigeRows(weapon)
-    : store
-        .camoRows(weapon, props.mode)
-        .filter((camo) => !store.filters.hideMilitaryCamos || camo.stage !== 'military')
-const allRows = (weapon) =>
-  props.track === 'prestige' ? store.prestigeRows(weapon) : store.camoRows(weapon, props.mode)
+const rows = (weapon) => [
+  ...store
+    .camoRows(weapon, props.mode)
+    .filter((camo) => !store.filters.hideMilitaryCamos || camo.stage !== 'military'),
+  ...(store.preferences.showPrestigeCamos ? store.prestigeRows(weapon) : []),
+]
 const progress = (weapon) => {
-  const camos = allRows(weapon)
+  const camos = store.camoRows(weapon, props.mode)
   return { completed: camos.filter((camo) => camo.completed).length, total: camos.length }
 }
 const camoCount = computed(() =>
@@ -208,6 +221,9 @@ const camoCount = computed(() =>
   }
   .camo-cell {
     padding: 7px 3px;
+  }
+  .prestige-start {
+    border-left: 1px solid #62516f;
   }
   .progress-column {
     width: var(--progress-width);

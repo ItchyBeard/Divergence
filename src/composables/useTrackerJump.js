@@ -20,6 +20,9 @@ export function useTrackerJump(root) {
       weapon ? element.dataset.weaponId === weapon : element.dataset.mode === mode
     )
     if (!target) return
+    // Reveal the mobile checklist before focusing a Gallery destination inside it.
+    const details = target.querySelector('details')
+    if (details) details.open = true
     const camo = [...target.querySelectorAll('[data-camo-id]')].find(
       (element) => element.dataset.camoId === route?.query.camo
     )

@@ -1,5 +1,9 @@
 <template>
-  <button class="layout-toggle" @click="toggleLayout()" :title="$t('filters.toggle_layout')">
+  <button
+    class="layout-toggle"
+    :aria-label="'Change layout (current: ' + layoutLabel + ')'"
+    @click="toggleLayout()"
+    :title="$t('filters.toggle_layout')">
     <IconComponent v-if="layout === 'grid'" name="apps" iconStyle="solid" size="18" />
     <IconComponent v-else-if="layout === 'list'" name="list-ul" size="18" />
     <IconComponent v-else name="table" size="18" />

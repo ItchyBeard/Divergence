@@ -10,7 +10,6 @@ import { useStore } from '@/stores/store'
 import messages from '@/i18n/locales/en-GB.json'
 import html2canvas from 'html2canvas'
 import ProgressComponent from '@/components/ProgressComponent.vue'
-import PrestigeView from '@/views/PrestigeView.vue'
 import MasteryView from '@/views/MasteryView.vue'
 
 // Isolate the single-card interaction fixture from the expanding production catalog.
@@ -258,7 +257,9 @@ describe('MW4 tracker interface', () => {
   })
 
   it('renders Prestige directly from the catalog without changing shared camos', async () => {
-    const { store } = mount(PrestigeView)
+    const { store } = mount(HomeView)
+    store.setPreferences({ showPrestigeCamos: true })
+    await nextTick()
     expect(host.querySelectorAll('.weapon-wrapper button.prestige')).toHaveLength(4)
     expect(host.querySelector('[data-weapon-id="han-86"]')).not.toBeNull()
     await click(camo('Pyroclast'))

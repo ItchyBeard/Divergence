@@ -4,7 +4,7 @@ import { createApp, h, nextTick } from 'vue'
 import { useStore } from '@/stores/store'
 import { emptySave, parseSave } from '@/data/mw4/save'
 import { prestigeCamos } from '@/data/mw4/prestige'
-import PrestigeView from '@/views/PrestigeView.vue'
+import HomeView from '@/views/HomeView.vue'
 
 vi.mock('@/data/weapons/index.js', async () => {
   const { default: weapon } = await import('@/data/weapons/assault-rifles/han-86.weapon')
@@ -177,12 +177,12 @@ it.each(['grid', 'table'])(
     const pinia = createPinia()
     host = document.createElement('div')
     document.body.appendChild(host)
-    app = createApp(PrestigeView)
+    app = createApp(HomeView)
     app.use(pinia)
     app.config.globalProperties.$t = (key) => key
     app.component('IconComponent', { render: () => h('span') })
     const store = useStore(pinia)
-    store.setPreferences({ layout })
+    store.setPreferences({ layout, showPrestigeCamos: true })
     app.mount(host)
     expect(host.querySelector('input[type="number"]')).toBeNull()
     expect(host.querySelector('[aria-label="Prestige Level"]')).toBeNull()
