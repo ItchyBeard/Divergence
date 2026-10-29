@@ -10,7 +10,10 @@
           v-if="store.preferences.layout === 'table' && favorites.length"
           :categories="{ Favourites: favorites }"
           :mode="mode" />
-        <div v-else class="weapons">
+        <div
+          v-else
+          class="weapons"
+          :class="{ 'weapons-list': store.preferences.layout === 'list' }">
           <WeaponComponent
             v-for="weapon in favorites"
             :key="weapon.id"
@@ -31,7 +34,7 @@
             <span>{{ category }}</span
             ><span>{{ categoryProgress(category) }}</span>
           </h2>
-          <div class="weapons">
+          <div class="weapons" :class="{ 'weapons-list': store.preferences.layout === 'list' }">
             <WeaponComponent
               v-for="weapon in weapons"
               :key="weapon.id"
@@ -147,6 +150,16 @@ const categoryProgress = (name) => {
 
       @media (max-width: $tablet) {
         grid-template-columns: 1fr;
+      }
+
+      &.weapons-list {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        align-items: start;
+        gap: 32px;
+
+        @media (max-width: 800px) {
+          grid-template-columns: minmax(0, 1fr);
+        }
       }
     }
   }

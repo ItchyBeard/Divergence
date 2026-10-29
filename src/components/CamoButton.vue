@@ -33,10 +33,10 @@
         <span class="thumbnail"><CamoImage :camo="camo" /></span>
         <IconComponent class="complete" name="check" fill="#10ac84" size="24" />
         <IconComponent class="remove" name="times" fill="#ee5253" size="24" />
-        <span v-if="list" class="info"
-          ><strong>{{ camo.name }}</strong
-          ><span>{{ summary }}</span></span
-        >
+        <span v-if="list" class="info">
+          <strong>{{ camo.name }}</strong>
+          <span v-if="listPrimary" class="list-primary">{{ listPrimary.text }}</span>
+        </span>
       </span>
     </button>
     <Teleport to="body">
@@ -135,10 +135,12 @@ const stageName = computed(
     })[props.camo.stage]
 )
 const modeName = computed(() => modes[props.mode]?.name || '')
-const summary = computed(() =>
-  camoRequirementRows(props.camo, props.weapon)
-    .map((row) => row.label + ': ' + row.text)
-    .join(' · ')
+const requirementRows = computed(() => camoRequirementRows(props.camo, props.weapon))
+const listPrimary = computed(
+  () =>
+    requirementRows.value.find((row) => row.label === 'Challenge') ||
+    requirementRows.value.find((row) => row.label === 'Requirement') ||
+    requirementRows.value[0]
 )
 const coarse = () =>
   window.matchMedia?.('(max-width: 600px), (hover: none), (pointer: coarse)').matches || false
@@ -362,17 +364,64 @@ onBeforeUnmount(() => {
 }
 .list .camo-button {
   .inner {
-    min-height: 34px;
+    min-height: 68px;
     height: auto;
+    gap: 12px;
+    padding: 10px 12px;
   }
   .thumbnail {
-    width: 34px;
-    height: 34px;
-    flex: 0 0 34px;
-    align-self: stretch;
+    width: 48px;
+    height: 48px;
+    flex: 0 0 48px;
+    align-self: center;
+    border-radius: 3px;
+    overflow: hidden;
   }
   .icon-component {
-    left: 17px;
+    left: 36px;
+  }
+  .info {
+    padding: 0;
+    opacity: 1;
+    strong {
+      color: #eee;
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 1.5;
+      margin-bottom: 2px;
+    }
+    .list-primary {
+      color: #ccc;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+  }
+  &.completed .info,
+  &:not(.unavailable):not(:disabled):hover .info {
+    opacity: 1;
+  }
+}
+.list .camo-button.military,
+.list .camo-button.special,
+.list .camo-button.completionist {
+  .inner {
+    min-height: 56px;
+    padding: 6px 10px;
+    gap: 10px;
+  }
+  .thumbnail {
+    width: 36px;
+    height: 36px;
+    flex-basis: 36px;
+  }
+  .icon-component {
+    left: 28px;
+  }
+  .info strong {
+    font-size: 13px;
+  }
+  .info .list-primary {
+    font-size: 12px;
   }
 }
 .compact .inner {

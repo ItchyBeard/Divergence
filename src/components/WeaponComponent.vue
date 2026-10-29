@@ -1,39 +1,47 @@
 <template>
   <div
     class="weapon-wrapper"
-    :class="{ favorite: store.isFavorite(weapon.id) }"
+    :class="{ 'favorite': store.isFavorite(weapon.id), 'list-view': layout === 'list' }"
     :data-weapon-id="weapon.id">
     <div class="weapon" :class="{ 'label': !!weapon.label, 'coming-soon': !weapon.available }">
       <div class="name" :data-label="weapon.label || null">
         <WeaponName :weapon="weapon" :mode="mode" />
       </div>
-      <div
-        v-for="(group, index) in groups"
-        :key="index"
-        class="progress"
-        :class="{ 'prestige-progress': group[0]?.stage === 'prestige' }"
-        :style="{
-          gridTemplateColumns:
-            layout === 'grid' ? 'repeat(' + group.length + ', minmax(0, 1fr))' : '1fr',
-        }">
-        <CamoButton
-          v-for="camo in group"
-          :key="camo.id"
-          :camo="camo"
-          :weapon="weapon"
-          :mode="camo.stage === 'prestige' ? '' : mode"
-          :list="layout === 'list'"
-          :locked="!weapon.available"
-          :disabled="
-            camo.stage === 'prestige'
-              ? !store.canTogglePrestige(weapon.id, camo.id)
-              : !store.canToggleCamo(weapon.id, camo.id, mode)
-          "
-          @toggle="
-            camo.stage === 'prestige'
-              ? store.togglePrestige(weapon.id, camo.id)
-              : store.toggleCamo(weapon.id, camo.id, mode)
-          " />
+      <div class="camo-groups" :class="{ 'hide-military': store.filters.hideMilitaryCamos }">
+        <div
+          v-for="(group, index) in groups"
+          :key="index"
+          class="progress"
+          :class="[
+            group[0].stage + '-progress',
+            { 'prestige-progress': group[0]?.stage === 'prestige' },
+          ]"
+          :style="{
+            gridTemplateColumns:
+              layout === 'grid' ? 'repeat(' + group.length + ', minmax(0, 1fr))' : undefined,
+          }">
+          <h3 v-if="layout === 'list'" class="list-group-heading">
+            {{ groupNames[group[0].stage] }}
+          </h3>
+          <CamoButton
+            v-for="camo in group"
+            :key="camo.id"
+            :camo="camo"
+            :weapon="weapon"
+            :mode="camo.stage === 'prestige' ? '' : mode"
+            :list="layout === 'list'"
+            :locked="!weapon.available"
+            :disabled="
+              camo.stage === 'prestige'
+                ? !store.canTogglePrestige(weapon.id, camo.id)
+                : !store.canToggleCamo(weapon.id, camo.id, mode)
+            "
+            @toggle="
+              camo.stage === 'prestige'
+                ? store.togglePrestige(weapon.id, camo.id)
+                : store.toggleCamo(weapon.id, camo.id, mode)
+            " />
+        </div>
       </div>
     </div>
     <button
@@ -61,8 +69,22 @@ const props = defineProps({
 })
 const store = useStore()
 const layout = computed(() => store.preferences.layout)
+const groupNames = {
+  military: 'Military',
+  special: 'Special',
+  completionist: 'Completionist',
+  prestige: 'Weapon Prestige',
+}
 const groups = computed(() => {
   const camos = store.camoRows(props.weapon, props.mode)
+  if (layout.value === 'list') {
+    return [
+      store.filters.hideMilitaryCamos ? [] : camos.filter((camo) => camo.stage === 'military'),
+      camos.filter((camo) => camo.stage === 'special'),
+      camos.filter((camo) => camo.stage === 'completionist'),
+      store.preferences.showPrestigeCamos ? store.prestigeRows(props.weapon) : [],
+    ].filter((group) => group.length)
+  }
   return [
     store.filters.hideMilitaryCamos ? [] : camos.filter((camo) => camo.stage === 'military'),
     camos.filter((camo) => camo.stage !== 'military'),
@@ -71,6 +93,67 @@ const groups = computed(() => {
 })
 </script>
 <style lang="scss" scoped>
+.weapon-wrapper.list-view .weapon .camo-groups {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-areas:
+    'military special'
+    'military completionist'
+    'prestige prestige';
+  align-items: start;
+  gap: 16px 12px;
+  margin-top: 16px;
+
+  &.hide-military {
+    grid-template-areas:
+      'special special'
+      'completionist completionist'
+      'prestige prestige';
+  }
+
+  @media (max-width: 600px) {
+    display: block;
+  }
+}
+.weapon-wrapper.list-view .weapon .progress {
+  grid-template-columns: minmax(0, 1fr);
+  margin-top: 0;
+  gap: 6px;
+
+  &.military-progress {
+    grid-area: military;
+  }
+  &.special-progress {
+    grid-area: special;
+  }
+  &.completionist-progress {
+    grid-area: completionist;
+  }
+  &.prestige-progress {
+    grid-area: prestige;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  @media (max-width: 600px) {
+    & + .progress {
+      margin-top: 16px;
+    }
+    &.prestige-progress {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+}
+.list-group-heading {
+  grid-column: 1 / -1;
+  margin: 0 0 2px;
+  color: #aaa;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.5;
+  letter-spacing: 0.04em;
+  text-align: left;
+  text-transform: uppercase;
+}
 .weapon-wrapper {
   position: relative;
   .favorite-icon {
