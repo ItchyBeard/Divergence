@@ -39,7 +39,7 @@ export default {
       name: 'Kitty Kaos',
       unlockRequirements: [{ type: 'weapon_unlocks', count: 39 }],
       challenges: {
-        multiplayer: challenge('full_auto_kills', 100, 'players'),
+        multiplayer: challenge('silenced_kills', 100, 'players'),
 
         dmz: challenge('silenced_kills', 250, 'enemies'),
         warzone: warzoneUnavailable(),
