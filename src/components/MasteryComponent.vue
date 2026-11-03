@@ -17,31 +17,40 @@
       :aria-valuemax="rows.length">
       <span :style="{ width: (completed / rows.length) * 100 + '%' }"></span>
     </div>
-    <div class="mastery-camos">
-      <article
-        v-for="camo in rows"
-        :key="camo.id"
-        class="mastery-entry"
-        :class="{ completed: camo.completed }">
-        <CamoButton
-          :camo="camo"
-          :mode="mode"
-          :disabled="!!store.loadError"
-          @toggle="store.toggleMastery(mode, camo.id)" />
-        <div class="entry-info">
-          <h3>{{ camo.name }}</h3>
-          <span class="completion-state">{{
-            camo.completed
-              ? 'Completed'
-              : camo.challenge.status === 'available'
-              ? 'Not completed'
-              : 'Unavailable'
-          }}</span>
-          <p>{{ challengeText(camo.challenge) }}</p>
-          <p class="prerequisite"><span>Requires</span> {{ prerequisiteText(camo) }}</p>
+    <ol class="mastery-camos" aria-label="Mastery tiers in unlock order">
+      <li v-for="(camo, index) in rows" :key="camo.id" class="mastery-step">
+        <div v-if="index > 0" class="progression-connector" aria-hidden="true">
+          <svg viewBox="0 0 60 28" fill="none">
+            <path class="connector-chevron" d="M2 3L30 15L58 3V13L30 26L2 13Z" />
+          </svg>
         </div>
-      </article>
-    </div>
+        <article
+          class="mastery-entry"
+          :class="['tier-' + (index + 1), { completed: camo.completed }]">
+          <CamoButton
+            :camo="camo"
+            :mode="mode"
+            :show-details="false"
+            :disabled="!!store.loadError"
+            @toggle="store.toggleMastery(mode, camo.id)" />
+          <div class="entry-info">
+            <span class="tier-label"
+              >Tier {{ index + 1 }} <span aria-hidden="true">·</span> {{ tierNames[index] }}</span
+            >
+            <h3>{{ camo.name }}</h3>
+            <span class="completion-state">{{
+              camo.completed
+                ? 'Completed'
+                : camo.challenge.status === 'available'
+                ? 'Not completed'
+                : 'Unavailable'
+            }}</span>
+            <p>{{ challengeText(camo.challenge) }}</p>
+            <p class="prerequisite"><span>Requires</span> {{ prerequisiteText(camo) }}</p>
+          </div>
+        </article>
+      </li>
+    </ol>
   </section>
 </template>
 <script setup>
@@ -54,9 +63,12 @@ const props = defineProps({ mode: { type: String, required: true } })
 const store = useStore()
 const rows = computed(() => store.masteryRows(props.mode))
 const completed = computed(() => rows.value.filter((camo) => camo.completed).length)
+const tierNames = ['Foundation', 'Advanced', 'Ultimate']
 </script>
 <style scoped>
 section.mastery {
+  display: flex;
+  flex-direction: column;
   min-width: 0;
   padding: 20px;
   border: 1px solid #36363c;
@@ -104,16 +116,75 @@ h2 span {
   height: 100%;
   background: var(--mode-accent);
 }
+.mastery-camos {
+  display: grid;
+  grid-template-rows: repeat(3, 1fr);
+  gap: 32px;
+  flex: 1;
+  list-style: none;
+  padding: 0;
+  margin: 14px 0 0;
+}
+.mastery-step {
+  position: relative;
+  min-width: 0;
+}
 .mastery-entry {
   display: flex;
   align-items: flex-start;
   gap: 14px;
-  padding: 20px 0;
-  border-bottom: 1px solid #ffffff0d;
+  height: 100%;
+  box-sizing: border-box;
+  padding: 12px 8px;
+  border: 1px solid transparent;
+  border-radius: 4px;
 }
-.mastery-entry:last-child {
-  border: 0;
-  padding-bottom: 0;
+.tier-2 {
+  background: #ffffff03;
+}
+.tier-3 {
+  border-color: var(--mode-accent);
+  background: linear-gradient(135deg, #ffffff09, #ffffff02);
+}
+.tier-label {
+  display: block;
+  margin-bottom: 7px;
+  color: var(--mode-accent);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  line-height: 1.5;
+}
+.progression-connector {
+  position: absolute;
+  top: -30px;
+  inset-inline: 8px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  height: 28px;
+  color: var(--mode-accent);
+  pointer-events: none;
+}
+.progression-connector::before,
+.progression-connector::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(to right, transparent, currentColor);
+  opacity: 0.3;
+}
+.progression-connector::after {
+  transform: scaleX(-1);
+}
+.progression-connector svg {
+  flex: 0 0 60px;
+  width: 60px;
+  height: 100%;
+}
+.connector-chevron {
+  fill: currentColor;
 }
 .entry-info {
   min-width: 0;
@@ -168,6 +239,9 @@ p {
   }
   .mastery-entry {
     gap: 12px;
+  }
+  .mastery-camos {
+    grid-template-rows: none;
   }
   .mastery-entry :deep(.camo-control) {
     flex-basis: 64px;

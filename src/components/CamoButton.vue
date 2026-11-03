@@ -111,6 +111,7 @@ const props = defineProps({
   list: Boolean,
   compact: Boolean,
   indicator: Boolean,
+  showDetails: { type: Boolean, default: true },
 })
 const emit = defineEmits(['toggle'])
 const root = ref(null),
@@ -171,7 +172,7 @@ function cancelClose() {
   clearTimeout(closeTimer)
 }
 async function showDesktop() {
-  if (props.locked || suppressFocus || coarse() || touchPointer) return
+  if (!props.showDetails || props.locked || suppressFocus || coarse() || touchPointer) return
   cancelClose()
   open.value = true
   await nextTick()
@@ -197,7 +198,7 @@ function rememberPointer(event) {
   touchPointer = event.pointerType === 'touch' || event.pointerType === 'pen'
 }
 async function pin() {
-  if (props.locked) return
+  if (!props.showDetails || props.locked) return
   cancelClose()
   mobile.value = coarse() || touchPointer
   pinned.value = true
@@ -208,7 +209,7 @@ async function pin() {
   popover.value?.querySelector('button')?.focus()
 }
 function activate() {
-  if (touchPointer || coarse()) {
+  if (props.showDetails && (touchPointer || coarse())) {
     pin()
     return
   }

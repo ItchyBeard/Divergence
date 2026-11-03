@@ -26,7 +26,7 @@ See Google's [manual page-view documentation](https://developers.google.com/anal
 
 The compact prompt gives accept and reject equal prominence and explains Google
 cookies and usage/device/network data, with a link to Google's information.
-**Analytics preferences** below the footer reopens it on desktop or mobile.
+**Analytics preferences** in Settings → **Analytics & Privacy** reopens it on desktop or mobile.
 Rejecting after acceptance immediately disables collection, clears this
 integration's prefixed GA cookies and queued events, and reloads to unload GA.
 Withdrawal also applies in other open tabs. Already transmitted visits cannot be

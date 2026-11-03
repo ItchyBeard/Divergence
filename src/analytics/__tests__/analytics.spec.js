@@ -266,7 +266,7 @@ describe('consent-gated production Google Analytics', () => {
     app = createApp({ render: () => h(AnalyticsConsent, { service }) })
     app.mount(host)
     const button = (text) =>
-      [...host.querySelectorAll('button')].find((el) => el.textContent === text)
+      [...host.querySelectorAll('button')].find((el) => el.textContent.trim() === text)
     expect(host.querySelector('[role="region"]')).not.toBeNull()
     button('Reject analytics').click()
     await nextTick()

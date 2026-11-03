@@ -24,7 +24,7 @@ h1 {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 20px;
-  align-items: start;
+  align-items: stretch;
 }
 @media (max-width: 1050px) {
   .mastery-sections {

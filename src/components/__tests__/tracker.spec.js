@@ -11,6 +11,8 @@ import messages from '@/i18n/locales/en-GB.json'
 import html2canvas from 'html2canvas'
 import ProgressComponent from '@/components/ProgressComponent.vue'
 import MasteryView from '@/views/MasteryView.vue'
+import AnalyticsConsent from '@/components/AnalyticsConsent.vue'
+import { analytics, consentKey } from '@/analytics'
 
 // Isolate the single-card interaction fixture from the expanding production catalog.
 vi.mock('@/data/weapons/index.js', async () => ({
@@ -288,6 +290,75 @@ describe('MW4 tracker interface', () => {
       'Completed'
     )
     expect(host.querySelector('.mastery-entry .prerequisite').textContent).toContain('Requires')
+    for (const card of host.querySelectorAll('section.mastery')) {
+      expect(card.querySelector('ol').getAttribute('aria-label')).toContain('unlock order')
+      expect([...card.querySelectorAll('.tier-label')].map((label) => label.textContent)).toEqual([
+        'Tier 1 · Foundation',
+        'Tier 2 · Advanced',
+        'Tier 3 · Ultimate',
+      ])
+      expect(card.querySelectorAll('.progression-connector[aria-hidden="true"]')).toHaveLength(2)
+    }
+    const wz = host.querySelector('[data-mode="warzone"]')
+    expect(wz.textContent).toContain('Get 5 kills in a single match, 300 times.')
+    expect(wz.textContent).toContain('Get 2 kills without plating, 200 times.')
+    expect(wz.textContent).toContain('Finish in the Top 5 with at least 6 kills, 75 times.')
+    expect(wz.textContent).not.toMatch(/Not published|integration begins|Unavailable/)
+    expect(wz.querySelector('.tier-2 .prerequisite').textContent).toContain('Parallax')
+    expect(wz.querySelector('.tier-3 .prerequisite').textContent).toContain('Damascus Reforged')
+  })
+
+  it('keeps Mastery details inline and toggles completion directly on touch', async () => {
+    const { store } = mount(MasteryView)
+    const button = camo('Parallax')
+    button.closest('.camo-control').dispatchEvent(new MouseEvent('mouseenter'))
+    button.focus()
+    button.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown', bubbles: true }))
+    await nextTick()
+    expect(document.querySelector('.camo-tooltip')).toBeNull()
+    button.dispatchEvent(
+      Object.assign(new Event('pointerdown', { bubbles: true }), { pointerType: 'touch' })
+    )
+    await click(button)
+    expect(store.save.mastery.warzone.parallax).toBe(true)
+    expect(button.getAttribute('aria-pressed')).toBe('true')
+    expect(document.querySelector('.camo-tooltip')).toBeNull()
+    await click(button)
+    expect(store.save.mastery.warzone.parallax).toBe(false)
+  })
+
+  it('opens the global consent prompt only from Settings without changing a rejected choice', async () => {
+    const previousEnabled = analytics.enabled
+    const consent = JSON.stringify({ choice: 'rejected', expiresAt: Date.now() + 10000 })
+    localStorage.setItem(consentKey, consent)
+    analytics.enabled = true
+    analytics.choice.value = 'rejected'
+    analytics.panelOpen.value = false
+    try {
+      mount({
+        render: () => h('div', [h(SettingsView), h(AnalyticsConsent, { showPreferences: false })]),
+      })
+      const panel = host.querySelector('[aria-labelledby="analytics-privacy-heading"]')
+      const opener = panel.querySelector('.preferences-button')
+      expect(host.querySelectorAll('.preferences-button')).toHaveLength(1)
+      expect(host.querySelector('.analytics-panel')).toBeNull()
+      await click(opener)
+      expect(host.querySelectorAll('.analytics-panel')).toHaveLength(1)
+      expect(document.activeElement.textContent).toBe('Reject analytics')
+      expect(analytics.choice.value).toBe('rejected')
+      expect(localStorage.getItem(consentKey)).toBe(consent)
+      await click(
+        [...host.querySelectorAll('.analytics-actions button')].find(
+          (el) => el.textContent === 'Close'
+        )
+      )
+      expect(document.activeElement).toBe(opener)
+      expect(localStorage.getItem(consentKey)).toBe(consent)
+    } finally {
+      analytics.enabled = previousEnabled
+      analytics.choice.value = null
+      analytics.panelOpen.value = false
+    }
   })
 
   it('persists compact filter visibility and favourite-only filtering', async () => {

@@ -17,7 +17,7 @@ export default {
       name: 'Samnim',
       unlockRequirements: [{ type: 'weapon_level', level: 23 }],
       challenges: {
-        multiplayer: challenge('kills_without_dying', 4, 'players', 10),
+        multiplayer: challenge('kills_without_dying', 3, 'players', 10),
 
         dmz: challenge('kills_without_damage', 5, 'enemies', 25),
         warzone: warzoneUnavailable(),

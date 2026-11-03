@@ -222,7 +222,7 @@ describe('read-only Gallery and weapon navigation', () => {
     await select(host.querySelector('[aria-label="Gallery game mode"]'), 'warzone')
     expect(host.querySelectorAll('.gallery-tile')).toHaveLength(3)
     const dialog = await open('Parallax')
-    expect(dialog.textContent).toContain('Unlock requirements unavailable')
+    expect(dialog.textContent).toContain('Get 5 kills in a single match, 300 times.')
     expect(dialog.querySelector('.detail-art img').getAttribute('src')).toBe(
       'https://cdn.itchy-beard.co.uk/divergence/camouflages/parallax.png'
     )

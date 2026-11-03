@@ -1,8 +1,10 @@
 <template>
-  <div v-if="service.enabled" class="analytics-preferences container">
-    <button ref="opener" class="preferences-button" @click="open">Analytics preferences</button>
+  <div v-if="service.enabled" class="analytics-preferences">
+    <button v-if="showPreferences" ref="opener" class="preferences-button" @click="open">
+      Analytics preferences
+    </button>
     <section
-      v-if="panelOpen"
+      v-if="showPanel && panelOpen"
       class="analytics-panel"
       role="region"
       aria-labelledby="analytics-heading"
@@ -30,13 +32,22 @@
 </template>
 
 <script setup>
-import { nextTick, ref } from 'vue'
+import { nextTick, ref, watch } from 'vue'
 import { analytics } from '@/analytics'
 
-const props = defineProps({ service: { type: Object, default: () => analytics } })
+const props = defineProps({
+  service: { type: Object, default: () => analytics },
+  showPreferences: { type: Boolean, default: true },
+  showPanel: { type: Boolean, default: true },
+})
 const { choice, panelOpen } = props.service
 const opener = ref(null)
 const reject = ref(null)
+watch(panelOpen, async (isOpen) => {
+  await nextTick()
+  if (isOpen) reject.value?.focus()
+  else opener.value?.focus()
+})
 async function open() {
   panelOpen.value = true
   await nextTick()
@@ -57,8 +68,7 @@ async function choose(value) {
 
 <style scoped>
 .analytics-preferences {
-  text-align: center;
-  margin-bottom: 16px;
+  text-align: left;
 }
 .analytics-preferences button {
   background: #262626;

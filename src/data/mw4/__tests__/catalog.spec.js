@@ -69,7 +69,7 @@ describe('MW4 catalog', () => {
         expect(validateChallenge(camo.challenge)).toEqual([])
       }
     }
-    expect(modes.warzone.mastery.every((camo) => camo.challenge.status === 'unavailable')).toBe(
+    expect(modes.warzone.mastery.every((camo) => camo.challenge.status === 'available')).toBe(
       true
     )
     expect(() => getWeaponCamos(han, 'zombies')).toThrow('Unknown MW4 mode')

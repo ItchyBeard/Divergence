@@ -1,4 +1,4 @@
-import { challenge, warzoneUnavailable } from './challenges'
+import { challenge } from './challenges'
 import { launchRequirements } from './launchRequirements'
 
 export const modeIds = ['multiplayer', 'dmz', 'warzone']
@@ -47,9 +47,30 @@ export const modes = {
     name: 'WZ',
     availableFromSeason: 1,
     mastery: track([
-      ['parallax', 'Parallax', warzoneUnavailable()],
-      ['damascus-reforged', 'Damascus Reforged', warzoneUnavailable()],
-      ['empyros', 'Empyros', warzoneUnavailable()],
+      [
+        'parallax',
+        'Parallax',
+        {
+          ...challenge('kills_in_match', 5, 'players', 300),
+          description: 'Get 5 kills in a single match, 300 times.',
+        },
+      ],
+      [
+        'damascus-reforged',
+        'Damascus Reforged',
+        {
+          ...challenge('kills_without_plating', 2, 'players', 200),
+          description: 'Get 2 kills without plating, 200 times.',
+        },
+      ],
+      [
+        'empyros',
+        'Empyros',
+        {
+          ...challenge('top_5_with_kills', 6, 'players', 75),
+          description: 'Finish in the Top 5 with at least 6 kills, 75 times.',
+        },
+      ],
     ]),
   },
 }

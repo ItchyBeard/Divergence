@@ -37,7 +37,7 @@
   </notifications>
 
   <FooterComponent />
-  <AnalyticsConsent />
+  <AnalyticsConsent :show-preferences="false" />
   <SupportBanner />
   <CompletionCelebration />
   <ProgressComponent />

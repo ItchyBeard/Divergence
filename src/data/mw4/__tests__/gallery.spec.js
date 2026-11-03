@@ -215,7 +215,7 @@ describe('derived Camo Gallery', () => {
     ).toEqual([true, true, false, false])
     expect(filterGallery([record], emptySave(), { now, availability: 'upcoming' })).toHaveLength(1)
   })
-  it('keeps unpublished Warzone requirements explicit and filters meaningful availability', () => {
+  it('keeps unpublished weapon requirements separate from published Warzone Mastery', () => {
     const records = buildGallery([han]),
       save = emptySave()
     const smoke = find(records, 'smoke')
@@ -227,7 +227,7 @@ describe('derived Camo Gallery', () => {
         stage: 'mastery',
         availability: 'upcoming',
       })
-    ).toHaveLength(3)
+    ).toHaveLength(0)
     expect(
       filterGallery(records, save, {
         now,
@@ -235,7 +235,7 @@ describe('derived Camo Gallery', () => {
         stage: 'mastery',
         availability: 'available',
       })
-    ).toHaveLength(0)
+    ).toHaveLength(3)
   })
   it('builds existing tracker destinations with the correct weapon/camo IDs and mode', () => {
     const records = buildGallery([han])
@@ -268,7 +268,7 @@ describe('verified Mastery artwork', () => {
       for (const camo of mode.mastery)
         expect(camoImageUrl(camo)).toBe(camoCdnBase + camo.id + '.png')
   })
-  it('resolves completed Warzone artwork without treating unpublished challenges as verified', () => {
+  it('preserves Warzone artwork alongside the published Mastery challenges', () => {
     expect(modes.warzone.mastery.map((camo) => camo.id)).toEqual([
       'parallax',
       'damascus-reforged',
@@ -276,8 +276,8 @@ describe('verified Mastery artwork', () => {
     ])
     for (const camo of modes.warzone.mastery) {
       expect(camoImageUrl(camo)).toBe(camoCdnBase + camo.id + '.png')
-      expect(camo.challenge.status).toBe('unavailable')
-      expect(camo.challenge).not.toHaveProperty('amount')
+      expect(camo.challenge.status).toBe('available')
+      expect(camo.challenge.amount).toBeGreaterThan(0)
     }
   })
 })

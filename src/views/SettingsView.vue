@@ -124,6 +124,17 @@
         </div>
       </div>
     </div>
+    <section class="setting" aria-labelledby="analytics-privacy-heading">
+      <h3 id="analytics-privacy-heading">
+        <IconComponent name="cog" size="20" fill="currentColor" aria-hidden="true" />Analytics &amp;
+        Privacy
+      </h3>
+      <p class="subtitle">
+        Manage your preferences for optional analytics and how usage data is collected.
+      </p>
+      <AnalyticsConsent v-if="analytics.enabled" :show-panel="false" />
+      <p v-else class="subtitle">Optional analytics is disabled in this environment.</p>
+    </section>
     <p v-if="message" role="status" class="status-message">{{ message }}</p>
     <div class="setting danger">
       <h3>
@@ -161,6 +172,8 @@ import { useStore } from '@/stores/store'
 import { completionistCamos } from '@/data/mw4/camos'
 import { downloadJsonFile } from '@/utils/utils'
 import { parseSave } from '@/data/mw4/save'
+import AnalyticsConsent from '@/components/AnalyticsConsent.vue'
+import { analytics } from '@/analytics'
 const store = useStore()
 const input = ref('')
 const message = ref('')
