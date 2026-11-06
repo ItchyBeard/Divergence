@@ -68,46 +68,32 @@
         class="gallery-tile"
         :aria-label="'View ' + entry.name + ' details'"
         @click="openDetails(entry, $event)">
-        <span class="gallery-art"><CamoImage :camo="entry.camo" /></span>
-        <strong
-          >{{ entry.name
-          }}<span
-            v-if="
-              entry.kind === 'collectible' &&
-              entry.camo.ownership === 'standalone' &&
-              entry.progress.completed
-            "
-            class="owned-check"
-            aria-hidden="true">
-            ✓</span
-          ></strong
-        >
-        <small
-          >{{ stageName(entry.stage)
-          }}<template v-if="entry.kind === 'collectible'"> · Optional</template
-          ><template v-if="entry.stage === 'mastery'">
-            · {{ modes[entry.instances[0].mode].name }}</template
-          ></small
-        >
+        <span class="gallery-art">
+          <span class="gallery-artwork" aria-hidden="true">
+            <CamoImage :camo="entry.camo" />
+          </span>
+          <strong class="gallery-caption" :title="entry.name">
+            <span class="gallery-name">{{ entry.name }}</span>
+            <span
+              v-if="
+                entry.kind === 'collectible' &&
+                entry.camo.ownership === 'standalone' &&
+                entry.progress.completed
+              "
+              class="owned-check"
+              aria-hidden="true"
+              >✓</span
+            >
+          </strong>
+        </span>
         <span class="gallery-progress"
           >{{ entry.progress.completed }}/{{ entry.progress.total }}
           {{
             entry.kind === 'collectible' && entry.camo.ownership === 'standalone'
               ? 'owned'
               : 'unlocked'
-          }}
-          <template
-            v-if="
-              entry.kind === 'collectible' &&
-              entry.camo.ownership === 'weapon' &&
-              !entry.camo.eligibilityComplete
-            ">
-            · supported subset</template
-          ></span
+          }}</span
         >
-        <span v-if="entry.kind === 'collectible'" class="availability-label">{{
-          collectibleAvailabilityLabels[entry.camo.availability]
-        }}</span>
         <span class="gallery-progress-track" aria-hidden="true"
           ><span :style="{ width: entry.progress.percent + '%' }"></span
         ></span>
@@ -426,31 +412,13 @@ select {
   width: 100%;
   border: 1px solid #303030;
   border-radius: 3px;
-  padding: 0 0 9px;
+  padding: 0 0 4px;
   overflow: hidden;
   background: #1b1b1b;
   color: white;
   text-align: left;
   cursor: pointer;
   min-width: 0;
-  strong,
-  small,
-  .gallery-progress {
-    display: block;
-    margin: 6px 8px 0;
-    font-size: 11px;
-    line-height: 1.4;
-    overflow-wrap: anywhere;
-  }
-  strong {
-    font-size: 12px;
-    font-weight: 500;
-  }
-  small,
-  .gallery-progress {
-    color: #aaa;
-    font-size: 10px;
-  }
   &:hover {
     border-color: #8b749f;
   }
@@ -468,12 +436,6 @@ select {
 }
 .owned-check {
   color: #d1b5ed;
-}
-.availability-label {
-  display: block;
-  margin: 4px 8px 0;
-  font-size: 10px;
-  color: #aaa;
 }
 .collection-summary {
   display: flex;
@@ -530,13 +492,46 @@ select {
   }
 }
 .gallery-art {
+  position: relative;
   display: block;
-  aspect-ratio: 1.15;
   width: 100%;
-  overflow: hidden;
+  aspect-ratio: 1;
+  background: #303030;
 }
-.gallery-art :deep(.missing-art) {
+.gallery-artwork {
+  position: absolute;
+  inset: 0;
+}
+.gallery-caption {
+  position: absolute;
+  inset: auto 0 0;
+  display: flex;
+  align-items: flex-end;
+  gap: 5px;
+  box-sizing: border-box;
+  min-height: 55px;
+  padding: 16px 8px 7px;
+  background: linear-gradient(transparent, #000);
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 16px;
+}
+.gallery-name {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  overflow-wrap: anywhere;
+}
+.gallery-progress {
+  display: flex;
+  align-items: center;
+  height: 28px;
+  padding-inline: 8px;
+  color: #bdbdbd;
   font-size: 11px;
+  line-height: 16px;
+  white-space: nowrap;
 }
 button:focus-visible,
 a:focus-visible,
