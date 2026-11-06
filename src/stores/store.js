@@ -189,6 +189,7 @@ export const useStore = defineStore('divergence-mw4', {
         weapons: {},
         prestige: {},
         collectibles: emptySave().collectibles,
+        collectibleEntitlements: {},
         firstCamoTracked: null,
         completedAt: null,
         celebrationHandled: false,
@@ -226,6 +227,16 @@ export const useStore = defineStore('divergence-mw4', {
           }
         } else state.save.collectibles.standalone[id] = !owned
       })
+      return this.storeProgress()
+    },
+    setCollectibleEntitlement(id, owned) {
+      if (
+        this.loadError ||
+        typeof owned !== 'boolean' ||
+        !Object.values(collectiblesById).some((camo) => camo.entitlement === id)
+      )
+        return false
+      this.save.collectibleEntitlements[id] = owned
       return this.storeProgress()
     },
     weaponCompleted(id) {

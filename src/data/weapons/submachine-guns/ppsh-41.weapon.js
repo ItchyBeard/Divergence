@@ -10,12 +10,12 @@ export default {
   maxLevel: 61,
   maxWeaponUnlocks: 61,
 
-  militaryUnlockLevels: [11, 17, 23, 31, 38, 44, 51, 57],
+  militaryUnlockCounts: [10, 16, 22, 30, 37, 43, 50, 56],
   specialCamos: [
     {
       id: 'blackwell',
       name: 'Blackwell',
-      unlockRequirements: [{ type: 'weapon_level', level: 20 }],
+      unlockRequirements: [{ type: 'weapon_unlocks', count: 19 }],
       challenges: {
         multiplayer: challenge('double_kills', 10, 'players'),
 
@@ -26,7 +26,7 @@ export default {
     {
       id: 'iron',
       name: 'Iron',
-      unlockRequirements: [{ type: 'weapon_level', level: 41 }],
+      unlockRequirements: [{ type: 'weapon_unlocks', count: 40 }],
       challenges: {
         multiplayer: challenge('longshot_kills', 20, 'players'),
 

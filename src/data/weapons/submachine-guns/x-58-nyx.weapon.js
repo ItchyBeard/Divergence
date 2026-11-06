@@ -10,12 +10,12 @@ export default {
   maxLevel: 53,
   maxWeaponUnlocks: 52,
 
-  militaryUnlockLevels: [9, 15, 20, 25, 29, 35, 42, 47],
+  militaryUnlockCounts: [8, 14, 19, 24, 28, 34, 41, 46],
   specialCamos: [
     {
       id: 'sniper-veil',
       name: 'Sniper Veil',
-      unlockRequirements: [{ type: 'weapon_level', level: 17 }],
+      unlockRequirements: [{ type: 'weapon_unlocks', count: 16 }],
       challenges: {
         multiplayer: challenge('moving_kills', 20, 'players'),
 
@@ -26,7 +26,7 @@ export default {
     {
       id: 'carbonated',
       name: 'Carbonated',
-      unlockRequirements: [{ type: 'weapon_level', level: 35 }],
+      unlockRequirements: [{ type: 'weapon_unlocks', count: 34 }],
       challenges: {
         multiplayer: challenge('longshot_kills', 20, 'players'),
 

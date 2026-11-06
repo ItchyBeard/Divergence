@@ -10,12 +10,12 @@ export default {
   maxLevel: 72,
   maxWeaponUnlocks: 72,
 
-  militaryUnlockLevels: [10, 19, 29, 38, 45, 52, 58, 69],
+  militaryUnlockCounts: [9, 18, 28, 37, 44, 51, 57, 68],
   specialCamos: [
     {
       id: 'mangrove',
       name: 'Mangrove',
-      unlockRequirements: [{ type: 'weapon_level', level: 26 }],
+      unlockRequirements: [{ type: 'weapon_unlocks', count: 25 }],
       challenges: {
         multiplayer: challenge('mounted_kills', 20, 'players'),
 
@@ -26,7 +26,7 @@ export default {
     {
       id: 'fungal-grid',
       name: 'Fungal Grid',
-      unlockRequirements: [{ type: 'weapon_level', level: 49 }],
+      unlockRequirements: [{ type: 'weapon_unlocks', count: 48 }],
       challenges: {
         multiplayer: challenge('crouched_kills', 25, 'players'),
 

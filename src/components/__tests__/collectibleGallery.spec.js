@@ -102,7 +102,42 @@ describe('collectible Gallery interactions', () => {
     expect(host.querySelectorAll('.gallery-tile')).toHaveLength(1)
     await select('Unlock status', 'locked')
     expect(card('Litmus')).toBeNull()
+    expect(host.querySelectorAll('.gallery-tile')).toHaveLength(16)
+  })
+
+  it('shows BlackCell mode requirements and tracks ownership only', async () => {
+    await select('Camo category', 'collectible-blackcell-season-1')
     expect(host.querySelectorAll('.gallery-tile')).toHaveLength(6)
+    const dialog = await open('Infiltrator')
+    expect(dialog.textContent).toContain('Get 20 triple kills.')
+    expect(dialog.textContent).toContain('Get 10 double kills.')
+    expect(dialog.textContent).toContain('Get 25 kills with ground loot.')
+    expect(dialog.querySelector('input[type="number"]')).toBeNull()
+    expect(dialog.querySelector('.ownership-toggle').getAttribute('aria-pressed')).toBe('false')
+    const entitlement = dialog.querySelector('input[type="checkbox"]')
+    entitlement.click()
+    await settle()
+    expect(store.save.collectibleEntitlements['blackcell-season-1']).toBe(true)
+    dialog.querySelector('.ownership-toggle').click()
+    await settle()
+    expect(card('Infiltrator').textContent).toContain('1/1 owned')
+    dialog.querySelector('[aria-label="Close camo details"]').click()
+    expect((await open('Spinal Verge')).textContent).toContain(
+      'Infiltrator, Cell Ops, Gold Tiger, Whirlpool, Intercept'
+    )
+  })
+
+  it.each([
+    ['Gold Mosaic', 'Complete 10 challenges in any Stat track.'],
+    ['Gold Excellence', 'Complete 25 challenges in any Stat track.'],
+    ['Classified Weapon', 'Get 10 kills with a Classified Weapon.'],
+  ])('shows %s requirements with only a camo ownership toggle', async (name, requirement) => {
+    const dialog = await open(name)
+    expect(dialog.textContent).toContain(requirement)
+    expect(dialog.querySelector('input')).toBeNull()
+    dialog.querySelector('.ownership-toggle').click()
+    await settle()
+    expect(card(name).textContent).toContain('1/1 owned')
   })
 
   it('shows one War Spoils card and toggles supported weapons without counting manuals', async () => {

@@ -114,7 +114,7 @@ describe('responsive challenge details', () => {
     expect(tooltip.textContent).toContain('Special · HAN 86 · MP')
     expect(tooltip.textContent).toContain('20 kills while mounted')
     expect(tooltip.querySelector('.mode-challenge-label').textContent.trim()).toBe('MP challenges')
-    expect(tooltip.textContent).toContain('Weapon Level 25')
+    expect(tooltip.textContent).toContain('24 weapon unlocks')
     expect([...tooltip.querySelectorAll('dt')].map((node) => node.textContent)).toEqual([
       'Unlock',
       'Challenge',

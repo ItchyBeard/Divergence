@@ -10,12 +10,12 @@ export default {
   maxLevel: 37,
   maxWeaponUnlocks: 37,
 
-  militaryUnlockLevels: [10, 14, 18, 22, 25, 28, 32, 35],
+  militaryUnlockCounts: [9, 13, 17, 21, 24, 27, 31, 34],
   specialCamos: [
     {
       id: 'off-grid',
       name: 'Off Grid',
-      unlockRequirements: [{ type: 'weapon_level', level: 13 }],
+      unlockRequirements: [{ type: 'weapon_unlocks', count: 12 }],
       challenges: {
         multiplayer: challenge('ledge_hanging_kills', 15, 'players'),
 
@@ -26,7 +26,7 @@ export default {
     {
       id: 'urban-flamingo',
       name: 'Urban Flamingo',
-      unlockRequirements: [{ type: 'weapon_level', level: 25 }],
+      unlockRequirements: [{ type: 'weapon_unlocks', count: 24 }],
       challenges: {
         multiplayer: challenge('point_blank_kills', 15, 'players'),
 

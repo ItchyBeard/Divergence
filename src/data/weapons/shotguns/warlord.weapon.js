@@ -10,12 +10,12 @@ export default {
   maxLevel: 60,
   maxWeaponUnlocks: 59,
 
-  militaryUnlockLevels: [13, 19, 25, 30, 37, 43, 49, 55],
+  militaryUnlockCounts: [12, 18, 24, 29, 36, 42, 48, 54],
   specialCamos: [
     {
       id: 'redshift',
       name: 'Redshift',
-      unlockRequirements: [{ type: 'weapon_level', level: 21 }],
+      unlockRequirements: [{ type: 'weapon_unlocks', count: 20 }],
       challenges: {
         multiplayer: challenge('moving_kills', 20, 'players'),
 
@@ -26,7 +26,7 @@ export default {
     {
       id: 'corrupted-clay',
       name: 'Corrupted Clay',
-      unlockRequirements: [{ type: 'weapon_level', level: 41 }],
+      unlockRequirements: [{ type: 'weapon_unlocks', count: 40 }],
       challenges: {
         multiplayer: challenge('double_kills', 10, 'players'),
 
@@ -37,7 +37,7 @@ export default {
     {
       id: 'magma-ire',
       name: 'Magma Ire',
-      unlockRequirements: [{ type: 'weapon_level', level: 60 }],
+      unlockRequirements: [{ type: 'weapon_unlocks', count: 59 }],
       challenges: {
         multiplayer: challenge('prone_kills', 50, 'players'),
 

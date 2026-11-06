@@ -17,6 +17,8 @@ const objectives = {
   double_kills: 'double kills',
   kills_from_behind: 'kills from behind',
   hipfire_kills: 'hipfire kills',
+  ads_kills: 'kills while aiming down sights',
+  kills_while_moving: 'kills while moving',
   prone_kills: 'kills while prone',
   kills_without_reloading: 'kills without reloading',
   kills_without_releasing_trigger: 'kills without releasing the trigger',
@@ -82,6 +84,7 @@ export function prerequisiteText(camo, weapon) {
   }
   const rule = camo.prerequisite
   if (!rule) return ''
+  if (rule.description) return rule.description
   const name =
     [...completionistCamos, ...Object.values(modes).flatMap((mode) => mode.mastery)].find(
       (entry) => entry.id === rule.camoId

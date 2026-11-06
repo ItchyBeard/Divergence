@@ -10,12 +10,12 @@ export default {
   maxLevel: 56,
   maxWeaponUnlocks: 55,
 
-  militaryUnlockLevels: [9, 15, 22, 26, 33, 40, 44, 51],
+  militaryUnlockCounts: [8, 14, 21, 25, 32, 39, 43, 50],
   specialCamos: [
     {
       id: 'phantom-flux',
       name: 'Phantom Flux',
-      unlockRequirements: [{ type: 'weapon_level', level: 15 }],
+      unlockRequirements: [{ type: 'weapon_unlocks', count: 14 }],
       challenges: {
         multiplayer: challenge('hipfire_kills', 20, 'players'),
 
@@ -26,7 +26,7 @@ export default {
     {
       id: 'mineral',
       name: 'Mineral',
-      unlockRequirements: [{ type: 'weapon_level', level: 36 }],
+      unlockRequirements: [{ type: 'weapon_unlocks', count: 35 }],
       challenges: {
         multiplayer: challenge('longshot_kills', 20, 'players'),
 

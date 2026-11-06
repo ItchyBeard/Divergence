@@ -6,7 +6,7 @@ import { getPrestigeCamos } from '../prestige'
 
 const counts = (weapon) => weapon.specialCamos.map((c) => c.unlockRequirements[0])
 describe('player-reported progression import', () => {
-  it('keeps count maximums distinct from level maximums and preserves documented Military units', () => {
+  it('uses Military unlock counts for attachment weapons and levels for melee and launchers', () => {
     expect(weapons.filter((w) => w.season === 0)).toHaveLength(33)
     expect(validateWeapons(weapons)).toEqual([])
     expect(weapons.filter((w) => w.season === 0 && w.maxWeaponUnlocks !== undefined)).toHaveLength(
@@ -19,18 +19,35 @@ describe('player-reported progression import', () => {
       militaryUnlockCounts: [6, 9, 11, 14, 17, 21, 25, 28],
     })
     expect(weaponsById['mojave-357'].maxWeaponUnlocks).toBe(43)
-    for (const w of weapons.filter((w) => w.season === 0 && ['launchers', 'melee'].includes(w.category))) {
+    for (const w of weapons.filter(
+      (w) => w.season === 0 && ['launchers', 'melee'].includes(w.category)
+    )) {
       expect(w).not.toHaveProperty('maxWeaponUnlocks')
+      expect(w.militaryUnlockLevels).toHaveLength(8)
       expect(counts(w).every((c) => c.type === 'weapon_level')).toBe(true)
     }
+    for (const w of weapons.filter((w) => w.season === 0 && w.maxWeaponUnlocks !== undefined)) {
+      expect(w.militaryUnlockCounts).toHaveLength(8)
+      expect(w).not.toHaveProperty('militaryUnlockLevels')
+    }
   })
-  it('matches camo identities, preserves blank cells, and retains confirmed in-game corrections', () => {
+  it('matches camo identities, converts legacy Special levels, and retains confirmed in-game corrections', () => {
+    for (const weapon of weapons.filter(
+      (w) => w.season === 0 && w.maxWeaponUnlocks !== undefined
+    )) {
+      expect(counts(weapon).map((requirement) => requirement.type)).toEqual(
+        Array(3).fill('weapon_unlocks')
+      )
+    }
+    expect(counts(weaponsById['han-86'])).toEqual(
+      [24, 45, 71].map((count) => ({ type: 'weapon_unlocks', count }))
+    )
     const m4 = weaponsById.m4
     expect(m4.specialCamos.find((c) => c.id === 'green').unlockRequirements).toEqual([
       { type: 'weapon_unlocks', count: 42 },
     ])
     expect(m4.specialCamos.find((c) => c.id === 'night-ops').unlockRequirements).toEqual([
-      { type: 'weapon_level', level: 51 },
+      { type: 'weapon_unlocks', count: 50 },
     ])
     expect(
       weaponsById['mar-9'].specialCamos.find((c) => c.id === 'white').unlockRequirements

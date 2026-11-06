@@ -4,8 +4,9 @@
     :class="{ 'favorite': store.isFavorite(weapon.id), 'list-view': layout === 'list' }"
     :data-weapon-id="weapon.id">
     <div class="weapon" :class="{ 'label': !!weapon.label, 'coming-soon': !weapon.available }">
-      <div class="name" :data-label="weapon.label || null">
+      <div class="name">
         <WeaponName :weapon="weapon" :mode="mode" />
+        <WeaponSeasonLabel :weapon="weapon" class="season-label" />
       </div>
       <div class="camo-groups" :class="{ 'hide-military': store.filters.hideMilitaryCamos }">
         <div
@@ -63,6 +64,7 @@ import { computed } from 'vue'
 import { useStore } from '@/stores/store'
 import CamoButton from './CamoButton.vue'
 import WeaponName from './WeaponName.vue'
+import WeaponSeasonLabel from './WeaponSeasonLabel.vue'
 const props = defineProps({
   weapon: { type: Object, required: true },
   mode: { type: String, default: 'multiplayer' },
@@ -190,28 +192,28 @@ const groups = computed(() => {
     }
     &.label .name {
       margin-bottom: 14px;
-      &::after {
+      .season-label {
         background: $purple;
         border: 3px solid $background-color;
         border-radius: 100px;
         bottom: 0;
         color: white;
-        content: attr(data-label);
         font-size: 10px;
         font-weight: 500;
         left: 50%;
-        padding: 4px 6px;
+        padding: 4px 14px;
         position: absolute;
         transform: translate(-50%, 50%);
         z-index: 2;
         white-space: nowrap;
+        text-align: center;
       }
     }
     &.coming-soon {
       :deep(.weapon-heading) {
         background: $elevation-1-color;
       }
-      .name::after {
+      .season-label {
         background: $blue;
       }
     }

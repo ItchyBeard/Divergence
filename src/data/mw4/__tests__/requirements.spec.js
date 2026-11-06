@@ -33,14 +33,14 @@ describe('explicit unknown numeric requirements', () => {
     expect(weapons.length).toBeGreaterThanOrEqual(33)
     expect(validateWeapons(weapons)).toEqual([])
     expect(han.maxLevel).toBe(72)
-    expect(han.specialCamos[2].unlockRequirements[0].level).toBe(72)
+    expect(han.specialCamos[2].unlockRequirements[0].count).toBe(71)
     expect(han.specialCamos[2].challenges.multiplayer).toMatchObject({ amount: 3, times: 15 })
     expect(challengeText(han.specialCamos[2].challenges.multiplayer)).toContain(
       '3 kills without dying against players, 15 times'
     )
     expect(
       weaponsById.m4.specialCamos.find((camo) => camo.id === 'night-ops').unlockRequirements
-    ).toEqual([{ type: 'weapon_level', level: 51 }])
+    ).toEqual([{ type: 'weapon_unlocks', count: 50 }])
     expect(
       weaponsById.m4.specialCamos.find((camo) => camo.id === 'green').unlockRequirements
     ).toEqual([{ type: 'weapon_unlocks', count: 42 }])
@@ -89,11 +89,11 @@ describe('explicit unknown numeric requirements', () => {
   it('accepts the sentinel in the three permitted numeric fields without imposing a fake upper bound', () => {
     const weapon = copy()
     weapon.maxLevel = 999 // TODO: VERIFY synthetic unknown maximum.
-    weapon.specialCamos[0].unlockRequirements[0].level = 999 // TODO: VERIFY synthetic unknown unlock level.
+    weapon.specialCamos[0].unlockRequirements[0] = { type: 'weapon_level', level: 999 } // TODO: VERIFY synthetic unknown unlock level.
     weapon.prestigeCamos[1].requirements[1].level = 999 // TODO: VERIFY synthetic unknown threshold.
     expect(validateWeapons([weapon])).toEqual([])
-    weapon.militaryUnlockLevels[7] = 1200
-    weapon.specialCamos[1].unlockRequirements[0].level = 1300
+    weapon.militaryUnlockCounts[7] = 1200
+    weapon.specialCamos[1].unlockRequirements[0] = { type: 'weapon_level', level: 1300 }
     expect(validateWeapons([weapon])).toEqual([])
     expect(requirementPending('999')).toBe(false)
   })
@@ -104,7 +104,8 @@ describe('explicit unknown numeric requirements', () => {
       for (const field of ['maxLevel', 'unlockLevel', 'prestige']) {
         const weapon = copy()
         if (field === 'maxLevel') weapon.maxLevel = value
-        if (field === 'unlockLevel') weapon.specialCamos[0].unlockRequirements[0].level = value
+        if (field === 'unlockLevel')
+          weapon.specialCamos[0].unlockRequirements[0] = { type: 'weapon_level', level: value }
         if (field === 'prestige') weapon.prestigeCamos[1].requirements[1].level = value
         expect(validateWeapons([weapon]).length).toBeGreaterThan(0)
       }
@@ -113,12 +114,12 @@ describe('explicit unknown numeric requirements', () => {
 
   it('retains bounds on verified levels and does not allow pending Military levels', () => {
     const weapon = copy()
-    weapon.specialCamos[0].unlockRequirements[0].level = 73
+    weapon.specialCamos[0].unlockRequirements[0] = { type: 'weapon_level', level: 73 }
     expect(validateWeapons([weapon]).join(' ')).toContain('unlockRequirements')
-    weapon.specialCamos[0].unlockRequirements[0].level = 999 // TODO: VERIFY synthetic unknown level.
-    weapon.militaryUnlockLevels[7] = 999
+    weapon.specialCamos[0].unlockRequirements[0] = { type: 'weapon_level', level: 999 } // TODO: VERIFY synthetic unknown level.
+    weapon.militaryUnlockCounts[7] = 999
     weapon.maxLevel = 999 // TODO: VERIFY synthetic unknown maximum.
-    expect(validateWeapons([weapon]).join(' ')).toContain('militaryUnlockLevels')
+    expect(validateWeapons([weapon]).join(' ')).toContain('militaryUnlockCounts')
     expect(
       validatePrestigeRequirement({ type: 'player_prestige_master_level' }).length
     ).toBeGreaterThan(0)

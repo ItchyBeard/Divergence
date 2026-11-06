@@ -104,7 +104,7 @@ describe('classic table rendering and interactions', () => {
     expect(cell('bravo-special-0', 'test-bravo').getAttribute('aria-label')).toContain(
       'Bravo Special 1'
     )
-    expect(cell('smoke').getAttribute('aria-label')).toContain('Reach Weapon Level 25')
+    expect(cell('smoke').getAttribute('aria-label')).toContain('Earn 24 weapon unlocks')
     expect(row().querySelector('.weapon-heading').classList.contains('compact')).toBe(true)
     expect(host.querySelector('[role="region"]').getAttribute('tabindex')).toBe('0')
     expect(row().textContent).not.toContain('Launch')

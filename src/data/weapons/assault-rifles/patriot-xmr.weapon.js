@@ -10,12 +10,12 @@ export default {
   maxLevel: 71,
   maxWeaponUnlocks: 71,
 
-  militaryUnlockLevels: [11, 20, 28, 36, 43, 52, 59, 66],
+  militaryUnlockCounts: [10, 19, 27, 35, 42, 51, 58, 65],
   specialCamos: [
     {
       id: 'dune-sea',
       name: 'Dune Sea',
-      unlockRequirements: [{ type: 'weapon_level', level: 24 }],
+      unlockRequirements: [{ type: 'weapon_unlocks', count: 23 }],
       challenges: {
         multiplayer: challenge('hipfire_kills', 20, 'players'),
 
@@ -26,7 +26,7 @@ export default {
     {
       id: 'scorch',
       name: 'Scorch',
-      unlockRequirements: [{ type: 'weapon_level', level: 49 }],
+      unlockRequirements: [{ type: 'weapon_unlocks', count: 48 }],
       challenges: {
         multiplayer: challenge('silenced_kills', 50, 'players'),
 

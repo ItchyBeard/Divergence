@@ -10,12 +10,12 @@ export default {
   maxLevel: 68,
   maxWeaponUnlocks: 68,
 
-  militaryUnlockLevels: [10, 19, 26, 34, 41, 48, 55, 62],
+  militaryUnlockCounts: [9, 18, 25, 33, 40, 47, 54, 61],
   specialCamos: [
     {
       id: 'splinter-rock',
       name: 'Splinter Rock',
-      unlockRequirements: [{ type: 'weapon_level', level: 23 }],
+      unlockRequirements: [{ type: 'weapon_unlocks', count: 22 }],
       challenges: {
         multiplayer: challenge('longshot_kills', 20, 'players'),
 
@@ -26,7 +26,7 @@ export default {
     {
       id: 'sunset-tropic',
       name: 'Sunset Tropic',
-      unlockRequirements: [{ type: 'weapon_level', level: 45 }],
+      unlockRequirements: [{ type: 'weapon_unlocks', count: 44 }],
       challenges: {
         multiplayer: {
           ...challenge('grenade_launcher_kills', 25, 'players'),

@@ -10,12 +10,12 @@ export default {
   maxLevel: 74,
   maxWeaponUnlocks: 74,
 
-  militaryUnlockLevels: [13, 22, 31, 38, 47, 54, 61, 69],
+  militaryUnlockCounts: [12, 21, 30, 37, 46, 53, 60, 68],
   specialCamos: [
     {
       id: 'treeline',
       name: 'Treeline',
-      unlockRequirements: [{ type: 'weapon_level', level: 22 }],
+      unlockRequirements: [{ type: 'weapon_unlocks', count: 21 }],
       challenges: {
         multiplayer: challenge('hipfire_kills', 10, 'players'),
 
@@ -26,7 +26,7 @@ export default {
     {
       id: 'spidersilk',
       name: 'Spidersilk',
-      unlockRequirements: [{ type: 'weapon_level', level: 47 }],
+      unlockRequirements: [{ type: 'weapon_unlocks', count: 46 }],
       challenges: {
         multiplayer: challenge('headshot_kills', 20, 'players'),
 

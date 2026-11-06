@@ -87,7 +87,7 @@ describe('MW4 tracker interface', () => {
     store.setPreferences({ layout: 'list', favorites: true })
     await nextTick()
     expect(host.querySelectorAll('.weapon-wrapper')).toHaveLength(2)
-    expect(host.querySelector('.weapon-wrapper .info').textContent).toContain('Reach Weapon Level')
+    expect(host.querySelector('.weapon-wrapper .info').textContent).toContain('Earn 9 weapon unlocks')
     store.setPreferences({ layout: 'table', favorites: false })
     await nextTick()
     expect(host.querySelectorAll('.camo-table tbody .camo-button')).toHaveLength(15)
@@ -300,7 +300,7 @@ describe('MW4 tracker interface', () => {
       expect(card.querySelectorAll('.progression-connector[aria-hidden="true"]')).toHaveLength(2)
     }
     const wz = host.querySelector('[data-mode="warzone"]')
-    expect(wz.textContent).toContain('Get 5 kills in a single match, 300 times.')
+    expect(wz.textContent).toContain('Get 5 kills in a match, 300 times.')
     expect(wz.textContent).toContain('Get 2 kills without plating, 200 times.')
     expect(wz.textContent).toContain('Finish in the Top 5 with at least 6 kills, 75 times.')
     expect(wz.textContent).not.toMatch(/Not published|integration begins|Unavailable/)

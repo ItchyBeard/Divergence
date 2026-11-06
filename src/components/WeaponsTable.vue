@@ -52,9 +52,8 @@
                   size="14" />
               </button>
               <div class="weapon-details">
-                <WeaponName :weapon="weapon" :mode="mode" compact /><small v-if="weapon.label">{{
-                  weapon.label
-                }}</small>
+                <WeaponName :weapon="weapon" :mode="mode" compact />
+                <WeaponSeasonLabel :weapon="weapon" />
               </div>
             </div>
           </th>
@@ -101,6 +100,7 @@ import { useStore } from '@/stores/store'
 import { modes } from '@/data/mw4/modes'
 import CamoButton from './CamoButton.vue'
 import WeaponName from './WeaponName.vue'
+import WeaponSeasonLabel from './WeaponSeasonLabel.vue'
 import MobileWeaponsList from './MobileWeaponsList.vue'
 const props = defineProps({
   categories: { type: Object, required: true },

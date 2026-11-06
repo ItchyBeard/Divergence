@@ -11,13 +11,13 @@ export default {
   maxWeaponUnlocks: 71,
   order: 0,
 
-  militaryUnlockLevels: [10, 18, 25, 34, 42, 50, 57, 65],
+  militaryUnlockCounts: [9, 17, 24, 33, 41, 49, 56, 64],
 
   specialCamos: [
     {
       id: 'smoke',
       name: 'Smoke',
-      unlockRequirements: [{ type: 'weapon_level', level: 25 }],
+      unlockRequirements: [{ type: 'weapon_unlocks', count: 24 }],
 
       challenges: {
         multiplayer: challenge('mounted_kills', 20, 'players'),
@@ -29,7 +29,7 @@ export default {
     {
       id: 'stormwave',
       name: 'Stormwave',
-      unlockRequirements: [{ type: 'weapon_level', level: 46 }],
+      unlockRequirements: [{ type: 'weapon_unlocks', count: 45 }],
 
       challenges: {
         multiplayer: challenge('silenced_kills', 50, 'players'),
@@ -41,7 +41,7 @@ export default {
     {
       id: 'red',
       name: 'Red',
-      unlockRequirements: [{ type: 'weapon_level', level: 72 }],
+      unlockRequirements: [{ type: 'weapon_unlocks', count: 71 }],
 
       challenges: {
         multiplayer: challenge('kills_without_dying', 3, 'players', 15),

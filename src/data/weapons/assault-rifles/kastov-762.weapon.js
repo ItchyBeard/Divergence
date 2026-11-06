@@ -10,12 +10,12 @@ export default {
   maxLevel: 67,
   maxWeaponUnlocks: 67,
 
-  militaryUnlockLevels: [10, 19, 27, 37, 45, 54, 61, 67],
+  militaryUnlockCounts: [9, 18, 26, 36, 44, 53, 60, 66],
   specialCamos: [
     {
       id: 'samnim',
       name: 'Samnim',
-      unlockRequirements: [{ type: 'weapon_level', level: 23 }],
+      unlockRequirements: [{ type: 'weapon_unlocks', count: 22 }],
       challenges: {
         multiplayer: challenge('kills_without_dying', 3, 'players', 10),
 
@@ -26,7 +26,7 @@ export default {
     {
       id: 'raster-aux',
       name: 'Raster Aux',
-      unlockRequirements: [{ type: 'weapon_level', level: 48 }],
+      unlockRequirements: [{ type: 'weapon_unlocks', count: 47 }],
       challenges: {
         multiplayer: challenge('longshot_kills', 20, 'players'),
 

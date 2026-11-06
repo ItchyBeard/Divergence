@@ -10,12 +10,12 @@ export default {
   maxLevel: 58,
   maxWeaponUnlocks: 58,
 
-  militaryUnlockLevels: [12, 18, 24, 31, 37, 42, 48, 53],
+  militaryUnlockCounts: [11, 17, 23, 30, 36, 41, 47, 52],
   specialCamos: [
     {
       id: 'desert-tactics',
       name: 'Desert Tactics',
-      unlockRequirements: [{ type: 'weapon_level', level: 18 }],
+      unlockRequirements: [{ type: 'weapon_unlocks', count: 17 }],
       challenges: {
         multiplayer: challenge('point_blank_kills', 20, 'players'),
 
@@ -26,7 +26,7 @@ export default {
     {
       id: 'green-tiger',
       name: 'Green Tiger',
-      unlockRequirements: [{ type: 'weapon_level', level: 38 }],
+      unlockRequirements: [{ type: 'weapon_unlocks', count: 37 }],
       challenges: {
         multiplayer: challenge('kills_without_reloading', 2, 'players', 10),
 

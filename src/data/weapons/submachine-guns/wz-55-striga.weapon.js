@@ -10,12 +10,12 @@ export default {
   maxLevel: 59,
   maxWeaponUnlocks: 59,
 
-  militaryUnlockLevels: [12, 18, 23, 29, 36, 41, 47, 54],
+  militaryUnlockCounts: [11, 17, 22, 28, 35, 40, 46, 53],
   specialCamos: [
     {
       id: 'stellation',
       name: 'Stellation',
-      unlockRequirements: [{ type: 'weapon_level', level: 20 }],
+      unlockRequirements: [{ type: 'weapon_unlocks', count: 19 }],
       challenges: {
         multiplayer: challenge('silenced_kills', 50, 'players'),
 
@@ -26,7 +26,7 @@ export default {
     {
       id: 'rattlesnake',
       name: 'Rattlesnake',
-      unlockRequirements: [{ type: 'weapon_level', level: 41 }],
+      unlockRequirements: [{ type: 'weapon_unlocks', count: 40 }],
       challenges: {
         multiplayer: challenge('jumping_kills', 20, 'players'),
 

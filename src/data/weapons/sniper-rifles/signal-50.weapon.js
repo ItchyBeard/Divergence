@@ -10,12 +10,12 @@ export default {
   maxLevel: 73,
   maxWeaponUnlocks: 73,
 
-  militaryUnlockLevels: [10, 18, 28, 35, 43, 52, 57, 67],
+  militaryUnlockCounts: [9, 17, 27, 34, 42, 51, 56, 66],
   specialCamos: [
     {
       id: 'anaconda',
       name: 'Anaconda',
-      unlockRequirements: [{ type: 'weapon_level', level: 28 }],
+      unlockRequirements: [{ type: 'weapon_unlocks', count: 27 }],
       challenges: {
         multiplayer: {
           ...challenge('rapid_kills', 2, 'players', 10),
@@ -32,7 +32,7 @@ export default {
     {
       id: 'ripplewave',
       name: 'Ripplewave',
-      unlockRequirements: [{ type: 'weapon_level', level: 52 }],
+      unlockRequirements: [{ type: 'weapon_unlocks', count: 51 }],
       challenges: {
         multiplayer: challenge('quickscope_kills', 20, 'players'),
 

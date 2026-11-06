@@ -10,12 +10,12 @@ export default {
   maxLevel: 69,
   maxWeaponUnlocks: 69,
 
-  militaryUnlockLevels: [11, 18, 27, 33, 42, 49, 55, 61],
+  militaryUnlockCounts: [10, 17, 26, 32, 41, 48, 54, 60],
   specialCamos: [
     {
       id: 'hibiscus',
       name: 'Hibiscus',
-      unlockRequirements: [{ type: 'weapon_level', level: 27 }],
+      unlockRequirements: [{ type: 'weapon_unlocks', count: 26 }],
       challenges: {
         multiplayer: challenge('quickscope_kills', 10, 'players'),
 
@@ -26,7 +26,7 @@ export default {
     {
       id: 'fire-topo',
       name: 'Fire Topo',
-      unlockRequirements: [{ type: 'weapon_level', level: 49 }],
+      unlockRequirements: [{ type: 'weapon_unlocks', count: 48 }],
       challenges: {
         multiplayer: challenge('double_kills', 20, 'players'),
 

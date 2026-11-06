@@ -96,7 +96,7 @@ async function select(element, value) {
 
 describe('read-only Gallery and weapon navigation', () => {
   it('renders unique lazy-loaded designs and accessible, dismissible requirements without saving', async () => {
-    expect(host.querySelectorAll('.gallery-tile')).toHaveLength(35)
+    expect(host.querySelectorAll('.gallery-tile')).toHaveLength(45)
     for (const img of host.querySelectorAll('.gallery-grid img'))
       expect(img.loading || img.getAttribute('loading')).toBe('lazy')
     const before = store.exportProgress()
@@ -222,7 +222,8 @@ describe('read-only Gallery and weapon navigation', () => {
     await select(host.querySelector('[aria-label="Gallery game mode"]'), 'warzone')
     expect(host.querySelectorAll('.gallery-tile')).toHaveLength(3)
     const dialog = await open('Parallax')
-    expect(dialog.textContent).toContain('Get 5 kills in a single match, 300 times.')
+    expect(dialog.textContent).toContain('Get 5 kills in a match, 300 times.')
+    expect(dialog.textContent).toContain('Complete 33 Harmonic Break camo challenges.')
     expect(dialog.querySelector('.detail-art img').getAttribute('src')).toBe(
       'https://cdn.itchy-beard.co.uk/divergence/camouflages/parallax.png'
     )

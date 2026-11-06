@@ -10,12 +10,12 @@ export default {
   maxLevel: 43,
   maxWeaponUnlocks: 43,
 
-  militaryUnlockLevels: [9, 13, 18, 22, 26, 30, 35, 40],
+  militaryUnlockCounts: [8, 12, 17, 21, 25, 29, 34, 39],
   specialCamos: [
     {
       id: 'miami',
       name: 'Miami',
-      unlockRequirements: [{ type: 'weapon_level', level: 16 }],
+      unlockRequirements: [{ type: 'weapon_unlocks', count: 15 }],
       challenges: {
         multiplayer: challenge('headshot_kills', 20, 'players'),
 
@@ -26,7 +26,7 @@ export default {
     {
       id: 'wallpaper',
       name: 'Wallpaper',
-      unlockRequirements: [{ type: 'weapon_level', level: 30 }],
+      unlockRequirements: [{ type: 'weapon_unlocks', count: 29 }],
       challenges: {
         multiplayer: challenge('kills_without_reloading', 2, 'players', 10),
 

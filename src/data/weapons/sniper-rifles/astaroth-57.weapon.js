@@ -10,12 +10,12 @@ export default {
   maxLevel: 53,
   maxWeaponUnlocks: 53,
 
-  militaryUnlockLevels: [10, 15, 20, 26, 32, 37, 42, 48],
+  militaryUnlockCounts: [9, 14, 19, 25, 31, 36, 41, 47],
   specialCamos: [
     {
       id: 'dry-brush',
       name: 'Dry Brush',
-      unlockRequirements: [{ type: 'weapon_level', level: 20 }],
+      unlockRequirements: [{ type: 'weapon_unlocks', count: 19 }],
       challenges: {
         multiplayer: challenge('kills_without_dying', 3, 'players', 10),
 
@@ -26,7 +26,7 @@ export default {
     {
       id: 'backcountry',
       name: 'Backcountry',
-      unlockRequirements: [{ type: 'weapon_level', level: 37 }],
+      unlockRequirements: [{ type: 'weapon_unlocks', count: 36 }],
       challenges: {
         multiplayer: challenge('mounted_kills', 20, 'players'),
 

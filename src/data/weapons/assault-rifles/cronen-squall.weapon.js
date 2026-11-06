@@ -10,12 +10,12 @@ export default {
   maxLevel: 67,
   maxWeaponUnlocks: 66,
 
-  militaryUnlockLevels: [10, 17, 24, 31, 39, 45, 54, 60],
+  militaryUnlockCounts: [9, 16, 23, 30, 38, 44, 53, 59],
   specialCamos: [
     {
       id: 'oni',
       name: 'Oni',
-      unlockRequirements: [{ type: 'weapon_level', level: 24 }],
+      unlockRequirements: [{ type: 'weapon_unlocks', count: 23 }],
       challenges: {
         multiplayer: challenge('point_blank_kills', 20, 'players'),
 
@@ -26,7 +26,7 @@ export default {
     {
       id: 'urban-smoke',
       name: 'Urban Smoke',
-      unlockRequirements: [{ type: 'weapon_level', level: 45 }],
+      unlockRequirements: [{ type: 'weapon_unlocks', count: 44 }],
       challenges: {
         multiplayer: challenge('mounted_kills', 20, 'players'),
 
@@ -37,7 +37,7 @@ export default {
     {
       id: 'optical-reverb',
       name: 'Optical Reverb',
-      unlockRequirements: [{ type: 'weapon_level', level: 67 }],
+      unlockRequirements: [{ type: 'weapon_unlocks', count: 66 }],
       challenges: {
         multiplayer: challenge('kills_without_dying', 3, 'players', 15),
 

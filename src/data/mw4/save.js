@@ -30,6 +30,7 @@ export const emptySave = () => ({
   weapons: {},
   prestige: {},
   collectibles: { standalone: {}, perWeapon: {} },
+  collectibleEntitlements: {},
   firstCamoTracked: null,
   completedAt: null,
   celebrationHandled: false,
@@ -63,6 +64,8 @@ export function parseSave(input) {
   const value = { ...source }
   delete value.prestigeLevel
   delete value.prestigeAutomatic
+  // Older saves may include partial challenge counters. Ownership lives in separate fields.
+  delete value.collectibleProgress
   const defaults = emptySave()
   if (!only(value, Object.keys(defaults))) fail('unknown top-level fields')
   if ('collectibles' in value) {
@@ -76,6 +79,8 @@ export function parseSave(input) {
     )
       fail('invalid collectible records')
   }
+  if ('collectibleEntitlements' in value && !flags(value.collectibleEntitlements))
+    fail('invalid collectible entitlements')
   if (!object(value.weapons)) fail('weapons must be an ID-keyed object')
   for (const [key, record] of Object.entries(value.weapons)) {
     if (

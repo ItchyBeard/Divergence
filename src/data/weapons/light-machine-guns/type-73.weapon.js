@@ -10,12 +10,12 @@ export default {
   maxLevel: 64,
   maxWeaponUnlocks: 64,
 
-  militaryUnlockLevels: [12, 19, 26, 34, 41, 48, 55, 61],
+  militaryUnlockCounts: [11, 18, 25, 33, 40, 47, 54, 60],
   specialCamos: [
     {
       id: 'ash-pine',
       name: 'Ash Pine',
-      unlockRequirements: [{ type: 'weapon_level', level: 23 }],
+      unlockRequirements: [{ type: 'weapon_unlocks', count: 22 }],
       challenges: {
         multiplayer: challenge('mounted_kills', 20, 'players'),
 

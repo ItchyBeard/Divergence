@@ -32,7 +32,7 @@
           <summary>
             <span class="weapon-title">
               <strong>{{ weapon.name }}</strong>
-              <small v-if="weapon.label">{{ weapon.label }}</small>
+              <WeaponSeasonLabel :weapon="weapon" />
             </span>
             <span class="weapon-progress">
               <span class="progress-count"
@@ -100,6 +100,7 @@
   </div>
 </template>
 <script setup>
+import WeaponSeasonLabel from './WeaponSeasonLabel.vue'
 import { useStore } from '@/stores/store'
 import CamoButton from './CamoButton.vue'
 

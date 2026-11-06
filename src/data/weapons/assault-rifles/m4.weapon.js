@@ -10,12 +10,12 @@ export default {
   maxLevel: 71,
   maxWeaponUnlocks: 71,
 
-  militaryUnlockLevels: [10, 18, 26, 35, 39, 44, 51, 59],
+  militaryUnlockCounts: [9, 17, 25, 34, 38, 43, 50, 58],
   specialCamos: [
     {
       id: 'myriad',
       name: 'Myriad',
-      unlockRequirements: [{ type: 'weapon_level', level: 26 }],
+      unlockRequirements: [{ type: 'weapon_unlocks', count: 25 }],
       challenges: {
         multiplayer: challenge('point_blank_kills', 20, 'players'),
 
@@ -37,7 +37,7 @@ export default {
     {
       id: 'night-ops',
       name: 'Night Ops',
-      unlockRequirements: [{ type: 'weapon_level', level: 51 }],
+      unlockRequirements: [{ type: 'weapon_unlocks', count: 50 }],
       challenges: {
         multiplayer: challenge('mounted_kills', 20, 'players'),
 

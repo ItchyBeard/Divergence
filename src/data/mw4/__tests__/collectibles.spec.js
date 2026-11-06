@@ -30,14 +30,15 @@ describe('collectible catalogue and Gallery projections', () => {
     expect(instances.some((instance) => instance.weapon.category === 'launchers')).toBe(true)
     expect(instances.some((instance) => instance.weapon.category === 'melee')).toBe(true)
   })
-  it('defines six standalone designs and one weapon design with stable IDs and CDN artwork', () => {
-    expect(collectibles.filter((camo) => camo.ownership === 'standalone')).toHaveLength(6)
-    expect(new Set(collectibles.map((camo) => camo.id)).size).toBe(7)
+  it('defines sixteen standalone designs and one weapon design with stable IDs', () => {
+    expect(collectibles.filter((camo) => camo.ownership === 'standalone')).toHaveLength(16)
+    expect(new Set(collectibles.map((camo) => camo.id)).size).toBe(collectibles.length)
     for (const camo of collectibles) {
       expect(camo.id).toMatch(/^[a-z0-9]+(?:-[a-z0-9]+)*$/)
-      expect(camoImageUrl(camo)).toBe(camoCdnBase + camo.id + '.png')
-      expect(camo.requirement.length).toBeGreaterThan(0)
-      expect(camo.availability).toBe('unknown')
+      expect(camo.countsTowardCoreProgress).toBe(false)
+      expect(camo.acquisition).toBeTruthy()
+      expect(camo.requirement || camo.challenges?.length).toBeTruthy()
+      expect(camoImageUrl(camo)).toBe(camoCdnBase + (camo.image ?? camo.id + '.png'))
     }
     const war = collectiblesById['war-spoils']
     expect(war.requirement).toBe('Extract 3 Weapon Manuals for this weapon in DMZ.')
@@ -80,7 +81,7 @@ describe('collectible catalogue and Gallery projections', () => {
     expect(owned.map((entry) => entry.name)).toEqual(['Litmus'])
     expect(owned[0].progress).toEqual({ completed: 1, total: 1, percent: 100 })
     expect(filterGallery(records, save, { stage: 'collectibles', status: 'locked' })).toHaveLength(
-      6
+      16
     )
     expect(filterGallery(records, save, { stage: 'collectible-special' })).toHaveLength(3)
     expect(
@@ -107,11 +108,11 @@ describe('collectible catalogue and Gallery projections', () => {
   })
 
   it('never invents availability or treats unknown rewards as obtainable or unobtainable', () => {
-    const records = buildCollectibleGallery(catalog)
+    const records = buildCollectibleGallery(catalog, [collectiblesById['classified-weapon']])
     const save = emptySave()
     expect(filterGallery(records, save, { availability: 'available' })).toEqual([])
     expect(filterGallery(records, save, { availability: 'upcoming' })).toEqual([])
-    expect(filterGallery(records, save, { availability: 'unknown' })).toHaveLength(7)
+    expect(filterGallery(records, save, { availability: 'unknown' })).toHaveLength(1)
     const known = buildCollectibleGallery(catalog, [
       { ...collectibles[0], availability: 'available' },
       { ...collectibles[1], availability: 'unobtainable' },

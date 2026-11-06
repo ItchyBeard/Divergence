@@ -10,12 +10,12 @@ export default {
   maxLevel: 65,
   maxWeaponUnlocks: 64,
 
-  militaryUnlockLevels: [12, 21, 25, 33, 39, 46, 53, 59],
+  militaryUnlockCounts: [11, 20, 24, 32, 38, 45, 52, 58],
   specialCamos: [
     {
       id: 'dark-moss',
       name: 'Dark Moss',
-      unlockRequirements: [{ type: 'weapon_level', level: 25 }],
+      unlockRequirements: [{ type: 'weapon_unlocks', count: 24 }],
       challenges: {
         multiplayer: {
           ...challenge('grenade_launcher_kills', 25, 'players'),
@@ -32,7 +32,7 @@ export default {
     {
       id: 'shale',
       name: 'Shale',
-      unlockRequirements: [{ type: 'weapon_level', level: 44 }],
+      unlockRequirements: [{ type: 'weapon_unlocks', count: 43 }],
       challenges: {
         multiplayer: challenge('kills_without_reloading', 2, 'players', 10),
 
@@ -43,7 +43,7 @@ export default {
     {
       id: 'hot-rod',
       name: 'Hot Rod',
-      unlockRequirements: [{ type: 'weapon_level', level: 65 }],
+      unlockRequirements: [{ type: 'weapon_unlocks', count: 64 }],
       challenges: {
         multiplayer: challenge('ads_kills', 100, 'players'),
 

@@ -18,6 +18,7 @@ export function weaponAvailability(weapon, now = Date.now()) {
   return {
     available,
     label: available ? seasonLabel : label(`Available ${dateLabel}`),
+    releaseDateLabel: available && seasonLabel ? dateLabel : undefined,
     reason: available ? '' : `Available ${dateLabel}`,
   }
 }

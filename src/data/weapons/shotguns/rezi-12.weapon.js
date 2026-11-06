@@ -10,12 +10,12 @@ export default {
   maxLevel: 59,
   maxWeaponUnlocks: 59,
 
-  militaryUnlockLevels: [11, 18, 26, 30, 38, 42, 47, 54],
+  militaryUnlockCounts: [10, 17, 25, 29, 37, 41, 46, 53],
   specialCamos: [
     {
       id: 'struck-oil',
       name: 'Struck Oil',
-      unlockRequirements: [{ type: 'weapon_level', level: 22 }],
+      unlockRequirements: [{ type: 'weapon_unlocks', count: 21 }],
       challenges: {
         multiplayer: challenge('point_blank_kills', 20, 'players'),
 
@@ -26,7 +26,7 @@ export default {
     {
       id: 'brushstroke',
       name: 'Brushstroke',
-      unlockRequirements: [{ type: 'weapon_level', level: 42 }],
+      unlockRequirements: [{ type: 'weapon_unlocks', count: 41 }],
       challenges: {
         multiplayer: challenge('longshot_kills', 10, 'players'),
 

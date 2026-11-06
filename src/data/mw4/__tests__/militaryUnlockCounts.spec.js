@@ -51,14 +51,14 @@ describe('confirmed .50 GS unlock-count semantics', () => {
         Object.fromEntries(rows.slice(0, 8).map((camo) => [camo.id, true]))
       )
       expect(getWeaponCamos(han, mode)[0].challenge).toMatchObject({
-        type: 'weapon_level',
-        amount: 10,
+        type: 'weapon_unlocks',
+        amount: 9,
       })
     }
   )
 
   it('rejects ambiguous units and keeps counts independent from maximum weapon level', () => {
-    const ambiguous = { ...copy(), militaryUnlockLevels: han.militaryUnlockLevels }
+    const ambiguous = { ...copy(), militaryUnlockLevels: [6, 11, 16, 21, 26, 31, 36, 41] }
     expect(validateWeapons([ambiguous]).join(' ')).toContain('not both')
     const highCount = copy()
     highCount.militaryUnlockCounts[7] = 80

@@ -106,6 +106,7 @@ describe('independent collectible ownership', () => {
     })
     store.toggleCollectible('prestige-master')
     store.toggleCollectible('war-spoils', '50-gs')
+    store.toggleCollectible('classified-weapon')
     expect(
       JSON.stringify({
         progress: store.overallProgress,
@@ -118,5 +119,27 @@ describe('independent collectible ownership', () => {
     ).toBe(before)
     expect(store.launchCompleted).toBe(true)
     expect(store.celebrationPending).toBe(false)
+  })
+
+  it('imports old challenge counters without losing camo ownership or BlackCell access', () => {
+    const store = useStore()
+    const core = store.overallProgress
+    expect(store.setCollectibleEntitlement('blackcell-season-1', true)).toBe(true)
+    expect(store.save.collectibles.standalone).toEqual({})
+    expect(store.toggleCollectible('gold-mosaic')).toBe(true)
+    const backup = store.exportProgress()
+    setActivePinia(createPinia())
+    const restored = useStore()
+    restored.importProgress({
+      ...JSON.parse(backup),
+      collectibleProgress: { 'infiltrator': { multiplayer: 10 }, 'gold-mosaic': { stat: 10 } },
+    })
+    expect(restored.save).not.toHaveProperty('collectibleProgress')
+    expect(restored.save.collectibles.standalone).toEqual({ 'gold-mosaic': true })
+    expect(restored.save.collectibleEntitlements).toEqual({ 'blackcell-season-1': true })
+    expect(restored.overallProgress).toEqual(core)
+    expect(restored.exportProgress()).toBe(backup)
+    restored.resetProgress()
+    expect(restored.save.collectibleEntitlements).toEqual({})
   })
 })

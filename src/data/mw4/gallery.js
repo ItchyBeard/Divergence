@@ -47,6 +47,7 @@ export function buildCollectibleGallery(weapons, definitions = collectibles) {
     return {
       key: 'collectible:' + camo.id,
       kind: 'collectible',
+      countsTowardCoreProgress: false,
       camo,
       stage: camo.stage,
       name: camo.name,
@@ -57,6 +58,7 @@ export function buildCollectibleGallery(weapons, definitions = collectibles) {
         search: [
           camo.name,
           camo.requirement,
+          ...(camo.challenges || []).map((challenge) => challenge.description),
           camo.requirementNote,
           camo.eligibilityNote,
           weapon?.name,
@@ -89,7 +91,14 @@ export function buildGallery(weapons) {
     const artwork = camoImageUrl(camo)
     const key = camo.stage + ':' + (artwork || camo.id)
     if (!records.has(key))
-      records.set(key, { key, camo, stage: camo.stage, name: camo.name, associations: [] })
+      records.set(key, {
+        key,
+        camo,
+        stage: camo.stage,
+        name: camo.name,
+        countsTowardCoreProgress: true,
+        associations: [],
+      })
     records.get(key).associations.push({
       camo,
       weapon,
@@ -184,7 +193,7 @@ export function filterGallery(records, save, filters = {}) {
         (!filters.stage ||
           record.stage === filters.stage ||
           (filters.stage === 'collectibles' && record.kind === 'collectible') ||
-          (filters.stage === 'progression' && record.kind !== 'collectible')) &&
+          (filters.stage === 'progression' && record.countsTowardCoreProgress === true)) &&
         record.associations.some(
           (association) =>
             (!filters.mode ||

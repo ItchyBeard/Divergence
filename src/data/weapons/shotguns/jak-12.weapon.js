@@ -12,7 +12,7 @@ export default {
   releaseDate: null,
   maxLevel: 999,
   order: 2,
-  militaryUnlockLevels: null,
+  militaryUnlockCounts: null,
   specialCamos: [1, 2, 3].map((slot) => ({
     id: `special-${slot}`,
     name: `Special Camo ${slot} (pending)`,

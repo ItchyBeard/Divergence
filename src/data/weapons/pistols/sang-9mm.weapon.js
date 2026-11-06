@@ -10,12 +10,12 @@ export default {
   maxLevel: 37,
   maxWeaponUnlocks: 37,
 
-  militaryUnlockLevels: [9, 13, 17, 21, 25, 28, 31, 35],
+  militaryUnlockCounts: [8, 12, 16, 20, 24, 27, 30, 34],
   specialCamos: [
     {
       id: 'autumn',
       name: 'Autumn',
-      unlockRequirements: [{ type: 'weapon_level', level: 13 }],
+      unlockRequirements: [{ type: 'weapon_unlocks', count: 12 }],
       challenges: {
         multiplayer: challenge('ads_kills', 25, 'players'),
 
@@ -26,7 +26,7 @@ export default {
     {
       id: 'snakeskin',
       name: 'Snakeskin',
-      unlockRequirements: [{ type: 'weapon_level', level: 25 }],
+      unlockRequirements: [{ type: 'weapon_unlocks', count: 24 }],
       challenges: {
         multiplayer: challenge('kills_without_dying', 3, 'players', 5),
 

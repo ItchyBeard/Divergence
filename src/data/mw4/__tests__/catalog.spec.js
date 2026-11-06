@@ -224,18 +224,18 @@ describe('weapon validation', () => {
       'category',
     ],
     [
-      'missing military level',
+      'missing military count',
       (weapon) => {
-        weapon.militaryUnlockLevels.pop()
+        weapon.militaryUnlockCounts.pop()
       },
-      'militaryUnlockLevels',
+      'militaryUnlockCounts',
     ],
     [
-      'unordered levels',
+      'unordered counts',
       (weapon) => {
-        weapon.militaryUnlockLevels[1] = 10
+        weapon.militaryUnlockCounts[1] = 9
       },
-      'militaryUnlockLevels',
+      'militaryUnlockCounts',
     ],
     [
       'missing special camo',

@@ -10,12 +10,12 @@ export default {
   maxLevel: 63,
   maxWeaponUnlocks: 63,
 
-  militaryUnlockLevels: [12, 19, 25, 31, 38, 44, 50, 57],
+  militaryUnlockCounts: [11, 18, 24, 30, 37, 43, 49, 56],
   specialCamos: [
     {
       id: 'asphalt',
       name: 'Asphalt',
-      unlockRequirements: [{ type: 'weapon_level', level: 22 }],
+      unlockRequirements: [{ type: 'weapon_unlocks', count: 21 }],
       challenges: {
         multiplayer: challenge('ads_kills', 50, 'players'),
 
@@ -26,7 +26,7 @@ export default {
     {
       id: 'black-topo',
       name: 'Black Topo',
-      unlockRequirements: [{ type: 'weapon_level', level: 44 }],
+      unlockRequirements: [{ type: 'weapon_unlocks', count: 43 }],
       challenges: {
         multiplayer: challenge('double_kills', 10, 'players'),
 

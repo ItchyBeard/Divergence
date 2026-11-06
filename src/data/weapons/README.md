@@ -68,11 +68,8 @@ types should extend `validateSpecialUnlockRequirement` before being used.
 }
 ```
 
-This example illustrates an unknown count, not a correction to HAN 86's existing
-level prerequisite. Production HAN 86 retains 25/46/72 and VEL 46 retains the
-existing 19/39/59 level gates as `weapon_level`. Do not reinterpret these numbers
-as weapon unlock counts. Reconciled weapons use their documented levels or explicit
-pending conditions. The .50 GS now uses confirmed Special unlock counts 10/21/32.
+This example illustrates an unknown count. Production HAN 86 uses Special
+unlock counts of 24/45/71. The .50 GS uses confirmed counts of 10/21/32.
 
 The legacy `unlockLevel` field remains readable and validated for compatibility;
 all production definitions use the new structure. If both are present, the new
@@ -127,7 +124,7 @@ challenges were preserved. Pistol category slugs were normalised to `pistols`.
 The older extraction manifest in `source-data.json` is historical source material,
 not the runtime catalog or a registration list.
 
-HAN 86 retains its officially confirmed maximum and Red unlock level of **72**.
+HAN 86 retains its officially confirmed maximum weapon level of **72**.
 Red's Multiplayer challenge now includes the supplied in-game correction: 3 kills
 without dying, 15 times. The other **22 supplied maximums** were copied unchanged.
 **Verify that these are maximum weapon levels rather than UI weapon-unlock counts.**
@@ -137,9 +134,14 @@ its own definition.
 The player-reported Milestone 8.1 workbook supplies `maxWeaponUnlocks` for the 28
 attachment weapons, separately from retained `maxLevel` metadata. Do not derive
 a level maximum by adding one. Launchers and the knife retain level-based values.
-Blank Special cells preserve their existing documented prerequisites; provided
-attachment Special values use `weapon_unlocks`. Krait P68 Smokescreen uses the
-owner's in-game-confirmed count of 34; the older workbook value is superseded.
+Special prerequisites for attachment weapons use `weapon_unlocks`. Where the
+workbook left a Special count blank, the tracker converts the old level to a
+count by subtracting one, following the in-game HAN 86 Smoke example of 24
+unlocks for the former level 25 entry. Supplied counts take precedence, including
+the owner's in-game-confirmed count of 34 for Krait P68 Smokescreen.
+
+Military thresholds follow the same conversion for attachment weapons with legacy
+levels. Existing confirmed counts, such as those for the .50 GS, take precedence.
 
 All 33 weapons now have their three Player Prestige Master thresholds populated.
 Their per-weapon conditions remain in each definition. No completion is inferred

@@ -10,12 +10,12 @@ export default {
   maxLevel: 59,
   maxWeaponUnlocks: 59,
 
-  militaryUnlockLevels: [9, 15, 22, 28, 33, 40, 47, 54],
+  militaryUnlockCounts: [8, 14, 21, 27, 32, 39, 46, 53],
   specialCamos: [
     {
       id: 'jungle-shadow',
       name: 'Jungle Shadow',
-      unlockRequirements: [{ type: 'weapon_level', level: 19 }],
+      unlockRequirements: [{ type: 'weapon_unlocks', count: 18 }],
       challenges: {
         multiplayer: challenge('ads_kills', 50, 'players'),
 
@@ -26,7 +26,7 @@ export default {
     {
       id: 'ghast',
       name: 'Ghast',
-      unlockRequirements: [{ type: 'weapon_level', level: 39 }],
+      unlockRequirements: [{ type: 'weapon_unlocks', count: 38 }],
       challenges: {
         multiplayer: challenge('prone_kills', 20, 'players'),
 

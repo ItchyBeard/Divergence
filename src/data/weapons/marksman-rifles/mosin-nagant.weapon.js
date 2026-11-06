@@ -10,12 +10,12 @@ export default {
   maxLevel: 69,
   maxWeaponUnlocks: 68,
 
-  militaryUnlockLevels: [10, 17, 25, 31, 38, 47, 55, 61],
+  militaryUnlockCounts: [9, 16, 24, 30, 37, 46, 54, 60],
   specialCamos: [
     {
       id: 'ice-sheer',
       name: 'Ice Sheer',
-      unlockRequirements: [{ type: 'weapon_level', level: 25 }],
+      unlockRequirements: [{ type: 'weapon_unlocks', count: 24 }],
       challenges: {
         multiplayer: challenge('headshot_kills', 25, 'players'),
 
@@ -26,7 +26,7 @@ export default {
     {
       id: 'fractal-snow',
       name: 'Fractal Snow',
-      unlockRequirements: [{ type: 'weapon_level', level: 47 }],
+      unlockRequirements: [{ type: 'weapon_unlocks', count: 46 }],
       challenges: {
         multiplayer: challenge('kills_without_reloading', 2, 'players', 10),
 

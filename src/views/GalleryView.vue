@@ -13,7 +13,7 @@
       <select v-model="filters.stage" aria-label="Camo category">
         <option value="">All camos</option>
         <option value="progression">Standard weapon progression</option>
-        <option value="collectibles">Collectible camos</option>
+        <option value="collectibles">Optional collectible camos</option>
         <option v-for="stage in galleryStages" :key="stage.id" :value="stage.id">
           {{ stage.name }}
         </option>
@@ -47,8 +47,11 @@
         <option value="stage">Camo type</option>
       </select>
     </div>
-    <div class="collection-summary" aria-label="Collectible collection progress">
+    <div class="collection-summary" aria-label="Optional collection progress">
       <span>Collectibles: {{ collection.completed }}/{{ collection.total }} owned</span>
+      <span v-for="group in additionalCollections" :key="group.id">
+        {{ group.name }} · {{ group.completed }}/{{ group.total }} owned
+      </span>
       <span v-for="entry in weaponCollections" :key="entry.key">
         {{ entry.name }}: {{ entry.progress.completed }}/{{ entry.progress.total }} unlocked
         {{ entry.camo.eligibilityComplete ? '' : '(supported subset)' }}
@@ -81,7 +84,8 @@
         >
         <small
           >{{ stageName(entry.stage)
-          }}<template v-if="entry.stage === 'mastery'">
+          }}<template v-if="entry.kind === 'collectible'"> · Optional</template
+          ><template v-if="entry.stage === 'mastery'">
             · {{ modes[entry.instances[0].mode].name }}</template
           ></small
         >
@@ -140,8 +144,33 @@
             </div>
           </div>
           <div v-if="selected.kind === 'collectible'" class="collectible-details">
-            <p>{{ selected.camo.requirement }}</p>
+            <p>Optional collection</p>
+            <p v-if="selected.camo.requirement">{{ selected.camo.requirement }}</p>
             <p>Availability: {{ collectibleAvailabilityLabels[selected.camo.availability] }}</p>
+            <label v-if="selected.camo.entitlement" class="entitlement">
+              <input
+                type="checkbox"
+                :checked="store.save.collectibleEntitlements[selected.camo.entitlement] === true"
+                :disabled="Boolean(store.loadError)"
+                @change="
+                  store.setCollectibleEntitlement(selected.camo.entitlement, $event.target.checked)
+                " />
+              I own {{ stageName(selected.stage) }}
+            </label>
+            <p v-if="selected.camo.entitlement">BlackCell ownership is required in-game.</p>
+            <p v-if="selected.camo.prerequisiteIds?.length">
+              Complete the five class-based camos first:
+              {{ selected.camo.prerequisiteIds.map((id) => collectiblesById[id].name).join(', ') }}.
+            </p>
+            <div v-if="selected.camo.challenges" class="unlock-list">
+              <div
+                v-for="challenge in selected.camo.challenges"
+                :key="challenge.id"
+                class="unlock-row">
+                <strong>{{ modes[challenge.id].name }}</strong>
+                <p>{{ challenge.description }}</p>
+              </div>
+            </div>
             <p v-if="selected.camo.requirementVerified === false" class="unavailable-status">
               {{ selected.camo.requirementNote }}
             </p>
@@ -246,7 +275,12 @@ import {
   galleryWeaponLocation,
   galleryProgress,
 } from '@/data/mw4/gallery'
-import { collectionSummary, collectibleAvailabilityLabels } from '@/data/mw4/collectibles'
+import {
+  collectionSummary,
+  collectibleAvailabilityLabels,
+  collectibleCategories,
+  collectiblesById,
+} from '@/data/mw4/collectibles'
 import { weaponAvailability } from '@/data/mw4/availability'
 import CamoImage from '@/components/CamoImage.vue'
 import CamoRequirements from '@/components/CamoRequirements.vue'
@@ -266,6 +300,11 @@ const filters = reactive({
 })
 const entries = computed(() => filterGallery(records, store.save, { ...filters, now: store.now }))
 const collection = computed(() => collectionSummary(store.save))
+const additionalCollections = computed(() =>
+  collectibleCategories
+    .filter((category) => category.separateSummary)
+    .map((category) => ({ ...category, ...collectionSummary(store.save, category.id) }))
+)
 const weaponCollections = computed(() =>
   records
     .filter((entry) => entry.kind === 'collectible' && entry.camo.ownership === 'weapon')
@@ -322,7 +361,7 @@ function closeDetails() {
   else document.querySelector('.gallery-filters input')?.focus()
 }
 function trapFocus(event) {
-  const controls = [...details.value.querySelectorAll('button, select, a[href]')]
+  const controls = [...details.value.querySelectorAll('button, select, input, a[href]')]
   const first = controls[0],
     last = controls.at(-1)
   if (event.shiftKey && document.activeElement === first) {
@@ -445,6 +484,12 @@ select {
   font-size: 12px;
 }
 .collectible-details > p {
+  margin-bottom: 10px;
+}
+.entitlement {
+  display: flex;
+  align-items: center;
+  gap: 8px;
   margin-bottom: 10px;
 }
 .weapon-ownership-groups {

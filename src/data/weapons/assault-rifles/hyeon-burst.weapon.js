@@ -10,12 +10,12 @@ export default {
   maxLevel: 67,
   maxWeaponUnlocks: 67,
 
-  militaryUnlockLevels: [10, 17, 26, 32, 40, 49, 55, 62],
+  militaryUnlockCounts: [9, 16, 25, 31, 39, 48, 54, 61],
   specialCamos: [
     {
       id: 'ponderosa',
       name: 'Ponderosa',
-      unlockRequirements: [{ type: 'weapon_level', level: 23 }],
+      unlockRequirements: [{ type: 'weapon_unlocks', count: 22 }],
       challenges: {
         multiplayer: challenge('kills_without_reloading', 2, 'players', 10),
 
@@ -26,7 +26,7 @@ export default {
     {
       id: 'red-rain',
       name: 'Red Rain',
-      unlockRequirements: [{ type: 'weapon_level', level: 46 }],
+      unlockRequirements: [{ type: 'weapon_unlocks', count: 45 }],
       challenges: {
         multiplayer: challenge('longshot_kills', 20, 'players'),
 
