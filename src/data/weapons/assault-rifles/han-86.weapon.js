@@ -1,4 +1,4 @@
-import { challenge, warzoneUnavailable } from '../../mw4/challenges'
+import { challenge } from '../../mw4/challenges'
 
 export default {
   id: 'han-86',
@@ -22,7 +22,7 @@ export default {
       challenges: {
         multiplayer: challenge('mounted_kills', 20, 'players'),
         dmz: challenge('mounted_kills', 75, 'enemies'),
-        warzone: warzoneUnavailable(),
+        warzone: challenge('mounted_kills', 10, 'players'),
       },
     },
 
@@ -34,7 +34,7 @@ export default {
       challenges: {
         multiplayer: challenge('silenced_kills', 50, 'players'),
         dmz: challenge('silenced_kills', 125, 'enemies'),
-        warzone: warzoneUnavailable(),
+        warzone: challenge('silenced_kills', 25, 'players'),
       },
     },
 
@@ -46,7 +46,7 @@ export default {
       challenges: {
         multiplayer: challenge('kills_without_dying', 3, 'players', 15),
         dmz: challenge('kills_without_damage', 3, 'enemies', 50),
-        warzone: warzoneUnavailable(),
+        warzone: challenge('kills_without_dying', 3, 'players', 8),
       },
     },
   ],

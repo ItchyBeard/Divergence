@@ -1,4 +1,4 @@
-import { challenge, warzoneUnavailable } from '../../mw4/challenges'
+import { challenge } from '../../mw4/challenges'
 
 export default {
   id: 'wz-55-striga',
@@ -20,7 +20,7 @@ export default {
         multiplayer: challenge('silenced_kills', 50, 'players'),
 
         dmz: challenge('silenced_kills', 125, 'enemies'),
-        warzone: warzoneUnavailable(),
+        warzone: challenge('silenced_kills', 25, 'players'),
       },
     },
     {
@@ -31,7 +31,7 @@ export default {
         multiplayer: challenge('jumping_kills', 20, 'players'),
 
         dmz: challenge('jumping_kills', 50, 'enemies'),
-        warzone: warzoneUnavailable(),
+        warzone: challenge('jumping_kills', 10, 'players'),
       },
     },
     {
@@ -42,7 +42,7 @@ export default {
         multiplayer: challenge('point_blank_kills', 40, 'players'),
 
         dmz: challenge('point_blank_kills', 100, 'enemies'),
-        warzone: warzoneUnavailable(),
+        warzone: challenge('point_blank_kills', 20, 'players'),
       },
     },
   ],

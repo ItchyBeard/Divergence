@@ -12,10 +12,28 @@ export default {
   order: 8,
   militaryUnlockCounts: [6, 10, 12, 16, 19, 22, 24, 27],
   specialCamos: [
-    ['In The Weeds', 'in-the-weeds.png', 12, challenge('hipfire_kills', 20, 'players')],
-    ['Dark Ichor', 'dark-ichor.png', 23, challenge('ads_kills', 50, 'players')],
-    ['Chained', 'chained.png', 29, challenge('kills_without_reloading', 2, 'players', 25)],
-  ].map(([name, image, count, multiplayer], index) => ({
+    [
+      'In The Weeds',
+      'in-the-weeds.png',
+      12,
+      challenge('hipfire_kills', 20, 'players'),
+      challenge('hipfire_kills', 10, 'players'),
+    ],
+    [
+      'Dark Ichor',
+      'dark-ichor.png',
+      23,
+      challenge('ads_kills', 50, 'players'),
+      challenge('ads_kills', 30, 'players'),
+    ],
+    [
+      'Chained',
+      'chained.png',
+      29,
+      challenge('kills_without_reloading', 2, 'players', 25),
+      challenge('kills_without_reloading', 2, 'players', 20),
+    ],
+  ].map(([name, image, count, multiplayer, warzone], index) => ({
     id: `special-${index + 1}`,
     name,
     image,
@@ -23,7 +41,7 @@ export default {
     challenges: {
       multiplayer,
       dmz: unavailable(pendingReason),
-      warzone: unavailable(pendingReason),
+      warzone,
     },
   })),
   prestigeCamos: ['pyroclast', 'pyroclast-terminus', 'pyroclast-scatter', 'pyroclast-cascade'].map(

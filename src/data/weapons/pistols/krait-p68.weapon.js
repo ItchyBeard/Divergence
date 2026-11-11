@@ -1,4 +1,4 @@
-import { challenge, warzoneUnavailable } from '../../mw4/challenges'
+import { challenge } from '../../mw4/challenges'
 
 export default {
   id: 'krait-p68',
@@ -20,7 +20,10 @@ export default {
         multiplayer: challenge('ledge_hanging_kills', 15, 'players'),
 
         dmz: challenge('ledge_hanging_kills', 50, 'enemies'),
-        warzone: warzoneUnavailable(),
+        warzone: {
+          ...challenge('sliding_kills', 10, null),
+          description: 'Get 10 sliding kills',
+        },
       },
     },
     {
@@ -31,7 +34,7 @@ export default {
         multiplayer: challenge('point_blank_kills', 15, 'players'),
 
         dmz: challenge('point_blank_kills', 50, 'enemies'),
-        warzone: warzoneUnavailable(),
+        warzone: challenge('point_blank_kills', 10, 'players'),
       },
     },
     {
@@ -42,7 +45,7 @@ export default {
         multiplayer: challenge('silenced_kills', 50, 'players'),
 
         dmz: challenge('silenced_kills', 125, 'enemies'),
-        warzone: warzoneUnavailable(),
+        warzone: challenge('silenced_kills', 25, 'players'),
       },
     },
   ],

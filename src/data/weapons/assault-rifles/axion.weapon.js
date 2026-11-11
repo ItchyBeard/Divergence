@@ -1,4 +1,4 @@
-import { challenge, warzoneUnavailable } from '../../mw4/challenges'
+import { challenge } from '../../mw4/challenges'
 
 export default {
   id: 'axion',
@@ -20,7 +20,7 @@ export default {
         multiplayer: challenge('longshot_kills', 20, 'players'),
 
         dmz: challenge('longshot_kills', 75, 'enemies'),
-        warzone: warzoneUnavailable(),
+        warzone: challenge('longshot_kills', 10, 'players'),
       },
     },
     {
@@ -37,7 +37,10 @@ export default {
           ...challenge('grenade_launcher_kills', 75, 'enemies'),
           description: 'Get 75 Enemy Kills with the Miri 40mm Grenade Launcher',
         },
-        warzone: warzoneUnavailable(),
+        warzone: {
+          ...challenge('grenade_launcher_kills', 10, 'players'),
+          description: 'Get 10 player kills with the Miri 40mm Grenade Launcher',
+        },
       },
     },
     {
@@ -48,7 +51,7 @@ export default {
         multiplayer: challenge('kills_without_reloading', 2, 'players', 25),
 
         dmz: challenge('kills_without_reloading', 2, 'enemies', 50),
-        warzone: warzoneUnavailable(),
+        warzone: challenge('kills_without_reloading', 2, 'players', 15),
       },
     },
   ],

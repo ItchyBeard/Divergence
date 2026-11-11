@@ -213,7 +213,7 @@ describe('classic table rendering and interactions', () => {
     mode.value = 'warzone'
     await nextTick()
     expect(cell('smoke').getAttribute('aria-pressed')).toBe('true')
-    expect(cell('smoke').getAttribute('aria-label')).toContain('Unavailable: Not published')
+    expect(cell('smoke').getAttribute('aria-label')).toContain('10 kills while mounted')
     expect(cell('stormwave').getAttribute('aria-disabled')).toBeNull()
     expect(store.canToggleCamo('test-alpha', 'stormwave', 'warzone')).toBe(true)
   })

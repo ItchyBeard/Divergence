@@ -1,4 +1,4 @@
-import { challenge, warzoneUnavailable } from '../../mw4/challenges'
+import { challenge } from '../../mw4/challenges'
 
 export default {
   id: 'kastov-762',
@@ -20,7 +20,10 @@ export default {
         multiplayer: challenge('kills_without_dying', 3, 'players', 10),
 
         dmz: challenge('kills_without_damage', 5, 'enemies', 25),
-        warzone: warzoneUnavailable(),
+        warzone: {
+          ...challenge('kills_without_dying', 3, null, 5),
+          description: 'Get 3 kills without dying 5 times',
+        },
       },
     },
     {
@@ -31,7 +34,7 @@ export default {
         multiplayer: challenge('longshot_kills', 20, 'players'),
 
         dmz: challenge('longshot_kills', 75, 'enemies'),
-        warzone: warzoneUnavailable(),
+        warzone: challenge('longshot_kills', 10, 'players'),
       },
     },
     {
@@ -42,7 +45,7 @@ export default {
         multiplayer: challenge('hipfire_kills', 30, 'players'),
 
         dmz: challenge('hipfire_kills', 100, 'enemies'),
-        warzone: warzoneUnavailable(),
+        warzone: challenge('hipfire_kills', 15, 'players'),
       },
     },
   ],

@@ -4,6 +4,7 @@ import { createApp, h, nextTick, reactive } from 'vue'
 import CamoButton from '../CamoButton.vue'
 import CamoImage from '../CamoImage.vue'
 import han from '@/data/weapons/assault-rifles/han-86.weapon'
+import warlord from '@/data/weapons/shotguns/warlord.weapon'
 import { getWeaponCamos } from '@/data/mw4/catalog'
 import { camoCdnBase, camoImageUrl, missingCamoImageUrl } from '@/data/mw4/artwork'
 import { getPrestigeCamos } from '@/data/mw4/prestige'
@@ -173,7 +174,7 @@ describe('responsive challenge details', () => {
       weapon.specialCamos[0].unlockRequirements = [{ type: 'weapon_unlocks', count: 12 }] // Synthetic, not production data.
       const camo = getWeaponCamos(weapon, mode).find((entry) => entry.id === 'smoke')
       const toggle = vi.fn()
-      mount(CamoButton, { camo, weapon, mode, disabled: mode === 'warzone', onToggle: toggle })
+      mount(CamoButton, { camo, weapon, mode, onToggle: toggle })
       host.querySelector('button').click()
       await settle()
       const dialog = document.querySelector('[role=dialog]')
@@ -187,7 +188,7 @@ describe('responsive challenge details', () => {
           ? '20 kills'
           : mode === 'dmz'
           ? '75 kills'
-          : 'Unavailable: Not published'
+          : '10 kills while mounted against players'
       )
       expect(toggle).not.toHaveBeenCalled()
     }
@@ -218,13 +219,15 @@ describe('responsive challenge details', () => {
       vi.fn(() => ({ matches: true }))
     )
     const toggle = vi.fn()
-    const camo = getWeaponCamos(han, 'warzone').find((camo) => camo.id === 'gold')
-    mount(CamoButton, { camo, weapon: han, mode: 'warzone', disabled: true, onToggle: toggle })
+    const camo = getWeaponCamos(warlord, 'warzone').find((camo) => camo.id === 'corrupted-clay')
+    mount(CamoButton, { camo, weapon: warlord, mode: 'warzone', onToggle: toggle })
     host.querySelector('button').click()
     await settle()
     expect(document.querySelector('[role=dialog]').textContent).toContain('Unavailable')
-    expect(document.querySelector('.completion-action').disabled).toBe(true)
+    expect(document.querySelector('.completion-action').disabled).toBe(false)
     expect(toggle).not.toHaveBeenCalled()
+    document.querySelector('.completion-action').click()
+    expect(toggle).toHaveBeenCalledTimes(1)
   })
 
   it('locks unreleased weapons even on touch', async () => {

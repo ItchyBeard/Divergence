@@ -1,4 +1,4 @@
-import { challenge, warzoneUnavailable } from '../../mw4/challenges'
+import { challenge } from '../../mw4/challenges'
 
 export default {
   id: 'rezi-12',
@@ -20,7 +20,7 @@ export default {
         multiplayer: challenge('point_blank_kills', 20, 'players'),
 
         dmz: challenge('point_blank_kills', 75, 'enemies'),
-        warzone: warzoneUnavailable(),
+        warzone: challenge('point_blank_kills', 10, 'players'),
       },
     },
     {
@@ -31,7 +31,7 @@ export default {
         multiplayer: challenge('longshot_kills', 10, 'players'),
 
         dmz: challenge('longshot_kills', 50, 'enemies'),
-        warzone: warzoneUnavailable(),
+        warzone: challenge('longshot_kills', 5, 'players'),
       },
     },
     {
@@ -42,7 +42,7 @@ export default {
         multiplayer: challenge('jumping_kills', 40, 'players'),
 
         dmz: challenge('jumping_kills', 100, 'enemies'),
-        warzone: warzoneUnavailable(),
+        warzone: challenge('jumping_kills', 20, 'players'),
       },
     },
   ],

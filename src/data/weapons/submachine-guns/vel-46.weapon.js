@@ -1,4 +1,4 @@
-import { challenge, warzoneUnavailable } from '../../mw4/challenges'
+import { challenge } from '../../mw4/challenges'
 
 export default {
   id: 'vel-46',
@@ -20,7 +20,7 @@ export default {
         multiplayer: challenge('ads_kills', 50, 'players'),
 
         dmz: challenge('ads_kills', 125, 'enemies'),
-        warzone: warzoneUnavailable(),
+        warzone: challenge('ads_kills', 25, 'players'),
       },
     },
     {
@@ -31,7 +31,7 @@ export default {
         multiplayer: challenge('prone_kills', 20, 'players'),
 
         dmz: challenge('prone_kills', 100, 'enemies'),
-        warzone: warzoneUnavailable(),
+        warzone: challenge('prone_kills', 10, 'players'),
       },
     },
     {
@@ -42,7 +42,7 @@ export default {
         multiplayer: challenge('headshot_kills', 20, 'players'),
 
         dmz: challenge('headshot_kills', 75, 'enemies'),
-        warzone: warzoneUnavailable(),
+        warzone: challenge('headshots', 10, 'players'),
       },
     },
   ],

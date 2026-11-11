@@ -1,7 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import weapons, { weaponsById } from '../../weapons/index'
 import { validateWeapons } from '../validate'
-import { getWeaponCamos } from '../catalog'
 import { getPrestigeCamos } from '../prestige'
 
 const counts = (weapon) => weapon.specialCamos.map((c) => c.unlockRequirements[0])
@@ -61,7 +60,7 @@ describe('player-reported progression import', () => {
       times: 15,
     })
   })
-  it('keeps all weapon-specific Prestige thresholds, stable IDs and unpublished challenge information', () => {
+  it('keeps all weapon-specific Prestige thresholds and stable IDs', () => {
     for (const w of weapons.filter((w) => w.season === 0)) {
       expect(w.prestigeCamos.map((c) => c.requirements[0])).toEqual(
         Array(4).fill({ type: 'weapon_prestige', required: true })
@@ -73,11 +72,6 @@ describe('player-reported progression import', () => {
         'pyroclast-scatter',
         'pyroclast-cascade',
       ])
-      expect(
-        getWeaponCamos(w, 'warzone')
-          .filter((c) => c.stage === 'special')
-          .every((c) => c.challenge.status === 'unavailable')
-      ).toBe(true)
     }
     expect(weaponsById['vel-46'].prestigeCamos[1].requirements[1].level).toBe(61)
     expect(weaponsById['50-gs'].prestigeCamos[1].requirements[1].level).toBe(38)

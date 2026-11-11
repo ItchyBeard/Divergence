@@ -1,4 +1,4 @@
-import { challenge, warzoneUnavailable } from '../../mw4/challenges'
+import { challenge } from '../../mw4/challenges'
 
 export default {
   id: 'pila',
@@ -19,7 +19,7 @@ export default {
         multiplayer: challenge('direct_shot_kills', 10, 'players'),
 
         dmz: challenge('direct_shot_kills', 25, 'enemies'),
-        warzone: warzoneUnavailable(),
+        warzone: challenge('direct_shot_kills', 5, 'players'),
       },
     },
     {
@@ -30,7 +30,10 @@ export default {
         multiplayer: challenge('double_kills', 5, 'players'),
 
         dmz: challenge('double_kills', 100, 'enemies'),
-        warzone: warzoneUnavailable(),
+        warzone: {
+          ...challenge('rapid_kills', 2, null, 3),
+          description: 'Get 2 kills within 10 seconds 3 times',
+        },
       },
     },
     {
@@ -41,7 +44,10 @@ export default {
         multiplayer: challenge('killstreaks_or_vehicles_destroyed', 30, 'equipment'),
 
         dmz: challenge('killstreaks_or_vehicles_destroyed', 50, 'equipment'),
-        warzone: warzoneUnavailable(),
+        warzone: {
+          ...challenge('killstreaks_or_vehicles_destroyed', 15, 'equipment'),
+          description: 'Destroy 15 killstreaks or enemy vehicles',
+        },
       },
     },
   ],

@@ -27,7 +27,12 @@ export function validateChallenge(value, path = 'challenge') {
     if (typeof value.type !== 'string' || !/^[a-z][a-z0-9]*(?:_[a-z0-9]+)*$/.test(value.type))
       fail('invalid challenge type; expected a snake_case objective ID')
     if (!positive(value.amount)) fail('amount must be a positive integer')
-    if (!['players', 'enemies', 'weapon', 'dog-tags', 'equipment'].includes(value.target))
+    // A described objective can reproduce an in-game prompt that leaves the target unspecified.
+    const describedWithoutTarget = value.target === null && text(value.description)
+    if (
+      !describedWithoutTarget &&
+      !['players', 'enemies', 'weapon', 'dog-tags', 'equipment'].includes(value.target)
+    )
       fail('invalid target')
     if ('times' in value && !positive(value.times)) fail('times must be a positive integer')
     if ('description' in value && !text(value.description)) fail('description must be nonempty')

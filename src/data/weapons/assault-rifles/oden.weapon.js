@@ -1,4 +1,4 @@
-import { challenge, warzoneUnavailable } from '../../mw4/challenges'
+import { challenge } from '../../mw4/challenges'
 
 export default {
   id: 'oden',
@@ -26,7 +26,10 @@ export default {
           ...challenge('grenade_launcher_kills', 75, 'enemies'),
           description: 'Get 75 Enemy Kills with the Miri 40MM Grenade Launcher',
         },
-        warzone: warzoneUnavailable(),
+        warzone: {
+          ...challenge('grenade_launcher_kills', 15, 'players'),
+          description: 'Get 15 player kills with the Miri 40mm Grenade Launcher',
+        },
       },
     },
     {
@@ -37,7 +40,7 @@ export default {
         multiplayer: challenge('kills_without_reloading', 2, 'players', 10),
 
         dmz: challenge('kills_without_reloading', 2, 'enemies', 30),
-        warzone: warzoneUnavailable(),
+        warzone: challenge('kills_without_reloading', 2, 'players', 5),
       },
     },
     {
@@ -48,7 +51,7 @@ export default {
         multiplayer: challenge('ads_kills', 100, 'players'),
 
         dmz: challenge('ads_kills', 250, 'enemies'),
-        warzone: warzoneUnavailable(),
+        warzone: challenge('ads_kills', 45, 'players'),
       },
     },
   ],

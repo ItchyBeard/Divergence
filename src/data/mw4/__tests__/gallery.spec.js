@@ -215,11 +215,11 @@ describe('derived Camo Gallery', () => {
     ).toEqual([true, true, false, false])
     expect(filterGallery([record], emptySave(), { now, availability: 'upcoming' })).toHaveLength(1)
   })
-  it('keeps unpublished weapon requirements separate from published Warzone Mastery', () => {
+  it('includes Warzone weapon requirements and separate Warzone Mastery', () => {
     const records = buildGallery([han]),
       save = emptySave()
     const smoke = find(records, 'smoke')
-    expect(galleryInstances(smoke, save, { mode: 'warzone', now })[0].available).toBe(false)
+    expect(galleryInstances(smoke, save, { mode: 'warzone', now })[0].available).toBe(true)
     expect(
       filterGallery(records, save, {
         now,

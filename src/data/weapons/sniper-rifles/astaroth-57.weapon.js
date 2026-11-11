@@ -1,4 +1,4 @@
-import { challenge, warzoneUnavailable } from '../../mw4/challenges'
+import { challenge } from '../../mw4/challenges'
 
 export default {
   id: 'astaroth-57',
@@ -20,7 +20,7 @@ export default {
         multiplayer: challenge('kills_without_dying', 3, 'players', 10),
 
         dmz: challenge('kills_without_damage', 3, 'enemies', 25),
-        warzone: warzoneUnavailable(),
+        warzone: challenge('kills_without_dying', 3, 'players', 5),
       },
     },
     {
@@ -31,7 +31,7 @@ export default {
         multiplayer: challenge('mounted_kills', 20, 'players'),
 
         dmz: challenge('mounted_kills', 75, 'enemies'),
-        warzone: warzoneUnavailable(),
+        warzone: challenge('mounted_kills', 10, 'players'),
       },
     },
     {
@@ -48,7 +48,10 @@ export default {
           ...challenge('rapid_kills', 2, 'enemies', 50),
           description: 'Get 2 Enemy Kills within 5 Seconds 50 times',
         },
-        warzone: warzoneUnavailable(),
+        warzone: {
+          ...challenge('rapid_kills', 2, 'players', 10),
+          description: 'Get 2 player kills within 5 seconds 10 times',
+        },
       },
     },
   ],

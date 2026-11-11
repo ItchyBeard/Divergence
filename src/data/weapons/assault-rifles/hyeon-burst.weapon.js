@@ -1,4 +1,4 @@
-import { challenge, warzoneUnavailable } from '../../mw4/challenges'
+import { challenge } from '../../mw4/challenges'
 
 export default {
   id: 'hyeon-burst',
@@ -20,7 +20,7 @@ export default {
         multiplayer: challenge('kills_without_reloading', 2, 'players', 10),
 
         dmz: challenge('kills_without_reloading', 2, 'enemies', 30),
-        warzone: warzoneUnavailable(),
+        warzone: challenge('kills_without_reloading', 2, 'players', 5),
       },
     },
     {
@@ -31,7 +31,7 @@ export default {
         multiplayer: challenge('longshot_kills', 20, 'players'),
 
         dmz: challenge('longshot_kills', 75, 'enemies'),
-        warzone: warzoneUnavailable(),
+        warzone: challenge('longshot_kills', 10, 'players'),
       },
     },
     {
@@ -42,7 +42,7 @@ export default {
         multiplayer: challenge('silenced_kills', 100, 'players'),
 
         dmz: challenge('silenced_kills', 250, 'enemies'),
-        warzone: warzoneUnavailable(),
+        warzone: challenge('silenced_kills', 45, 'players'),
       },
     },
   ],

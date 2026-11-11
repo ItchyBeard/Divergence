@@ -78,7 +78,9 @@ describe('MW4 tracker interface', () => {
     await nextTick()
     expect(camo('Smoke').getAttribute('aria-pressed')).toBe('true')
     expect(camo('Stormwave').classList.contains('unavailable')).toBe(false)
-    expect(camo('Stormwave').getAttribute('aria-label')).toContain('Unavailable')
+    expect(camo('Stormwave').getAttribute('aria-label')).toContain(
+      '25 kills using a silencer against players'
+    )
   })
 
   it('keeps list/table layouts, favourites and search filters functional', async () => {

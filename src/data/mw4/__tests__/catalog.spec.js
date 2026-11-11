@@ -55,11 +55,10 @@ describe('MW4 catalog', () => {
   })
 
   it('keeps unknown Warzone requirements explicit and mastery separate', () => {
-    const camos = getWeaponCamos(han, 'warzone')
-    for (const camo of camos.filter((entry) => entry.stage !== 'military' && !entry.award)) {
-      expect(camo.challenge.status).toBe('unavailable')
-      expect(camo.challenge).not.toHaveProperty('amount')
-    }
+    const camos = getWeaponCamos(weaponsById.warlord, 'warzone')
+    const pending = camos.filter((camo) => camo.challenge?.status === 'unavailable')
+    expect(pending.map((camo) => camo.id)).toEqual(['corrupted-clay', 'platinum'])
+    for (const camo of pending) expect(camo.challenge).not.toHaveProperty('amount')
     const ids = new Set()
     for (const mode of modeIds) {
       expect(modes[mode].mastery).toHaveLength(3)
@@ -310,14 +309,18 @@ describe('weapon validation', () => {
     [
       'guessed unavailable count',
       (weapon) => {
-        weapon.specialCamos[0].challenges.warzone.amount = 0
+        weapon.specialCamos[0].challenges.warzone = {
+          status: 'unavailable',
+          reason: 'Requirement pending.',
+          amount: 0,
+        }
       },
       'unexpected field',
     ],
     [
       'missing unavailable reason',
       (weapon) => {
-        delete weapon.specialCamos[0].challenges.warzone.reason
+        weapon.specialCamos[0].challenges.warzone = { status: 'unavailable' }
       },
       'reason',
     ],

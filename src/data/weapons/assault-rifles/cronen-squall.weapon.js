@@ -1,4 +1,4 @@
-import { challenge, warzoneUnavailable } from '../../mw4/challenges'
+import { challenge } from '../../mw4/challenges'
 
 export default {
   id: 'cronen-squall',
@@ -20,7 +20,7 @@ export default {
         multiplayer: challenge('point_blank_kills', 20, 'players'),
 
         dmz: challenge('point_blank_kills', 75, 'enemies'),
-        warzone: warzoneUnavailable(),
+        warzone: challenge('point_blank_kills', 10, 'players'),
       },
     },
     {
@@ -31,7 +31,7 @@ export default {
         multiplayer: challenge('mounted_kills', 20, 'players'),
 
         dmz: challenge('mounted_kills', 75, 'enemies'),
-        warzone: warzoneUnavailable(),
+        warzone: challenge('mounted_kills', 10, 'players'),
       },
     },
     {
@@ -42,7 +42,7 @@ export default {
         multiplayer: challenge('kills_without_dying', 3, 'players', 15),
 
         dmz: challenge('ads_kills', 50, 'enemies'),
-        warzone: warzoneUnavailable(),
+        warzone: challenge('kills_without_dying', 3, 'players', 10),
       },
     },
   ],

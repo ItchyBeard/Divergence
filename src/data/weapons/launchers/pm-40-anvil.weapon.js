@@ -1,4 +1,4 @@
-import { challenge, warzoneUnavailable } from '../../mw4/challenges'
+import { challenge } from '../../mw4/challenges'
 
 export default {
   id: 'pm-40-anvil',
@@ -19,7 +19,7 @@ export default {
         multiplayer: challenge('direct_shot_kills', 25, 'players'),
 
         dmz: challenge('direct_shot_kills', 25, 'enemies'),
-        warzone: warzoneUnavailable(),
+        warzone: challenge('direct_shot_kills', 10, 'players'),
       },
     },
     {
@@ -30,7 +30,7 @@ export default {
         multiplayer: challenge('kills_without_reloading', 2, 'players', 5),
 
         dmz: challenge('kills_without_reloading', 2, 'enemies', 20),
-        warzone: warzoneUnavailable(),
+        warzone: challenge('kills_without_reloading', 2, 'players', 3),
       },
     },
     {
@@ -41,7 +41,7 @@ export default {
         multiplayer: challenge('moving_kills', 40, 'players'),
 
         dmz: challenge('moving_kills', 100, 'enemies'),
-        warzone: warzoneUnavailable(),
+        warzone: challenge('kills_while_moving', 20, 'players'),
       },
     },
   ],

@@ -121,7 +121,7 @@ describe('read-only Gallery and weapon navigation', () => {
     expect(dialog.textContent).toContain('DMZ challenges')
     expect(dialog.textContent).toContain('75 kills while mounted')
     await select(dialog.querySelector('[aria-label="Detail game mode"]'), 'warzone')
-    expect(dialog.textContent).toContain('Unavailable: Not published')
+    expect(dialog.textContent).toContain('10 kills while mounted against players')
     dialog.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }))
     await settle()
     expect(document.querySelector('[role=dialog]')).toBeNull()

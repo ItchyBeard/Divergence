@@ -1,4 +1,4 @@
-import { challenge, warzoneUnavailable } from '../../mw4/challenges'
+import { challenge } from '../../mw4/challenges'
 
 export default {
   id: 'ppsh-41',
@@ -20,7 +20,10 @@ export default {
         multiplayer: challenge('double_kills', 10, 'players'),
 
         dmz: challenge('double_kills', 30, 'enemies'),
-        warzone: warzoneUnavailable(),
+        warzone: {
+          ...challenge('rapid_kills', 2, null, 5),
+          description: 'Get 2 kills within 10 seconds 5 times',
+        },
       },
     },
     {
@@ -31,7 +34,7 @@ export default {
         multiplayer: challenge('longshot_kills', 20, 'players'),
 
         dmz: challenge('longshot_kills', 75, 'enemies'),
-        warzone: warzoneUnavailable(),
+        warzone: challenge('longshot_kills', 10, 'players'),
       },
     },
     {
@@ -42,7 +45,7 @@ export default {
         multiplayer: challenge('ads_kills', 100, 'players'),
 
         dmz: challenge('ads_kills', 250, 'enemies'),
-        warzone: warzoneUnavailable(),
+        warzone: challenge('ads_kills', 45, 'players'),
       },
     },
   ],

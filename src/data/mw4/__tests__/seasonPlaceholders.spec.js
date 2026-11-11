@@ -58,7 +58,7 @@ describe('Season 1 weapon placeholders', () => {
           })
           continue
         }
-        if (mode === 'multiplayer' && camo.stage === 'special' && confirmedSpecials[id]) {
+        if (mode !== 'dmz' && camo.stage === 'special' && confirmedSpecials[id]) {
           expect(camo.challenge).toMatchObject({ status: 'available', target: 'players' })
           expect(camo.requirementPending).toBe(false)
           continue
@@ -100,8 +100,8 @@ describe('Season 1 weapon placeholders', () => {
   })
 
   it('requires explicit unknown Military thresholds and still rejects missing or fabricated data', () => {
-    const { militaryUnlockCounts, ...definition } = han
-    const weapon = { ...definition, militaryUnlockLevels: null }
+    const weapon = { ...han, militaryUnlockLevels: null }
+    delete weapon.militaryUnlockCounts
     expect(validateWeapons([weapon])).toEqual([])
     expect(getWeaponCamos(weapon, 'multiplayer')[0].challenge.status).toBe('unavailable')
     delete weapon.militaryUnlockLevels

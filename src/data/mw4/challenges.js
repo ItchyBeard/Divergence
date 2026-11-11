@@ -9,5 +9,4 @@ export const challenge = (type, amount, target, times) => ({
   ...(times === undefined ? {} : { times }),
 })
 
-export const warzoneUnavailable = () =>
-  unavailable('Not published; Warzone integration begins in Season 1.')
+export const warzoneUnavailable = () => unavailable('Requirement pending.')

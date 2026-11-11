@@ -1,4 +1,4 @@
-import { challenge, warzoneUnavailable } from '../../mw4/challenges'
+import { challenge } from '../../mw4/challenges'
 
 export default {
   id: 'mosin-nagant',
@@ -20,7 +20,7 @@ export default {
         multiplayer: challenge('headshot_kills', 25, 'players'),
 
         dmz: challenge('headshot_kills', 75, 'enemies'),
-        warzone: warzoneUnavailable(),
+        warzone: challenge('headshots', 15, 'players'),
       },
     },
     {
@@ -31,7 +31,7 @@ export default {
         multiplayer: challenge('kills_without_reloading', 2, 'players', 10),
 
         dmz: challenge('kills_without_reloading', 2, 'enemies', 30),
-        warzone: warzoneUnavailable(),
+        warzone: challenge('kills_without_reloading', 2, 'players', 5),
       },
     },
     {
@@ -42,7 +42,7 @@ export default {
         multiplayer: challenge('focused_kills', 100, 'players'),
 
         dmz: challenge('focused_kills', 250, 'enemies'),
-        warzone: warzoneUnavailable(),
+        warzone: challenge('focused_kills', 45, 'players'),
       },
     },
   ],

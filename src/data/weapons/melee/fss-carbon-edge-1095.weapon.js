@@ -1,4 +1,4 @@
-import { challenge, warzoneUnavailable } from '../../mw4/challenges'
+import { challenge } from '../../mw4/challenges'
 
 export default {
   id: 'fss-carbon-edge-1095',
@@ -19,7 +19,7 @@ export default {
         multiplayer: challenge('jumping_kills', 25, 'players'),
 
         dmz: challenge('jumping_kills', 100, 'enemies'),
-        warzone: warzoneUnavailable(),
+        warzone: challenge('jumping_kills', 15, 'players'),
       },
     },
     {
@@ -30,7 +30,7 @@ export default {
         multiplayer: challenge('heavy_melee_finisher_kills', 25, 'enemies'),
 
         dmz: challenge('heavy_melee_finisher_kills', 75, 'enemies'),
-        warzone: warzoneUnavailable(),
+        warzone: challenge('heavy_melee_finisher_kills', 15, 'players'),
       },
     },
     {
@@ -44,7 +44,10 @@ export default {
           ...challenge('rapid_kills', 2, 'enemies', 50),
           description: 'Get 2 Kills in 5 seconds against Enemies 50 times',
         },
-        warzone: warzoneUnavailable(),
+        warzone: {
+          ...challenge('rapid_kills', 2, 'players', 15),
+          description: 'Get 2 kills in 5 seconds against players 15 times',
+        },
       },
     },
   ],

@@ -1,4 +1,4 @@
-import { challenge, warzoneUnavailable } from '../../mw4/challenges'
+import { challenge } from '../../mw4/challenges'
 
 export default {
   id: 'iso-nightshade',
@@ -20,7 +20,7 @@ export default {
         multiplayer: challenge('ads_kills', 50, 'players'),
 
         dmz: challenge('ads_kills', 125, 'enemies'),
-        warzone: warzoneUnavailable(),
+        warzone: challenge('ads_kills', 25, 'players'),
       },
     },
     {
@@ -31,7 +31,10 @@ export default {
         multiplayer: challenge('double_kills', 10, 'players'),
 
         dmz: challenge('double_kills', 30, 'enemies'),
-        warzone: warzoneUnavailable(),
+        warzone: {
+          ...challenge('rapid_kills', 2, null, 5),
+          description: 'Get 2 kills within 10 seconds 5 times',
+        },
       },
     },
     {
@@ -42,7 +45,7 @@ export default {
         multiplayer: challenge('kills_without_dying', 3, 'players', 15),
 
         dmz: challenge('kills_without_damage', 3, 'enemies', 50),
-        warzone: warzoneUnavailable(),
+        warzone: challenge('longshot_kills', 10, 'players'),
       },
     },
   ],

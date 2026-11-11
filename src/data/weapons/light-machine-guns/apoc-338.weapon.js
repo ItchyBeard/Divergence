@@ -1,4 +1,4 @@
-import { challenge, warzoneUnavailable } from '../../mw4/challenges'
+import { challenge } from '../../mw4/challenges'
 
 export default {
   id: 'apoc-338',
@@ -20,7 +20,7 @@ export default {
         multiplayer: challenge('hipfire_kills', 20, 'players'),
 
         dmz: challenge('hipfire_kills', 75, 'enemies'),
-        warzone: warzoneUnavailable(),
+        warzone: challenge('hipfire_kills', 10, 'players'),
       },
     },
     {
@@ -31,7 +31,7 @@ export default {
         multiplayer: challenge('longshot_kills', 20, 'players'),
 
         dmz: challenge('longshot_kills', 75, 'enemies'),
-        warzone: warzoneUnavailable(),
+        warzone: challenge('longshot_kills', 10, 'players'),
       },
     },
     {
@@ -42,7 +42,7 @@ export default {
         multiplayer: challenge('prone_kills', 100, 'players'),
 
         dmz: challenge('prone_kills', 250, 'enemies'),
-        warzone: warzoneUnavailable(),
+        warzone: challenge('prone_kills', 45, 'players'),
       },
     },
   ],

@@ -1,4 +1,4 @@
-import { challenge, warzoneUnavailable } from '../../mw4/challenges'
+import { challenge } from '../../mw4/challenges'
 
 export default {
   id: 'signal-50',
@@ -26,7 +26,10 @@ export default {
           ...challenge('rapid_kills', 2, 'enemies', 25),
           description: 'Get 2 Kills within 5 Seconds 25 times',
         },
-        warzone: warzoneUnavailable(),
+        warzone: {
+          ...challenge('rapid_kills', 2, 'players', 5),
+          description: 'Get 2 player kills within 5 seconds 5 times',
+        },
       },
     },
     {
@@ -37,7 +40,7 @@ export default {
         multiplayer: challenge('quickscope_kills', 20, 'players'),
 
         dmz: challenge('quickscope_kills', 30, 'enemies'),
-        warzone: warzoneUnavailable(),
+        warzone: challenge('quickscope_kills', 10, 'players'),
       },
     },
     {
@@ -48,7 +51,7 @@ export default {
         multiplayer: challenge('longshot_kills', 40, 'players'),
 
         dmz: challenge('one_shot_kills', 100, 'enemies'),
-        warzone: warzoneUnavailable(),
+        warzone: challenge('longshot_kills', 20, 'players'),
       },
     },
   ],

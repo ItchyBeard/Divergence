@@ -1,4 +1,4 @@
-import { challenge, warzoneUnavailable } from '../../mw4/challenges'
+import { challenge } from '../../mw4/challenges'
 
 export default {
   id: 'mar-9',
@@ -20,7 +20,7 @@ export default {
         multiplayer: challenge('mounted_kills', 20, 'players'),
 
         dmz: challenge('mounted_kills', 75, 'enemies'),
-        warzone: warzoneUnavailable(),
+        warzone: challenge('mounted_kills', 10, 'players'),
       },
     },
     {
@@ -31,7 +31,7 @@ export default {
         multiplayer: challenge('crouched_kills', 25, 'players'),
 
         dmz: challenge('crouched_kills', 75, 'enemies'),
-        warzone: warzoneUnavailable(),
+        warzone: challenge('crouched_kills', 15, 'players'),
       },
     },
     {
@@ -42,7 +42,7 @@ export default {
         multiplayer: challenge('longshot_kills', 30, 'players'),
 
         dmz: challenge('longshot_kills', 100, 'enemies'),
-        warzone: warzoneUnavailable(),
+        warzone: challenge('longshot_kills', 15, 'players'),
       },
     },
   ],

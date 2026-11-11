@@ -20,7 +20,7 @@ export default {
         multiplayer: challenge('moving_kills', 20, 'players'),
 
         dmz: challenge('moving_kills', 75, 'enemies'),
-        warzone: warzoneUnavailable(),
+        warzone: challenge('kills_while_moving', 10, 'players'),
       },
     },
     {
@@ -42,7 +42,7 @@ export default {
         multiplayer: challenge('prone_kills', 50, 'players'),
 
         dmz: challenge('prone_kills', 125, 'enemies'),
-        warzone: warzoneUnavailable(),
+        warzone: challenge('prone_kills', 25, 'players'),
       },
     },
   ],

@@ -1,4 +1,4 @@
-import { challenge, unavailable, warzoneUnavailable } from '../../mw4/challenges'
+import { challenge, unavailable } from '../../mw4/challenges'
 
 export default {
   id: 'kg-7-vulcan',
@@ -20,7 +20,7 @@ export default {
         multiplayer: challenge('hipfire_kills', 10, 'players'),
 
         dmz: unavailable('Requirement pending: challenge threshold needs confirmation.'),
-        warzone: warzoneUnavailable(),
+        warzone: challenge('hipfire_kills', 5, 'players'),
       },
     },
     {
@@ -31,7 +31,7 @@ export default {
         multiplayer: challenge('headshot_kills', 20, 'players'),
 
         dmz: challenge('focused_kills', 75, 'enemies'),
-        warzone: warzoneUnavailable(),
+        warzone: challenge('headshots', 10, 'players'),
       },
     },
     {
@@ -42,7 +42,7 @@ export default {
         multiplayer: challenge('kills_without_damage', 2, 'players', 20),
 
         dmz: challenge('kills_without_damage', 2, 'enemies', 30),
-        warzone: warzoneUnavailable(),
+        warzone: challenge('kills_without_damage', 2, 'players', 10),
       },
     },
   ],

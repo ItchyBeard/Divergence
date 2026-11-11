@@ -35,7 +35,7 @@ describe('structured Special unlock prerequisites', () => {
       { label: 'Challenge', text: '20 kills while mounted against players' },
     ])
     expect(smoke(weapon, 'dmz').challenge.amount).toBe(75)
-    expect(smoke(weapon, 'warzone').challenge.status).toBe('unavailable')
+    expect(smoke(weapon, 'warzone').challenge.amount).toBe(10)
     expect(prerequisiteText(smoke(weapon, 'warzone'), weapon)).toBe(prerequisiteText(mp, weapon))
     const gallery = buildGallery([weapon])
     expect(

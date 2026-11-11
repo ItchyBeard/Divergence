@@ -1,4 +1,4 @@
-import { challenge, warzoneUnavailable } from '../../mw4/challenges'
+import { challenge } from '../../mw4/challenges'
 
 export default {
   id: 'mojave-357',
@@ -20,7 +20,10 @@ export default {
         multiplayer: challenge('headshot_kills', 20, 'players'),
 
         dmz: challenge('one_shot_kills', 50, 'enemies'),
-        warzone: warzoneUnavailable(),
+        warzone: {
+          ...challenge('kills_without_damage_from_target', 10, 'players'),
+          description: 'Get 10 player kills without taking damage from the target',
+        },
       },
     },
     {
@@ -31,7 +34,7 @@ export default {
         multiplayer: challenge('kills_without_reloading', 2, 'players', 10),
 
         dmz: challenge('kills_without_reloading', 2, 'enemies', 20),
-        warzone: warzoneUnavailable(),
+        warzone: challenge('kills_without_reloading', 2, 'players', 5),
       },
     },
     {
@@ -42,7 +45,7 @@ export default {
         multiplayer: challenge('point_blank_kills', 30, 'players'),
 
         dmz: challenge('point_blank_kills', 75, 'enemies'),
-        warzone: warzoneUnavailable(),
+        warzone: challenge('point_blank_kills', 15, 'players'),
       },
     },
   ],

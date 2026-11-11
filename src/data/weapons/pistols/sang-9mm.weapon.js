@@ -1,4 +1,4 @@
-import { challenge, warzoneUnavailable } from '../../mw4/challenges'
+import { challenge } from '../../mw4/challenges'
 
 export default {
   id: 'sang-9mm',
@@ -20,7 +20,7 @@ export default {
         multiplayer: challenge('ads_kills', 25, 'players'),
 
         dmz: challenge('ads_kills', 75, 'enemies'),
-        warzone: warzoneUnavailable(),
+        warzone: challenge('ads_kills', 15, 'players'),
       },
     },
     {
@@ -31,7 +31,7 @@ export default {
         multiplayer: challenge('kills_without_dying', 3, 'players', 5),
 
         dmz: challenge('kills_without_damage', 3, 'enemies', 15),
-        warzone: warzoneUnavailable(),
+        warzone: challenge('kills_without_dying', 3, 'players', 3),
       },
     },
     {
@@ -42,7 +42,7 @@ export default {
         multiplayer: challenge('akimbo_kills', 50, 'players'),
 
         dmz: challenge('akimbo_kills', 125, 'enemies'),
-        warzone: warzoneUnavailable(),
+        warzone: challenge('akimbo_kills', 25, 'players'),
       },
     },
   ],

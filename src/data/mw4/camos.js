@@ -1,4 +1,4 @@
-import { challenge, warzoneUnavailable } from './challenges'
+import { challenge } from './challenges'
 import { launchRequirements } from './launchRequirements'
 
 export const militaryCamos = Array.from({ length: 8 }, (_, index) => ({
@@ -17,7 +17,10 @@ export const completionistCamos = [
     challenges: {
       multiplayer: challenge('eliminations_in_match', 15, 'players'),
       dmz: challenge('eliminations_in_match', 100, 'enemies'),
-      warzone: warzoneUnavailable(),
+      warzone: {
+        ...challenge('kills_in_match', 8, 'players'),
+        description: 'Get 8 player kills in a single match',
+      },
     },
   },
   {

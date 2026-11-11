@@ -1,4 +1,4 @@
-import { challenge, warzoneUnavailable } from '../../mw4/challenges'
+import { challenge } from '../../mw4/challenges'
 
 export default {
   id: 'finn-lmg',
@@ -20,7 +20,10 @@ export default {
         multiplayer: challenge('point_blank_kills', 20, 'players'),
 
         dmz: challenge('point_blank_kills', 75, 'enemies'),
-        warzone: warzoneUnavailable(),
+        warzone: {
+          ...challenge('point_blank_kills', 10, 'players'),
+          description: 'Get 10 point blank kills against Players',
+        },
       },
     },
     {
@@ -31,7 +34,10 @@ export default {
         multiplayer: challenge('kills_without_reloading', 2, 'players', 10),
 
         dmz: challenge('kills_without_reloading', 2, 'enemies', 30),
-        warzone: warzoneUnavailable(),
+        warzone: {
+          ...challenge('kills_without_reloading', 2, 'players', 5),
+          description: 'Get 2 Kills without Reloading 5 times against Players',
+        },
       },
     },
     {
@@ -42,7 +48,7 @@ export default {
         multiplayer: challenge('longshot_kills', 30, 'players'),
 
         dmz: challenge('longshot_kills', 100, 'enemies'),
-        warzone: warzoneUnavailable(),
+        warzone: challenge('longshot_kills', 15, 'players'),
       },
     },
   ],

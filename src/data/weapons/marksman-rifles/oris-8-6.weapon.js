@@ -1,4 +1,4 @@
-import { challenge, warzoneUnavailable } from '../../mw4/challenges'
+import { challenge } from '../../mw4/challenges'
 
 export default {
   id: 'oris-8-6',
@@ -20,7 +20,7 @@ export default {
         multiplayer: challenge('quickscope_kills', 10, 'players'),
 
         dmz: challenge('quickscope_kills', 50, 'enemies'),
-        warzone: warzoneUnavailable(),
+        warzone: challenge('quickscope_kills', 5, 'players'),
       },
     },
     {
@@ -31,7 +31,10 @@ export default {
         multiplayer: challenge('double_kills', 20, 'players'),
 
         dmz: challenge('double_kills', 50, 'enemies'),
-        warzone: warzoneUnavailable(),
+        warzone: {
+          ...challenge('rapid_kills', 2, 'players', 10),
+          description: 'Get 2 player kills within 10 seconds 10 times',
+        },
       },
     },
     {
@@ -42,7 +45,7 @@ export default {
         multiplayer: challenge('kills_without_dying', 3, 'players', 15),
 
         dmz: challenge('kills_without_damage', 3, 'enemies', 50),
-        warzone: warzoneUnavailable(),
+        warzone: challenge('kills_without_dying', 3, 'players', 10),
       },
     },
   ],

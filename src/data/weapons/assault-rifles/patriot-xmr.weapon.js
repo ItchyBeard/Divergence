@@ -1,4 +1,4 @@
-import { challenge, warzoneUnavailable } from '../../mw4/challenges'
+import { challenge } from '../../mw4/challenges'
 
 export default {
   id: 'patriot-xmr',
@@ -20,7 +20,7 @@ export default {
         multiplayer: challenge('hipfire_kills', 20, 'players'),
 
         dmz: challenge('hipfire_kills', 75, 'enemies'),
-        warzone: warzoneUnavailable(),
+        warzone: challenge('hipfire_kills', 10, 'players'),
       },
     },
     {
@@ -31,7 +31,7 @@ export default {
         multiplayer: challenge('silenced_kills', 50, 'players'),
 
         dmz: challenge('silenced_kills', 125, 'enemies'),
-        warzone: warzoneUnavailable(),
+        warzone: challenge('silenced_kills', 25, 'players'),
       },
     },
     {
@@ -42,7 +42,7 @@ export default {
         multiplayer: challenge('longshot_kills', 30, 'players'),
 
         dmz: challenge('longshot_kills', 100, 'enemies'),
-        warzone: warzoneUnavailable(),
+        warzone: challenge('longshot_kills', 15, 'players'),
       },
     },
   ],

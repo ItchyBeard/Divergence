@@ -1,4 +1,4 @@
-import { challenge, warzoneUnavailable } from '../../mw4/challenges'
+import { challenge } from '../../mw4/challenges'
 
 export default {
   id: 'type-73',
@@ -20,7 +20,7 @@ export default {
         multiplayer: challenge('mounted_kills', 20, 'players'),
 
         dmz: challenge('mounted_kills', 75, 'enemies'),
-        warzone: warzoneUnavailable(),
+        warzone: challenge('mounted_kills', 10, 'players'),
       },
     },
     {
@@ -32,7 +32,10 @@ export default {
         multiplayer: challenge('double_kills', 10, 'players'),
 
         dmz: challenge('double_kills', 30, 'enemies'),
-        warzone: warzoneUnavailable(),
+        warzone: {
+          ...challenge('rapid_kills', 2, null, 5),
+          description: 'Get 2 kills within 10 seconds 5 times',
+        },
       },
     },
     {
@@ -44,7 +47,10 @@ export default {
         multiplayer: challenge('headshot_kills', 40, 'players'),
 
         dmz: challenge('headshot_kills', 100, 'enemies'),
-        warzone: warzoneUnavailable(),
+        warzone: {
+          ...challenge('headshots', 20, 'players'),
+          description: 'Get 20 headshot kills against players',
+        },
       },
     },
   ],

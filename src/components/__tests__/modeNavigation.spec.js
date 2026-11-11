@@ -89,7 +89,7 @@ describe('unified Camo Tracker navigation', () => {
           host.querySelector('[data-camo-id="smoke"] button')?.getAttribute('aria-label') ||
           host.querySelector('button[data-camo-id="smoke"]').getAttribute('aria-label')
         expect(label).toContain(
-          mode === 'dmz' ? '75 kills' : mode === 'warzone' ? 'Unavailable' : '20 kills'
+          mode === 'dmz' ? '75 kills' : mode === 'warzone' ? '10 kills' : '20 kills'
         )
       }
       expect(scrolling).not.toHaveBeenCalled()

@@ -20,7 +20,7 @@ export default {
         multiplayer: challenge('headshot_kills', 20, 'players'),
 
         dmz: challenge('headshot_kills', 75, 'enemies'),
-        warzone: warzoneUnavailable(),
+        warzone: challenge('headshots', 10, 'players'),
       },
     },
     {
@@ -42,7 +42,7 @@ export default {
         multiplayer: challenge('point_blank_kills', 30, 'players'),
 
         dmz: challenge('point_blank_kills', 75, 'enemies'),
-        warzone: warzoneUnavailable(),
+        warzone: challenge('point_blank_kills', 15, 'players'),
       },
     },
   ],

@@ -30,7 +30,7 @@ export default {
         multiplayer: challenge('longshot_kills', 10, 'players'),
 
         dmz: challenge('longshot_kills', 25, 'enemies'),
-        warzone: warzoneUnavailable(),
+        warzone: challenge('longshot_kills', 5, 'players'),
       },
     },
     {
@@ -41,7 +41,10 @@ export default {
         multiplayer: challenge('killstreaks_or_vehicles_destroyed', 30, 'equipment'),
 
         dmz: challenge('killstreaks_or_vehicles_destroyed', 50, 'equipment'),
-        warzone: warzoneUnavailable(),
+        warzone: {
+          ...challenge('killstreaks_or_vehicles_destroyed', 15, 'equipment'),
+          description: 'Destroy 15 killstreaks or vehicles',
+        },
       },
     },
   ],
