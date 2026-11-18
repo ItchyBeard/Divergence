@@ -96,7 +96,10 @@ async function select(element, value) {
 
 describe('read-only Gallery and weapon navigation', () => {
   it('renders unique lazy-loaded designs and accessible, dismissible requirements without saving', async () => {
-    expect(host.querySelectorAll('.gallery-tile')).toHaveLength(45)
+    expect(host.querySelectorAll('.gallery-tile')).toHaveLength(28)
+    expect(
+      [...host.querySelectorAll('[aria-label="Camo category"] option')].map((option) => option.value)
+    ).toEqual(['', 'military', 'special', 'completionist', 'prestige', 'mastery'])
     for (const img of host.querySelectorAll('.gallery-grid img'))
       expect(img.loading || img.getAttribute('loading')).toBe('lazy')
     const before = store.exportProgress()
@@ -131,10 +134,16 @@ describe('read-only Gallery and weapon navigation', () => {
     expect(document.body.style.overflow).toBe('')
   })
   it('shows per-weapon shared flags and independent Prestige/mastery state reactively', async () => {
+    const artwork = (name) =>
+      host.querySelector('[aria-label="View ' + name + ' details"] .gallery-artwork')
+    for (const name of ['Smoke', 'Pyroclast', 'Chiral'])
+      expect(artwork(name).classList.contains('is-locked')).toBe(true)
     store.toggleCamo('han-86', 'smoke', 'dmz')
     store.togglePrestige('han-86', 'pyroclast')
     store.toggleMastery('dmz', 'chiral')
     await settle()
+    for (const name of ['Smoke', 'Pyroclast', 'Chiral'])
+      expect(artwork(name).classList.contains('is-locked')).toBe(false)
     expect(host.querySelector('[aria-label="View Smoke details"]').textContent).toContain(
       '1/2 unlocked'
     )

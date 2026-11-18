@@ -15,11 +15,6 @@ import { emptySave, parseSave } from '@/data/mw4/save'
 import { storageKey } from '@/data/mw4/saveContract'
 import { getPrestigeCamos } from '@/data/mw4/prestige'
 import { launchRequirements, fixedSharedProgress } from '@/data/mw4/launchRequirements'
-import {
-  collectiblesById,
-  collectibleOwned,
-  collectibleWeaponEligible,
-} from '@/data/mw4/collectibles'
 
 const key = storageKey(import.meta.env.PROD)
 const sharedFlags = (save, id) => {
@@ -188,8 +183,6 @@ export const useStore = defineStore('divergence-mw4', {
         ...this.save,
         weapons: {},
         prestige: {},
-        collectibles: emptySave().collectibles,
-        collectibleEntitlements: {},
         firstCamoTracked: null,
         completedAt: null,
         celebrationHandled: false,
@@ -206,38 +199,6 @@ export const useStore = defineStore('divergence-mw4', {
     },
     isFavorite(id) {
       return this.favorites.includes(id)
-    },
-    toggleCollectible(id, weaponId) {
-      if (!Object.hasOwn(collectiblesById, id)) return false
-      const camo = collectiblesById[id]
-      if (this.loadError || !camo) return false
-      if (camo.ownership === 'weapon') {
-        if (
-          !collectibleWeaponEligible(camo, weaponId) ||
-          !catalog.some((weapon) => weapon.id === weaponId)
-        )
-          return false
-      } else if (weaponId !== undefined) return false
-      const owned = collectibleOwned(this.save, camo, weaponId)
-      this.$patch((state) => {
-        if (camo.ownership === 'weapon') {
-          state.save.collectibles.perWeapon[id] = {
-            ...state.save.collectibles.perWeapon[id],
-            [weaponId]: !owned,
-          }
-        } else state.save.collectibles.standalone[id] = !owned
-      })
-      return this.storeProgress()
-    },
-    setCollectibleEntitlement(id, owned) {
-      if (
-        this.loadError ||
-        typeof owned !== 'boolean' ||
-        !Object.values(collectiblesById).some((camo) => camo.entitlement === id)
-      )
-        return false
-      this.save.collectibleEntitlements[id] = owned
-      return this.storeProgress()
     },
     weaponCompleted(id) {
       const weapon = catalog.find((entry) => entry.id === id)

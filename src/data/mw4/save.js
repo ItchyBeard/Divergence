@@ -29,6 +29,7 @@ export const emptySave = () => ({
   version: saveVersion,
   weapons: {},
   prestige: {},
+  // Legacy ownership records still round-trip through local storage and JSON backups.
   collectibles: { standalone: {}, perWeapon: {} },
   collectibleEntitlements: {},
   firstCamoTracked: null,
@@ -64,10 +65,8 @@ export function parseSave(input) {
   const value = { ...source }
   delete value.prestigeLevel
   delete value.prestigeAutomatic
-  // Older saves may include partial challenge counters. Ownership lives in separate fields.
-  delete value.collectibleProgress
   const defaults = emptySave()
-  if (!only(value, Object.keys(defaults))) fail('unknown top-level fields')
+  if (!only(value, [...Object.keys(defaults), 'collectibleProgress'])) fail('unknown top-level fields')
   if ('collectibles' in value) {
     const collection = value.collectibles
     if (
